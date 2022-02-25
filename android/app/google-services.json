@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "281522763629",
+    "firebase_url": "https://stuncity-24791.firebaseio.com",
+    "project_id": "stuncity-24791",
+    "storage_bucket": "stuncity-24791.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281522763629:android:bd22b970e0c9a7ff740c64",
+        "android_client_info": {
+          "package_name": "com.bsru.login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281522763629-2bp0j5s7qc82u5gr4uoeqj01vafamgc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLi79pmFD7PCj_pRWFyYjyk2BYzZMTIi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281522763629-2bp0j5s7qc82u5gr4uoeqj01vafamgc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:281522763629:android:96e9023dc1d46af1740c64",
+        "android_client_info": {
+          "package_name": "com.example.satuncity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "281522763629-2bp0j5s7qc82u5gr4uoeqj01vafamgc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLi79pmFD7PCj_pRWFyYjyk2BYzZMTIi8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "281522763629-2bp0j5s7qc82u5gr4uoeqj01vafamgc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
