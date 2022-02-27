@@ -26,8 +26,13 @@ dependencies:
     sdk: flutter
   firebase_core: ^1.13.0
   firebase_auth: ^3.3.8
-  flutter_facebook_login: ^3.0.0
-
+  # flutter_facebook_login: ^3.0.0
+  flutter_facebook_auth: ^3.4.0
+  fluttertoast: ^8.0.9
+  image_picker: ^0.8.4+10
+  cloud_firestore: ^3.1.10
+  firebase_storage: ^10.2.9
+  url_launcher: ^6.0.20
     
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -82,6 +87,8 @@ flutter:
     - images/facebook.png
     - images/Religious.jpg
     - images/logo.png
+    - images/hinngam.jpg
+    - images/mountain.jpeg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -99,6 +106,10 @@ flutter:
     - family: ChakraPetch
       fonts:
         - asset: fonts/ChakraPetch-Regular.ttf
+    
+    - family: Mitr
+      fonts:
+        - asset: fonts/Mitr-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

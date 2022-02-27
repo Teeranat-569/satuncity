@@ -22,9 +22,10 @@ class Myapp extends StatelessWidget {
       routes: {
         '/': (_) => Splashscreen(),
         '/home': (_) => Home(),
-        // '/login': (_) => LoginPage(),
-        '/login': (_) => Home()
+        '/login': (_) => LoginPage(),
+        // '/login': (_) => App()
       },
+      theme: ThemeData(fontFamily: 'ChakraPetch'),
     );
   }
 }
