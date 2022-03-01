@@ -5,6 +5,7 @@ import 'package:satuncity/screen/admin/add_restaurant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../TRAVEL/sea.dart';
+import '../home.dart';
 
 class Admin extends StatefulWidget {
   const Admin({Key key}) : super(key: key);
@@ -18,7 +19,12 @@ class _AdminState extends State<Admin> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('เพิ่มข้อมูลสถานที่')),
+        appBar: AppBar(title: Text('เพิ่มข้อมูลสถานที่'), leading: IconButton(icon: Icon(Icons.arrow_back_ios),onPressed: (){
+             MaterialPageRoute route = MaterialPageRoute(
+                                    builder: (BuildContext context) => Home(
+                                         
+                                        ));
+          },),),
         body: Column(
           children: [
             cate("สถานที่ท่องเที่ยว", AddTravel(), "images/sea1.jpg"),

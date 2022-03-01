@@ -4,6 +4,7 @@ import 'package:satuncity/screen/OTHER/food.dart';
 import 'package:satuncity/screen/OTHER/review.dart';
 import 'package:satuncity/screen/OTHER/westher.dart';
 import 'package:satuncity/screen/food.dart';
+import 'package:satuncity/screen/food_page.dart';
 
 class Other extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _OtherState extends State<Other> {
       borderSide: BorderSide.none,
       onPressed: () {
         MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => Food2());
+            MaterialPageRoute(builder: (BuildContext context) => FoodPage());
         Navigator.push(context, route);
       },
     );

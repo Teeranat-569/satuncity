@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: ^3.1.10
   firebase_storage: ^10.2.9
   url_launcher: ^6.0.20
+  webview_flutter: ^3.0.1
     
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -57,38 +58,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/aaa.jpg
-    - images/bbb.jpg
-    - images/hinngam1.jpg
-    - images/lipe1.jpg
-    - images/pakbara1.jpg
-    - images/dragon1.jpg
-    - images/sea1.jpg
-    - images/mountain1.jpg
-    - images/wst1.jpg
-    - images/geopark1.jpg
-    - images/chetkhot1.jpg
-    - images/stegodon1.jpg 
-    - images/urai1.jpg 
-    - images/wst3.jpg
-    - images/tp1.jpg
-    - images/ts1.jpg
-    - images/tonp1.jpg
-    - images/p1.jpg
-    - images/buda1.jpg
-    - images/semang1.jpg
-    - images/crochet1.jpg
-    - images/nla.jpg
-    - images/choice.jpg
-    - images/fasai.jpg
-    - images/nurr.jpg
-    - images/mixfood.jpg
-    - images/hinn.jpg
-    - images/facebook.png
-    - images/Religious.jpg
-    - images/logo.png
-    - images/hinngam.jpg
-    - images/mountain.jpeg
+    - images/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

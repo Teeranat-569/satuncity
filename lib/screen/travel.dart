@@ -4,6 +4,8 @@ import 'package:satuncity/screen/TRAVEL/religious/Religiousplace.dart';
 import 'package:satuncity/screen/TRAVEL/sea.dart';
 import 'package:satuncity/screen/TRAVEL/waterfall.dart';
 
+import 'TRAVEL/sea_page.dart';
+
 class Travel extends StatefulWidget {
   @override
   _TravelState createState() => _TravelState();
@@ -14,46 +16,10 @@ class _TravelState extends State<Travel> {
     //ทะเล
     return InkWell(
       child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Center(
-            child: Image.asset("images/sea1.jpg"),
-          )),
-      onTap: () {
-        MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => Sea());
-        Navigator.push(context, route);
-      },
-    );
-  }
-
-  Widget imgmountain(var text) {
-    //ภูเขา mountain
-    return InkWell(
-      child: Column(
-        children: [
-          Container(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Image.asset("images/mountain1.jpg"),
-              )),
-        ],
-      ),
-      onTap: () {
-        MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => Mountain());
-        Navigator.push(context, route);
-      },
-    );
-  }
-
-  Widget imgwaterfall(var text) {
-    //น้ำตก
-    return InkWell(
-      child: Container(
           height: 120,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/mountain.jpeg'),
+              image: AssetImage('images/sea.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -75,24 +41,124 @@ class _TravelState extends State<Travel> {
             ),
           )),
       onTap: () {
-        MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => Waterfall());
+        MaterialPageRoute route = MaterialPageRoute(
+            builder: (BuildContext context) => SeaPage(
+                  travelCate: text,
+                ));
         Navigator.push(context, route);
       },
     );
   }
 
-  Widget imgreligious(var text) {
-    //ศาสนสถาน
+  Widget imgmountain(var text2) {
+    //ภูเขา mountain
     return InkWell(
       child: Container(
+          height: 120,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/mountain.jpeg'),
+              fit: BoxFit.cover,
+            ),
+          ),
           width: MediaQuery.of(context).size.width,
           child: Center(
-            child: Image.asset("images/Religious.jpg"),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: Color.fromARGB(99, 0, 0, 0),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  text2,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => Religiousplace());
+            builder: (BuildContext context) => SeaPage(
+                  travelCate: text2,
+                ));
+        Navigator.push(context, route);
+      },
+    );
+  }
+
+  Widget imgwaterfall(var text3) {
+    //น้ำตก
+    return InkWell(
+      child: Container(
+          height: 120,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/wst2.JPG'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: Color.fromARGB(99, 0, 0, 0),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  text3,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          )),
+      onTap: () {
+        MaterialPageRoute route = MaterialPageRoute(
+            builder: (BuildContext context) => SeaPage(
+                  travelCate: text3,
+                ));
+        Navigator.push(context, route);
+      },
+    );
+  }
+
+  Widget imgreligious(var text4) {
+    //ศาสนสถาน
+    return InkWell(
+      child: Container(
+          height: 120,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/pics_9525_8.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: Color.fromARGB(99, 0, 0, 0),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  text4,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          )),
+      onTap: () {
+        MaterialPageRoute route = MaterialPageRoute(
+            builder: (BuildContext context) => SeaPage(
+                  travelCate: text4,
+                ));
         Navigator.push(context, route);
       },
     );

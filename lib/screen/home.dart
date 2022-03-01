@@ -8,6 +8,7 @@ import 'package:satuncity/screen/Other.dart';
 import 'package:satuncity/screen/TRAVEL/sea.dart';
 import 'package:satuncity/screen/conterller/auth_controller.dart';
 import 'package:satuncity/screen/homedata.dart';
+import 'package:satuncity/screen/otop_page.dart';
 import 'package:satuncity/screen/travel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +23,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // AuthController _authController;
-  List<Widget> page = [Homedata(), Travel(), Otop(), Other()];
+  List<Widget> page = [Homedata(), Travel(), OtopPage(), Other()];
   List<Widget> pageAdmin = [Admin(), Sea()];
 
   int a = 0;
@@ -51,8 +52,8 @@ class _HomeState extends State<Home> {
             color: Colors.black,
             height: 10,
           ),
-          if (widget.username == 'satuncity-app@gmail.com')
-            listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
+          // if (widget.username == 'satuncity-app@gmail.com')
+          listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
           listMenu(Icon(Icons.edit), 'แก้ไขข้อมูลสถานที่', 1)
         ]),
       ),

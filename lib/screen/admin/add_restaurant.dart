@@ -19,11 +19,16 @@ class Addrestaurant extends StatefulWidget {
 }
 
 class _AddrestaurantState extends State<Addrestaurant> {
-  String restaurant_name, pathPIC, restaurant_data, restaurant_map;
+  String restaurant_name,
+      pathPIC,
+      restaurant_data,
+      restaurant_map,
+      restaurantAddress;
   dynamic img;
   TextEditingController restaurantNameController = TextEditingController();
   TextEditingController restaurantDataController = TextEditingController();
   TextEditingController restaurantMapController = TextEditingController();
+  TextEditingController restaurantAddressController = TextEditingController();
   var _image;
 
   @override
@@ -55,6 +60,10 @@ class _AddrestaurantState extends State<Addrestaurant> {
                   height: 10,
                 ),
                 restaurantDataForm(),
+                const SizedBox(
+                  height: 10,
+                ),
+                restaurantAddressForm(),
                 const SizedBox(
                   height: 10,
                 ),
@@ -140,6 +149,23 @@ class _AddrestaurantState extends State<Addrestaurant> {
       decoration: InputDecoration(
           hintText: 'ข้อมูลร้านอาหาร',
           hintTextDirection: TextDirection.ltr,
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
+    );
+  }
+
+  Widget restaurantAddressForm() {
+    return TextField(
+      onChanged: (value) => restaurantAddress = value.trim(),
+      controller: restaurantAddressController,
+      maxLines: 3,
+      keyboardType: TextInputType.emailAddress,
+      decoration: InputDecoration(
+          hintText: 'ที่อยู่ร้านอาหาร',
           filled: true,
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
@@ -260,6 +286,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
       'res-data': restaurant_data,
       'res_pic': img,
       'res_map': restaurant_map,
+      'res_address': restaurantAddress
     }).then((value) {
       // ignore: avoid_print
       // print('7777777777777777777----------bbbbb$img');
@@ -284,6 +311,4 @@ class _AddrestaurantState extends State<Addrestaurant> {
       // ignore: avoid_print, invalid_return_type_for_catch_error
     }).catchError((error) => print("Failed to add user: $error"));
   }
-
-  
 }
