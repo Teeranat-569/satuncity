@@ -1,12 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/dragon.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/hinngam.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/lipe.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/pakbara.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
-
-import 'mountain.dart';
 
 class SeaPage extends StatefulWidget {
   dynamic travelCate;
@@ -20,8 +14,10 @@ class _SeaPageState extends State<SeaPage> {
   dynamic travelCate;
   String url;
   dynamic _image;
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('travel').snapshots();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('travel')
+      .where('travelCate')
+      .snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel');
 
   @override
@@ -49,13 +45,6 @@ class _SeaPageState extends State<SeaPage> {
           child: Scaffold(
             appBar: AppBar(
               title: Text('${widget.travelCate}'),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      // route(const AddWork());
-                    },
-                    icon: const Icon(Icons.add))
-              ],
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
@@ -83,6 +72,7 @@ class _SeaPageState extends State<SeaPage> {
                       // ignore: deprecated_member_use
                       child: Column(
                         children: [
+                          // Padding(padding: EdgeInsets.only(bottom: 12.0)),
                           if (travelCate == widget.travelCate)
                             InkWell(
                               child: Container(
@@ -91,7 +81,6 @@ class _SeaPageState extends State<SeaPage> {
                                       image: new DecorationImage(
                                           fit: BoxFit.fill,
                                           image: new NetworkImage("$url"))),
-                                  // width: MediaQuery.of(context).size.width,
                                   child: Center(
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,

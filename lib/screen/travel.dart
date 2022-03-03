@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/TRAVEL/mountain.dart';
-import 'package:satuncity/screen/TRAVEL/religious/Religiousplace.dart';
-import 'package:satuncity/screen/TRAVEL/sea.dart';
-import 'package:satuncity/screen/TRAVEL/waterfall.dart';
-
-import 'TRAVEL/sea_page.dart';
+import 'TRAVEL/mountain/mountain_page.dart';
+import 'TRAVEL/religious/region_page.dart';
+import 'TRAVEL/SEA/sea_page.dart';
+import 'TRAVEL/waterfall/waterfall_page.dart';
 
 class Travel extends StatefulWidget {
   @override
@@ -80,7 +78,7 @@ class _TravelState extends State<Travel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => SeaPage(
+            builder: (BuildContext context) => MountainPage(
                   travelCate: text2,
                 ));
         Navigator.push(context, route);
@@ -118,7 +116,7 @@ class _TravelState extends State<Travel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => SeaPage(
+            builder: (BuildContext context) => WaterfallPage(
                   travelCate: text3,
                 ));
         Navigator.push(context, route);
@@ -156,7 +154,7 @@ class _TravelState extends State<Travel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => SeaPage(
+            builder: (BuildContext context) => RegionPage(
                   travelCate: text4,
                 ));
         Navigator.push(context, route);

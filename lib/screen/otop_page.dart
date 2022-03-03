@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/dragon.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/hinngam.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/lipe.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/pakbara.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
 
 import 'Otop/otop_data.dart';
@@ -72,7 +68,7 @@ class _OtopPageState extends State<OtopPage> {
                       // ignore: deprecated_member_use
                       child: Column(
                         children: [
-                          
+
                           InkWell(
                             child: Container(
                                 height: 120,

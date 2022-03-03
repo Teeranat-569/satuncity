@@ -3,9 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/Login/login.dart';
-import 'package:satuncity/screen/OTOP.dart';
 import 'package:satuncity/screen/Other.dart';
-import 'package:satuncity/screen/TRAVEL/sea.dart';
 import 'package:satuncity/screen/conterller/auth_controller.dart';
 import 'package:satuncity/screen/homedata.dart';
 import 'package:satuncity/screen/otop_page.dart';
@@ -24,7 +22,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // AuthController _authController;
   List<Widget> page = [Homedata(), Travel(), OtopPage(), Other()];
-  List<Widget> pageAdmin = [Admin(), Sea()];
+  List<Widget> pageAdmin = [Admin()];
 
   int a = 0;
   var text = ["SATUN CITY...", "แนะนำสถานที่ท่องเที่ยว", "สินค้าOTOP", "อื่นๆ"];
