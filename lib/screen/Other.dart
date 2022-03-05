@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:satuncity/screen/OTHER/annual.dart';
 import 'package:satuncity/screen/OTHER/food.dart';
 import 'package:satuncity/screen/OTHER/review.dart';
+import 'package:satuncity/screen/OTHER/review_page.dart';
 import 'package:satuncity/screen/OTHER/westher.dart';
 import 'package:satuncity/screen/food.dart';
 import 'package:satuncity/screen/food_page.dart';
@@ -90,7 +91,7 @@ class _OtherState extends State<Other> {
       borderSide: BorderSide.none,
       onPressed: () {
         MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => Review());
+            MaterialPageRoute(builder: (BuildContext context) => ReviewPage());
         Navigator.push(context, route);
       },
     );
