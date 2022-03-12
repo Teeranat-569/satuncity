@@ -38,96 +38,103 @@ class _OtopDataState extends State<OtopData> {
           );
         }
 
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(widget.otopName),
-            ),
-            // ignore: avoid_unnecessary_containers
-            body: Container(
-              // color: Colors.purple[50],
-              child: ListView(
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  data["docid"] = document.id;
-                  otopName = data['otop_name'];
-                  otopData = data['otop-data'];
-                  otopMap = data['otop_map'];
-                  otopAdddress = data['otop_address'];
-                  url = data['otop_pic'].toString();
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(widget.otopName),
+          ),
+          // ignore: avoid_unnecessary_containers
+          body: Container(
+            // color: Colors.purple[50],
+            child: ListView(
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                data["docid"] = document.id;
+                otopName = data['otop_name'];
+                otopData = data['otop-data'];
+                otopMap = data['otop_map'];
+                otopAdddress = data['otop_address'];
+                url = data['otop_pic'].toString();
 
-                  // ignore: avoid_print
-                  print('4444444444444444444444444 ${data["docid"]}');
-                  print('4444444444444444444444444 ${data["otop_name"]}');
-                  return Center(
-                    child: Column(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 10)),
-                        if (data['otop_name'] == widget.otopName)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(url),
-                              Padding(padding: EdgeInsets.only(top: 10)),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  // color: Colors.green,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.green,
-                                  ),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'ลักษณะเด่น',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+                // ignore: avoid_print
+                print('4444444444444444444444444 ${data["docid"]}');
+                print('4444444444444444444444444 ${data["otop_name"]}');
+                return Center(
+                  child: Column(
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      if (data['otop_name'] == widget.otopName)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.network(url),
+                            Padding(padding: EdgeInsets.only(top: 10)),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                // color: Colors.green,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.green,
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'ลักษณะเด่น',
+                                    // maxLines: 2,
+                                    // overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 25),
-                                child: Text(otopData),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  // color: Colors.green,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.green,
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'พิกัด',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 25),
+                              child: Text(otopData),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                // color: Colors.green,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.green,
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'พิกัด',
+                                    // maxLines: 2,
+                                    // overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
                                   ),
                                 ),
                               ),
-                              IconButton(
-                                  icon: Icon(Icons.directions),
-                                  onPressed: () {
-                                    launchMap(data['otop_map']);
-                                  }),
-                            ],
-                          ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
+                            ),
+                            Row(mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                    onPressed: () {
+                                      launchMap(data['otop_map']);
+                                    },
+                                    child: Text('คลิกเพื่อดูแผนที่')),
+                                IconButton(
+                                    icon: Icon(Icons.directions),
+                                    onPressed: () {
+                                      launchMap(data['otop_map']);
+                                    }),
+                              ],
+                            ),
+                          ],
+                        ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );

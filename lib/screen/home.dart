@@ -4,6 +4,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/Login/login.dart';
 import 'package:satuncity/screen/Other.dart';
+import 'package:satuncity/screen/admin/edit/edit_page.dart';
 import 'package:satuncity/screen/conterller/auth_controller.dart';
 import 'package:satuncity/screen/homedata.dart';
 import 'package:satuncity/screen/otop_page.dart';
@@ -22,10 +23,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // AuthController _authController;
   List<Widget> page = [Homedata(), Travel(), OtopPage(), Other()];
-  List<Widget> pageAdmin = [Admin()];
+  List<Widget> pageAdmin = [Admin(), EditPage()];
 
   int a = 0;
-  var text = ["SATUN CITY...", "แนะนำสถานที่ท่องเที่ยว", "สินค้าOTOP", "อื่นๆ"];
+  var text = ["SATUN CITY...", "แนะนำสถานที่ท่องเที่ยว", "สินค้า OTOP", "อื่นๆ"];
 
   void b(int x) {
     setState(() {
@@ -72,7 +73,7 @@ class _HomeState extends State<Home> {
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: new Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(icon: new Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: new Icon(Icons.flight_takeoff), label: "ท่องเที่ยว"),
           BottomNavigationBarItem(icon: new Icon(Icons.store), label: "OTOP"),

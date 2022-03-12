@@ -120,11 +120,21 @@ class _SeaDataState extends State<SeaData> {
                                   ),
                                 ),
                               ),
-                              IconButton(
-                                  icon: Icon(Icons.directions),
-                                  onPressed: () {
-                                    launchMap(data['travel_map']);
-                                  }),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        launchMap(data['travel_map']);
+                                      },
+                                      child: Text('คลิกเพื่อดูแผนที่')),
+                                  IconButton(
+                                      icon: Icon(Icons.directions),
+                                      onPressed: () {
+                                        launchMap(data['travel_map']);
+                                      }),
+                                ],
+                              ),
                             ],
                           ),
                       ],

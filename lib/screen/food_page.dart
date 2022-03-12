@@ -39,74 +39,72 @@ class _FoodPageState extends State<FoodPage> {
           );
         }
 
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text('ร้านอาหาร'),
-            ),
-            // ignore: avoid_unnecessary_containers
-            body: Container(
-              // color: Colors.purple[50],
-              child: ListView(
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  data["docid"] = document.id;
-                  resName = data['res_name'];
-                  url = data['res_pic'].toString();
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('ร้านอาหาร'),
+          ),
+          // ignore: avoid_unnecessary_containers
+          body: Container(
+            // color: Colors.purple[50],
+            child: ListView(
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                data["docid"] = document.id;
+                resName = data['res_name'];
+                url = data['res_pic'].toString();
 
-                  // ignore: avoid_print
-                  print('4444444444444444444444444 ${data["docid"]}');
-                  print('4444444444444444444444444 ${data["res_name"]}');
-                  return Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey.shade200,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      // ignore: deprecated_member_use
-                      child: Column(
-                        children: [
-                          InkWell(
-                            child: Container(
-                                height: 120,
-                                decoration: new BoxDecoration(
-                                    image: new DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: new NetworkImage("$url"))),
-                                // width: MediaQuery.of(context).size.width,
-                                child: Center(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    color: Color.fromARGB(99, 0, 0, 0),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Text(
-                                        data['res_name'],
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                // ignore: avoid_print
+                print('4444444444444444444444444 ${data["docid"]}');
+                print('4444444444444444444444444 ${data["res_name"]}');
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.grey.shade200,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    // ignore: deprecated_member_use
+                    child: Column(
+                      children: [
+                        InkWell(
+                          child: Container(
+                              height: 120,
+                              decoration: new BoxDecoration(
+                                  image: new DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: new NetworkImage("$url"))),
+                              // width: MediaQuery.of(context).size.width,
+                              child: Center(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  color: Color.fromARGB(99, 0, 0, 0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text(
+                                      data['res_name'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                )),
-                            onTap: () {
-                              MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => FoodData(
-                                        resName: data['res_name'],
-                                      ));
-                              Navigator.push(context, route);
-                            },
-                          )
-                        ],
-                      ),
+                                ),
+                              )),
+                          onTap: () {
+                            MaterialPageRoute route = MaterialPageRoute(
+                                builder: (BuildContext context) => FoodData(
+                                      resName: data['res_name'],
+                                    ));
+                            Navigator.push(context, route);
+                          },
+                        )
+                      ],
                     ),
-                  );
-                }).toList(),
-              ),
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );

@@ -35,7 +35,131 @@ class _AddTravelState extends State<AddTravel> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('สถานที่ท่องเที่ยว'),
+          title: Text('สถานที่ท่องเที่ยว'),actions: [  TextButton(
+                  onPressed: () async {
+                    Random random = Random();
+            int i = random.nextInt(100000);
+            await firebase_core.Firebase.initializeApp();
+            final firebase_storage.FirebaseStorage storage =
+                firebase_storage.FirebaseStorage.instance;
+            File file = File(pathPIC);
+            if (dropdownvalue == 'ทะเล') {
+              try {
+                await storage.ref('travel/travel_sea_$i').putFile(file);
+                dynamic url =
+                    await storage.ref('travel/travel_sea_$i').getDownloadURL();
+                setState(() {
+                  img = url;
+                });
+
+                // print('7777777777777777777777777777travel$i');
+                print('7777777777777777777777777777$img');
+                print(
+                    '77777777777777777222222eeeeeeeeee222222277777777777$url');
+              } on firebase_core.FirebaseException catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
+              addTravel_sea();
+              MaterialPageRoute materialPageRoute =
+                  MaterialPageRoute(builder: (BuildContext context) => Admin());
+              Navigator.of(context).pushAndRemoveUntil(
+                  materialPageRoute, (Route<dynamic> route) => false);
+            }
+
+            if (dropdownvalue == 'ภูเขา') {
+              Random random = Random();
+              int i = random.nextInt(100000);
+              await firebase_core.Firebase.initializeApp();
+              final firebase_storage.FirebaseStorage storage_mountain =
+                  firebase_storage.FirebaseStorage.instance;
+              File file = File(pathPIC);
+              try {
+                await storage_mountain
+                    .ref('travel/travel_mountain_$i')
+                    .putFile(file);
+                dynamic url_mountain = await storage_mountain
+                    .ref('travel/travel_mountain_$i')
+                    .getDownloadURL();
+                setState(() {
+                  img_mountain = url_mountain;
+                });
+
+                // print('7777777777777777777777777777travel$i');
+                print('7777777777777777777777777777$img_mountain');
+                print('77777777777777777222222222222277777777777$url_mountain');
+              } on firebase_core.FirebaseException catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
+              addTravel_mountain();
+              MaterialPageRoute materialPageRoute =
+                  MaterialPageRoute(builder: (BuildContext context) => Admin());
+              Navigator.of(context).pushAndRemoveUntil(
+                  materialPageRoute, (Route<dynamic> route) => false);
+              print(
+                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_mountain$i.jpg');
+            }
+
+            if (dropdownvalue == 'น้ำตก') {
+              try {
+                await storage.ref('travel/travel_waterfall_$i').putFile(file);
+                dynamic url_waterfall = await storage
+                    .ref('travel/travel_waterfall_$i')
+                    .getDownloadURL();
+                setState(() {
+                  img_waterfall = url_waterfall;
+                });
+
+                // print('7777777777777777777777777777travel$i');
+                print('7777777777777777777777777777$img_waterfall');
+                print(
+                    '77777777777777777222222222222277777777777$url_waterfall');
+              } on firebase_core.FirebaseException catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
+              addTravel_waterfall();
+              MaterialPageRoute materialPageRoute =
+                  MaterialPageRoute(builder: (BuildContext context) => Admin());
+              Navigator.of(context).pushAndRemoveUntil(
+                  materialPageRoute, (Route<dynamic> route) => false);
+              print(
+                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_waterfall$i.jpg');
+            }
+            if (dropdownvalue == 'ศาสนสถาน') {
+              try {
+                await storage.ref('travel/travel_region_$i').putFile(file);
+                dynamic url_region = await storage
+                    .ref('travel/travel_region_$i')
+                    .getDownloadURL();
+                setState(() {
+                  img_region = url_region;
+                });
+
+                // print('7777777777777777777777777777travel$i');
+                print('7777777777777777777777777777$img_region');
+                print('77777777777777777222222222222277777777777$url_region');
+              } on firebase_core.FirebaseException catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
+              addTravel_region();
+              print(
+                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_region$i.jpg');
+              MaterialPageRoute materialPageRoute =
+                  MaterialPageRoute(builder: (BuildContext context) => Admin());
+              Navigator.of(context).pushAndRemoveUntil(
+                  materialPageRoute, (Route<dynamic> route) => false);
+            }
+
+            uploadData(travelNameController.text);
+                  },
+                  child: Text(
+                    'เพิ่มสถานที่',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -101,7 +225,7 @@ class _AddTravelState extends State<AddTravel> {
                     ),
                   ],
                 ),
-                button()
+                // button()
               ],
             ),
           ),

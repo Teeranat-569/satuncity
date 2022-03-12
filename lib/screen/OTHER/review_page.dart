@@ -86,16 +86,59 @@ class _ReviewPageState extends State<ReviewPage> {
                                     //         )),
                                   ),
                                   if (doc['pic'] != null) ...[
-                                    Container(
-                                        color: Colors.black,
-                                        height: 400,
-                                        width: 400,
-                                        child: Image(
-                                          image: NetworkImage(
-                                            doc['pic'],
-                                          ),
-                                          fit: BoxFit.contain,
-                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          //
+                                          color: Colors.grey.shade200,
+                                          // border: Border.all(
+                                          //   color: Colors.black,
+                                          //   width: 8,
+                                          // ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                  //
+                                                  color: Colors.grey.shade200,
+                                                  // border: Border.all(
+                                                  //   color: Colors.black,
+                                                  //   width: 8,
+                                                  // ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                // color: Colors.grey.shade100,
+                                                height: 200,
+                                                width: 200,
+                                                child: Image(
+                                                  image: NetworkImage(
+                                                    doc['pic'],
+                                                  ),
+                                                  fit: BoxFit.contain,
+                                                )),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                      doc['travelName'], //username
+                                                      style: TextStyle(
+                                                        // color: Colors.white,
+                                                        fontSize: 16.5,
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 10,
                                     ),
@@ -180,7 +223,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       .toList(),
                 );
               } else {
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }
             }));
   }

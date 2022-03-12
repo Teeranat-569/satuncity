@@ -1,25 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'region_data.dart';
 
-class RegionPage extends StatefulWidget {
+import 'edit_mountain_data.dart';
+
+
+class MountainPage extends StatefulWidget {
   dynamic travelCate;
-  RegionPage({Key key, this.travelCate}) : super(key: key);
+  MountainPage({Key key, this.travelCate}) : super(key: key);
   @override
-  _RegionPageState createState() => _RegionPageState();
+  _MountainPageState createState() => _MountainPageState();
 }
 
-class _RegionPageState extends State<RegionPage> {
+class _MountainPageState extends State<MountainPage> {
   dynamic travelName;
   dynamic travelCate;
   String url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('travel_region')
+      .collection('travel_mountain')
       .where('travelCate')
       .snapshots();
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('travel_region');
+  CollectionReference users = FirebaseFirestore.instance.collection('travel_mountain');
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +100,7 @@ class _RegionPageState extends State<RegionPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => RegionData(
+                                  builder: (BuildContext context) => MountainData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));

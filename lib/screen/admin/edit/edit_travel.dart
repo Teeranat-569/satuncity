@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'TRAVEL/mountain/mountain_page.dart';
-import 'TRAVEL/religious/region_page.dart';
-import 'TRAVEL/SEA/sea_page.dart';
-import 'TRAVEL/waterfall/waterfall_page.dart';
 
-class Travel extends StatefulWidget {
+import 'TRAVEL/SEA/edit_sea_page.dart';
+import 'TRAVEL/mountain/edit_mountain_page.dart';
+import 'TRAVEL/religious/edit_region_page.dart';
+import 'TRAVEL/waterfall/edit_waterfall_page.dart';
+
+
+class EditTravel extends StatefulWidget {
   @override
-  _TravelState createState() => _TravelState();
+  _EditTravelState createState() => _EditTravelState();
 }
 
-class _TravelState extends State<Travel> {
+class _EditTravelState extends State<EditTravel> {
   Widget imgsea(var text) {
     //ทะเล
     return InkWell(
@@ -40,7 +42,7 @@ class _TravelState extends State<Travel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => SeaPage(
+            builder: (BuildContext context) => EditSeaPage(
                   travelCate: text,
                 ));
         Navigator.push(context, route);
@@ -164,22 +166,30 @@ class _TravelState extends State<Travel> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: ListView(
-            /*mainAxisSize: MainAxisSize.max,*/
-            children: [
-              imgsea("ทะเล"),
-              Padding(padding: EdgeInsets.only(bottom: 12.0)),
-              imgmountain("ภูเขา"),
-              Padding(padding: EdgeInsets.only(bottom: 12.0)),
-              imgwaterfall("น้ำตก"),
-              Padding(padding: EdgeInsets.only(bottom: 12.0)),
-              imgreligious("ศาสนสถาน"),
-              Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            ],
-          ),
+    return Scaffold(
+        appBar: AppBar(
+        title: Text('แก้ไขข้อมูลสถานที่ท่องเที่ยว'),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back_ios),
+        //   onPressed: () {
+        //     MaterialPageRoute route =
+        //         MaterialPageRoute(builder: (BuildContext context) => Home());
+        //   },
+        // ),
+      ),
+      body: Center(
+        child: ListView(
+          /*mainAxisSize: MainAxisSize.max,*/
+          children: [
+            imgsea("ทะเล"),
+            Padding(padding: EdgeInsets.only(bottom: 12.0)),
+            imgmountain("ภูเขา"),
+            Padding(padding: EdgeInsets.only(bottom: 12.0)),
+            imgwaterfall("น้ำตก"),
+            Padding(padding: EdgeInsets.only(bottom: 12.0)),
+            imgreligious("ศาสนสถาน"),
+            Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          ],
         ),
       ),
     );

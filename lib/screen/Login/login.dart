@@ -38,6 +38,20 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+        MaterialPageRoute materialPageRoute = MaterialPageRoute(
+            builder: (BuildContext context) => Home(
+                  username: username,
+                ));
+        Navigator.of(context).pushAndRemoveUntil(
+            materialPageRoute, (Route<dynamic> route) => false);
+        print('444444444444444444444444' + username);
+      }
+    });
     // authController = AuthController(context);
   }
 
@@ -251,8 +265,10 @@ class _LoginPageState extends State<LoginPage> {
             backgroundColor: Colors.green[100],
             textColor: Colors.black,
           );
-          MaterialPageRoute materialPageRoute =
-              MaterialPageRoute(builder: (BuildContext context) => Home(username: username,));
+          MaterialPageRoute materialPageRoute = MaterialPageRoute(
+              builder: (BuildContext context) => Home(
+                    username: username,
+                  ));
           Navigator.of(context).pushAndRemoveUntil(
               materialPageRoute, (Route<dynamic> route) => false);
         } else {

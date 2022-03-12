@@ -1,25 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'region_data.dart';
+import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
 
-class RegionPage extends StatefulWidget {
+import 'edit_sea_data.dart';
+
+class EditSeaPage extends StatefulWidget {
   dynamic travelCate;
-  RegionPage({Key key, this.travelCate}) : super(key: key);
+  EditSeaPage({Key key, this.travelCate}) : super(key: key);
   @override
-  _RegionPageState createState() => _RegionPageState();
+  _EditSeaPageState createState() => _EditSeaPageState();
 }
 
-class _RegionPageState extends State<RegionPage> {
+class _EditSeaPageState extends State<EditSeaPage> {
   dynamic travelName;
   dynamic travelCate;
   String url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('travel_region')
+      .collection('travel')
       .where('travelCate')
       .snapshots();
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('travel_region');
+  CollectionReference users = FirebaseFirestore.instance.collection('travel');
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +89,7 @@ class _RegionPageState extends State<RegionPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(20.0),
                                       child: Text(
-                                        data['travelName'],
+                                        travelName,
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -99,9 +100,11 @@ class _RegionPageState extends State<RegionPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => RegionData(
+                                  builder: (BuildContext context) =>
+                                      EditSeaData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        docid: data['docid'],
                                       ));
                               Navigator.push(context, route);
                             },

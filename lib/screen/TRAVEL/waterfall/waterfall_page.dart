@@ -42,77 +42,75 @@ class _WaterfallPageState extends State<WaterfallPage> {
           );
         }
 
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text('${widget.travelCate}'),
-            ),
-            // ignore: avoid_unnecessary_containers
-            body: Container(
-              // color: Colors.purple[50],
-              child: ListView(
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  data["docid"] = document.id;
-                  travelName = data['travelName'];
-                  travelCate = data['travelCate'];
-                  url = data['pic'].toString();
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('${widget.travelCate}'),
+          ),
+          // ignore: avoid_unnecessary_containers
+          body: Container(
+            // color: Colors.purple[50],
+            child: ListView(
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                data["docid"] = document.id;
+                travelName = data['travelName'];
+                travelCate = data['travelCate'];
+                url = data['pic'].toString();
 
-                  // ignore: avoid_print
-                  print('4444444444444444444444444 ${data["docid"]}');
-                  print('4444444444444444444444444 ${data["travelCate"]}');
-                  return Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey.shade200,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      // ignore: deprecated_member_use
-                      child: Column(
-                        children: [
-                          // Padding(padding: EdgeInsets.only(bottom: 12.0)),
-                          if (travelCate == widget.travelCate)
-                            InkWell(
-                              child: Container(
-                                  height: 120,
-                                  decoration: new BoxDecoration(
-                                      image: new DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: new NetworkImage("$url"))),
-                                  child: Center(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      color: Color.fromARGB(99, 0, 0, 0),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Text(
-                                          data['travelName'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                // ignore: avoid_print
+                print('4444444444444444444444444 ${data["docid"]}');
+                print('4444444444444444444444444 ${data["travelCate"]}');
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.grey.shade200,
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    // ignore: deprecated_member_use
+                    child: Column(
+                      children: [
+                        // Padding(padding: EdgeInsets.only(bottom: 12.0)),
+                        if (travelCate == widget.travelCate)
+                          InkWell(
+                            child: Container(
+                                height: 120,
+                                decoration: new BoxDecoration(
+                                    image: new DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: new NetworkImage("$url"))),
+                                child: Center(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Color.fromARGB(99, 0, 0, 0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Text(
+                                        data['travelName'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                  )),
-                              onTap: () {
-                                MaterialPageRoute route = MaterialPageRoute(
-                                    builder: (BuildContext context) => MountainData(
-                                          travelName: data['travelName'],
-                                          travelCate: data['travelCate'],
-                                        ));
-                                Navigator.push(context, route);
-                              },
-                            )
-                        ],
-                      ),
+                                  ),
+                                )),
+                            onTap: () {
+                              MaterialPageRoute route = MaterialPageRoute(
+                                  builder: (BuildContext context) => MountainData(
+                                        travelName: data['travelName'],
+                                        travelCate: data['travelCate'],
+                                      ));
+                              Navigator.push(context, route);
+                            },
+                          )
+                      ],
                     ),
-                  );
-                }).toList(),
-              ),
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );

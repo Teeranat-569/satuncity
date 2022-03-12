@@ -7,62 +7,52 @@ import 'package:satuncity/screen/admin/add_otop.dart';
 import 'package:satuncity/screen/admin/add_restaurant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../Login/login.dart';
-import '../home.dart';
-import 'edit/edit_page.dart';
+import '../admin.dart';
+import 'edit_travel.dart';
 
-class Admin extends StatefulWidget {
-  const Admin({Key key}) : super(key: key);
+class EditPage extends StatefulWidget {
+  const EditPage({Key key}) : super(key: key);
 
   @override
-  _AdminState createState() => _AdminState();
+  _EditPageState createState() => _EditPageState();
 }
 
-class _AdminState extends State<Admin> {
+class _EditPageState extends State<EditPage> {
   List<Widget> pageAdmin = [Admin(), EditPage()];
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        drawer: Drawer(
-          child: Column(children: [
-            SafeArea(
-              child: ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("ออกจากระบบ"),
-                onTap: () => myAlert(),
-              ),
+    return Scaffold(
+      drawer: Drawer(
+        child: Column(children: [
+          SafeArea(
+            child: ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("ออกจากระบบ"),
+              onTap: () => myAlert(),
             ),
-            Divider(
-              color: Colors.black,
-              height: 10,
-            ),
-            listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
-            listMenu(Icon(Icons.edit), 'แก้ไขข้อมูลสถานที่', 1)
-          ]),
-        ),
-        appBar: AppBar(
-          title: Text('เพิ่มข้อมูลสถานที่'),
-          // leading: IconButton(
-          //   icon: Icon(Icons.arrow_back_ios),
-          //   onPressed: () {
-          //     MaterialPageRoute route =
-          //         MaterialPageRoute(builder: (BuildContext context) => Home());
-          //   },
-          // ),
-        ),
-        body: Column(
-          children: [
-            cate("สถานที่ท่องเที่ยว", AddTravel(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            cate("สินค้า OTOP", AddOtop(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            cate("ร้านอาหาร", Addrestaurant(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            cate("งานประจำปี", SeaPage(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-          ],
-        ),
+          ),
+          Divider(
+            color: Colors.black,
+            height: 10,
+          ),
+          listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
+          listMenu(Icon(Icons.edit), 'แก้ไขข้อมูลสถานที่', 1)
+        ]),
+      ),
+      appBar: AppBar(
+        title: Text('แก้ไขข้อมูลสถานที่'),
+      ),
+      body: Column(
+        children: [
+          cate("สถานที่ท่องเที่ยว", EditTravel(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("สินค้า OTOP", AddOtop(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("ร้านอาหาร", Addrestaurant(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("งานประจำปี", SeaPage(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+        ],
       ),
     );
   }
@@ -119,10 +109,10 @@ class _AdminState extends State<Admin> {
     // ignore: avoid_print
     print('SIgnOut>>>>>>>>>>>>>>>>>>>>successssssssss');
     await FirebaseAuth.instance.signOut();
-    MaterialPageRoute materialPageRoute =
-        MaterialPageRoute(builder: (BuildContext context) => LoginPage());
-    await Navigator.of(context)
-        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
+    // MaterialPageRoute materialPageRoute =
+    //     MaterialPageRoute(builder: (BuildContext context) => LoginPage());
+    // await Navigator.of(context)
+    //     .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
     Fluttertoast.showToast(
       msg: "ออกจากระบบ",
       toastLength: Toast.LENGTH_SHORT,

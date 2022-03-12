@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'region_data.dart';
+import 'edit_region_data.dart';
 
 class RegionPage extends StatefulWidget {
   dynamic travelCate;
