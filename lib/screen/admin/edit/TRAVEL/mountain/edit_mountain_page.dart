@@ -1,17 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'edit_mountain_data.dart';
 
-
-class MountainPage extends StatefulWidget {
+class EditMountainPage extends StatefulWidget {
   dynamic travelCate;
-  MountainPage({Key key, this.travelCate}) : super(key: key);
+  EditMountainPage({Key key, this.travelCate}) : super(key: key);
   @override
-  _MountainPageState createState() => _MountainPageState();
+  _EditMountainPageState createState() => _EditMountainPageState();
 }
 
-class _MountainPageState extends State<MountainPage> {
+class _EditMountainPageState extends State<EditMountainPage> {
   dynamic travelName;
   dynamic travelCate;
   String url;
@@ -100,7 +98,7 @@ class _MountainPageState extends State<MountainPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => MountainData(
+                                  builder: (BuildContext context) => EditMountainData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));

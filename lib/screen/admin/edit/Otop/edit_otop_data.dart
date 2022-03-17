@@ -8,30 +8,28 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
-import '../../edit_page.dart';
+import '../edit_page.dart';
 
-class EditWaterfallData extends StatefulWidget {
-  dynamic travelName, travelCate, docid;
-  EditWaterfallData({Key key, this.travelName, this.travelCate, this.docid})
-      : super(key: key);
+class EditOtopData extends StatefulWidget {
+  dynamic otopName,docid;
+  EditOtopData({Key key, this.otopName,this.docid}) : super(key: key);
   @override
-  _EditWaterfallDataState createState() => _EditWaterfallDataState();
+  _EditOtopDataState createState() => _EditOtopDataState();
 }
 
-class _EditWaterfallDataState extends State<EditWaterfallData> {
-  dynamic travelName, travelCate, positive, travelMap, pathPIC, kk, kk_2;
-  String url, edit_positive, edit_map_url, edit_travelName;
-  dynamic _image, edit_img;
+class _EditOtopDataState extends State<EditOtopData> {
+  dynamic otopName, otopData, otopMap, otopAdddress,pathPIC;
+  String url,edit_otopName,edit_otopData,edit_otopMap;
+  dynamic _image,edit_img;
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('travel_waterfall').snapshots();
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('travel_waterfall');
-  var collection = FirebaseFirestore.instance.collection('travel_waterfall');
+      FirebaseFirestore.instance.collection('otop').snapshots();
+  CollectionReference users = FirebaseFirestore.instance.collection('otop');
+var collection = FirebaseFirestore.instance.collection('otop');
   TextEditingController textEditingController = TextEditingController();
   TextEditingController textEditingController_2 = TextEditingController();
   TextEditingController textEditingController_3 = TextEditingController();
 
-  @override
+ @override
   void dispose() {
     textEditingController.dispose();
     textEditingController_2.dispose();
@@ -60,11 +58,10 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
           );
         }
 
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(widget.travelName),
-              actions: [
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(widget.otopName),
+               actions: [
                 TextButton(
                   onPressed: () async {
                     Random random = Random();
@@ -87,10 +84,10 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                             .doc(widget
                                 .docid) // <-- Doc ID where data should be updated.
                             .update({
-                          'travelName': edit_travelName,
-                          'travel_map': edit_map_url,
-                          'positive': edit_positive,
-                          'pic': edit_img,
+                          'otop_name': textEditingController.text,
+                          // 'travel_map': t,
+                          'otop-data': textEditingController_2.text,
+                          'otop_pic': edit_img,
                         });
                         Fluttertoast.showToast(
                           msg: "แก้ไขสำเร็จ",
@@ -117,9 +114,9 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                             .doc(widget
                                 .docid) // <-- Doc ID where data should be updated.
                             .update({
-                          'travelName': textEditingController.text,
-                          'travel_map': textEditingController_3.text,
-                          'positive': textEditingController_2.text,
+                         'otop_name': textEditingController.text,
+                          // 'travel_map': t,
+                          'otop-data': textEditingController_2.text,
                         });
                         Fluttertoast.showToast(
                           msg: "แก้ไขสำเร็จ",
@@ -128,7 +125,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                           backgroundColor: Colors.orange[100],
                           textColor: Colors.black,
                         );
-
+                       
                         print(
                             '7777777777777777777777777777${textEditingController.text}');
                       } on firebase_core.FirebaseException catch (e) {
@@ -147,31 +144,30 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                   ),
                 )
               ],
-            ),
-            // ignore: avoid_unnecessary_containers
-            body: Container(
-              // color: Colors.purple[50],
-              child: ListView(
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  data["docid"] = document.id;
-                  travelName = data['travelName'];
-                  travelCate = data['travelCate'];
-                  positive = data['positive'];
-                  travelMap = data['travel_map'];
-                  url = data['pic'].toString();
+          ),
+          // ignore: avoid_unnecessary_containers
+          body: Container(
+            // color: Colors.purple[50],
+            child: ListView(
+              children: snapshot.data.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                data["docid"] = document.id;
+                otopName = data['otop_name'];
+                otopData = data['otop-data'];
+                otopMap = data['otop_map'];
+                // otopAdddress = data['otop_address'];
+                url = data['otop_pic'].toString();
 
-                  // ignore: avoid_print
-                  print('4444444444444444444444444 ${data["docid"]}');
-                  print('4444444444444444444444444 ${data["travelCate"]}');
-                  return Center(
-                    child: Column(
-                      children: [
-                        Padding(padding: EdgeInsets.only(top: 10)),
-                        if (data['travelCate'] == widget.travelCate &&
-                            data['travelName'] == widget.travelName)
-                          Column(
+                // ignore: avoid_print
+                print('4444444444444444444444444 ${data["docid"]}');
+                print('4444444444444444444444444 ${data["otop_name"]}');
+                return Center(
+                  child: Column(
+                    children: [
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      if (data['otop_name'] == widget.otopName)
+                       Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -200,7 +196,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                                   child: const Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
-                                      'ชื่อสถานที่',
+                                      'ชื่อสินค้า',
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -210,7 +206,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                               Padding(
                                   padding: const EdgeInsets.only(left: 25),
                                   child:
-                                      _editTitleTextField(data['travelName'])),
+                                      _editTitleTextField(data['otop_name'])),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -232,36 +228,35 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                               Padding(
                                   padding: const EdgeInsets.only(left: 25),
                                   child:
-                                      _editTitleTextField_2(data['positive'])),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.green,
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'พิกัด',
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 25),
-                                  child: _editTitleTextField_3(
-                                      data['travel_map'])),
+                                      _editTitleTextField_2(data['otop-data'])),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Container(
+                              //     width: MediaQuery.of(context).size.width,
+                              //     decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(10.0),
+                              //       color: Colors.green,
+                              //     ),
+                              //     child: const Padding(
+                              //       padding: EdgeInsets.all(8.0),
+                              //       child: Text(
+                              //         'พิกัด',
+                              //         style: TextStyle(
+                              //             fontSize: 20, color: Colors.white),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //     padding: const EdgeInsets.only(left: 25),
+                              //     child: _editTitleTextField_3(
+                              //         data['travel_map'])),
                             ],
                           ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ),
         );
@@ -307,7 +302,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
       child: TextField(
         onSubmitted: (newValue) {
           setState(() {
-            edit_travelName = newValue;
+            edit_otopName = newValue;
             // _isEditingText = false;
           });
         },
@@ -323,7 +318,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
       child: TextField(
         onSubmitted: (newValue) {
           setState(() {
-            edit_positive = newValue;
+            edit_otopData = newValue;
           });
         },
         controller: textEditingController_2,
@@ -338,7 +333,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
       child: TextField(
         onSubmitted: (newValue) {
           setState(() {
-            edit_map_url = newValue;
+            edit_otopMap = newValue;
           });
         },
         controller: textEditingController_3,

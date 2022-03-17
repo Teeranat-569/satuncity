@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../TRAVEL/religious/region_page.dart';
 import 'TRAVEL/SEA/edit_sea_page.dart';
 import 'TRAVEL/mountain/edit_mountain_page.dart';
 import 'TRAVEL/religious/edit_region_page.dart';
@@ -80,7 +81,7 @@ class _EditTravelState extends State<EditTravel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => MountainPage(
+            builder: (BuildContext context) => EditMountainPage(
                   travelCate: text2,
                 ));
         Navigator.push(context, route);
@@ -118,7 +119,7 @@ class _EditTravelState extends State<EditTravel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => WaterfallPage(
+            builder: (BuildContext context) => EditWaterfallPage(
                   travelCate: text3,
                 ));
         Navigator.push(context, route);
@@ -156,7 +157,7 @@ class _EditTravelState extends State<EditTravel> {
           )),
       onTap: () {
         MaterialPageRoute route = MaterialPageRoute(
-            builder: (BuildContext context) => RegionPage(
+            builder: (BuildContext context) => EditRegionPage(
                   travelCate: text4,
                 ));
         Navigator.push(context, route);

@@ -5,10 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:satuncity/screen/admin/edit/TRAVEL/SEA/edit_sea_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+
+import '../../edit_page.dart';
 
 class EditSeaData extends StatefulWidget {
   dynamic travelName, travelCate, docid;
@@ -19,13 +19,24 @@ class EditSeaData extends StatefulWidget {
 }
 
 class _EditSeaDataState extends State<EditSeaData> {
-  dynamic travelName, travelCate, positive, travelMap, pathPIC;
+  dynamic travelName, travelCate, positive, travelMap, pathPIC, kk, kk_2;
   String url, edit_positive, edit_map_url, edit_travelName;
   dynamic _image, edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel');
   var collection = FirebaseFirestore.instance.collection('travel');
+  TextEditingController textEditingController = TextEditingController();
+  TextEditingController textEditingController_2 = TextEditingController();
+  TextEditingController textEditingController_3 = TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    textEditingController_2.dispose();
+    textEditingController_3.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +107,7 @@ class _EditSeaDataState extends State<EditSeaData> {
                         print(e);
                       }
                       MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                          builder: (BuildContext context) => EditSeaPage());
+                          builder: (BuildContext context) => EditPage());
                       Navigator.of(context).pushAndRemoveUntil(
                           materialPageRoute, (Route<dynamic> route) => false);
                     } else {
@@ -105,9 +116,9 @@ class _EditSeaDataState extends State<EditSeaData> {
                             .doc(widget
                                 .docid) // <-- Doc ID where data should be updated.
                             .update({
-                          'travelName': edit_travelName,
-                          'travel_map': edit_map_url,
-                          'positive': edit_positive,
+                          'travelName': textEditingController.text,
+                          'travel_map': textEditingController_3.text,
+                          'positive': textEditingController_2.text,
                         });
                         Fluttertoast.showToast(
                           msg: "แก้ไขสำเร็จ",
@@ -116,14 +127,15 @@ class _EditSeaDataState extends State<EditSeaData> {
                           backgroundColor: Colors.orange[100],
                           textColor: Colors.black,
                         );
-
-                        print('7777777777777777777777777777$edit_img');
+                       
+                        print(
+                            '7777777777777777777777777777${textEditingController.text}');
                       } on firebase_core.FirebaseException catch (e) {
                         // ignore: avoid_print
                         print(e);
                       }
                       MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                          builder: (BuildContext context) => EditSeaPage());
+                          builder: (BuildContext context) => EditPage());
                       Navigator.of(context).pushAndRemoveUntil(
                           materialPageRoute, (Route<dynamic> route) => false);
                     }
@@ -141,14 +153,12 @@ class _EditSeaDataState extends State<EditSeaData> {
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
-
                   data["docid"] = document.id;
                   travelName = data['travelName'];
                   travelCate = data['travelCate'];
                   positive = data['positive'];
                   travelMap = data['travel_map'];
                   url = data['pic'].toString();
-
                   // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["travelCate"]}');
@@ -196,19 +206,9 @@ class _EditSeaDataState extends State<EditSeaData> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 25),
-                                child: TextField(
-                                  controller:
-                                      TextEditingController(text: travelName),
-                                  onChanged: (text) {
-                                    print('First text field: $text');
-
-                                    edit_travelName == null
-                                        ? edit_travelName = data['travelName']
-                                        : edit_travelName = text;
-                                  },
-                                ),
-                              ),
+                                  padding: const EdgeInsets.only(left: 25),
+                                  child:
+                                      _editTitleTextField(data['travelName'])),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -228,20 +228,9 @@ class _EditSeaDataState extends State<EditSeaData> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 25),
-                                child: TextField(
-                                  maxLines: 10,
-                                  controller:
-                                      TextEditingController(text: positive),
-                                  onChanged: (text) {
-                                    print('First text field: $text');
-
-                                    edit_positive == null
-                                        ? edit_positive = data['positive']
-                                        : edit_positive = text;
-                                  },
-                                ),
-                              ),
+                                  padding: const EdgeInsets.only(left: 25),
+                                  child:
+                                      _editTitleTextField_2(data['positive'])),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -261,21 +250,9 @@ class _EditSeaDataState extends State<EditSeaData> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 25),
-                                child: TextField(
-                                  controller: TextEditingController(
-                                      text: data['travel_map']),
-                                  onChanged: (text) {
-                                    print('First text field: $text');
-
-                                    if (edit_map_url == null) {
-                                      edit_map_url = data['travel_map'];
-                                    } else {
-                                      edit_map_url = text;
-                                    }
-                                  },
-                                ),
-                              ),
+                                  padding: const EdgeInsets.only(left: 25),
+                                  child: _editTitleTextField_3(
+                                      data['travel_map'])),
                             ],
                           ),
                       ],
@@ -288,47 +265,6 @@ class _EditSeaDataState extends State<EditSeaData> {
         );
       },
     );
-  }
-
-  //method to launch maps
-  void launchMap(travelMap) async {
-    ;
-    if (await canLaunch(travelMap)) {
-      print("Can launch");
-      void initState() {
-        super.initState();
-
-        canLaunch(travelMap);
-      }
-
-      await launch(travelMap);
-    } else {
-      print("Could not launch");
-      throw 'Could not launch Maps';
-    }
-  }
-
-  void makeDialog() {
-    showDialog(
-        context: context,
-        builder: (_) => new SimpleDialog(
-              contentPadding: EdgeInsets.only(left: 30.0, top: 30.0),
-              children: <Widget>[
-                new Text(
-                  "Address: ",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                new ButtonBar(
-                  children: <Widget>[
-                    new IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                )
-              ],
-            ));
   }
 
   Widget showImage() {
@@ -360,5 +296,51 @@ class _EditSeaDataState extends State<EditSeaData> {
         print('No image selected.');
       }
     });
+  }
+
+  Widget _editTitleTextField(dynamic kk) {
+    textEditingController = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        onSubmitted: (newValue) {
+          setState(() {
+            edit_travelName = newValue;
+            // _isEditingText = false;
+          });
+        },
+        controller: textEditingController,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_2(dynamic kk) {
+    textEditingController_2 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        onSubmitted: (newValue) {
+          setState(() {
+            edit_positive = newValue;
+          });
+        },
+        controller: textEditingController_2,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_3(dynamic kk) {
+    textEditingController_3 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        onSubmitted: (newValue) {
+          setState(() {
+            edit_map_url = newValue;
+          });
+        },
+        controller: textEditingController_3,
+      ),
+    );
   }
 }

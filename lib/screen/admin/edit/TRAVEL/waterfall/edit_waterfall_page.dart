@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/screen/admin/edit/TRAVEL/waterfall/edit_waterfall_data.dart';
 import '../mountain/edit_mountain_data.dart';
 
-class WaterfallPage extends StatefulWidget {
+class EditWaterfallPage extends StatefulWidget {
   dynamic travelCate;
-  WaterfallPage({Key key, this.travelCate}) : super(key: key);
+  EditWaterfallPage({Key key, this.travelCate}) : super(key: key);
   @override
-  _WaterfallPageState createState() => _WaterfallPageState();
+  _EditWaterfallPageState createState() => _EditWaterfallPageState();
 }
 
-class _WaterfallPageState extends State<WaterfallPage> {
+class _EditWaterfallPageState extends State<EditWaterfallPage> {
   dynamic travelName;
   dynamic travelCate;
   String url;
@@ -99,7 +100,7 @@ class _WaterfallPageState extends State<WaterfallPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => MountainData(
+                                  builder: (BuildContext context) => EditWaterfallData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));

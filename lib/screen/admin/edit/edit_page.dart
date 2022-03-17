@@ -5,6 +5,7 @@ import 'package:satuncity/screen/TRAVEL/SEA/sea_page.dart';
 import 'package:satuncity/screen/admin/add_travel.dart';
 import 'package:satuncity/screen/admin/add_otop.dart';
 import 'package:satuncity/screen/admin/add_restaurant.dart';
+import 'package:satuncity/screen/admin/edit/Otop/edit_otop_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../admin.dart';
@@ -46,7 +47,7 @@ class _EditPageState extends State<EditPage> {
         children: [
           cate("สถานที่ท่องเที่ยว", EditTravel(), "images/sea1.jpg"),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),
-          cate("สินค้า OTOP", AddOtop(), "images/sea1.jpg"),
+          cate("สินค้า OTOP", EditOtopPage(), "images/sea1.jpg"),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),
           cate("ร้านอาหาร", Addrestaurant(), "images/sea1.jpg"),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),

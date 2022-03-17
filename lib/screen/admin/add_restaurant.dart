@@ -25,11 +25,16 @@ class _AddrestaurantState extends State<Addrestaurant> {
       restaurant_map,
       restaurantAddress;
   dynamic img;
+  double val = 0;
   TextEditingController restaurantNameController = TextEditingController();
   TextEditingController restaurantDataController = TextEditingController();
   TextEditingController restaurantMapController = TextEditingController();
   TextEditingController restaurantAddressController = TextEditingController();
-  var _image;
+  var _image2;
+  bool uploading = false;
+  final picker = ImagePicker();
+  firebase_storage.Reference ref;
+  CollectionReference imgRef;List<File> _imagef = [];
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,56 @@ class _AddrestaurantState extends State<Addrestaurant> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      child: GridView.builder(
+                          itemCount: _imagef.length + 1,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3),
+                          itemBuilder: (context, index) {
+                            return index == 0
+                                ? Center(
+                                    child: IconButton(
+                                        icon: Icon(Icons.add),
+                                        onPressed: () =>
+                                            !uploading ? chooseImage() : null),
+                                  )
+                                : Container(
+                                    margin: EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: FileImage(_imagef[index - 1]),
+                                            fit: BoxFit.cover)),
+                                  );
+                          }),
+                    ),
+                    uploading
+                        ? Center(
+                            child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                child: const Text(
+                                  'uploading...',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CircularProgressIndicator(
+                                value: val,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    Colors.green),
+                              )
+                            ],
+                          ))
+                        : Container(),
+                  ],
+                ),
                 showImage(),
                 IconButton(
                     onPressed: () {
@@ -200,11 +255,11 @@ class _AddrestaurantState extends State<Addrestaurant> {
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         width: 300.0,
         height: 200.0,
-        child: _image == null
+        child: _image2 == null
             ? Center(child: Text('ไม่ได้อัปโหลดรูปภาพ'))
             : ClipRect(
                 child: InteractiveViewer(
-                    maxScale: 20, child: Image.file(_image))));
+                    maxScale: 20, child: Image.file(_image2))));
   }
 
   Future getImage() async {
@@ -213,7 +268,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
         await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        _image2 = File(pickedFile.path);
         pathPIC = pickedFile.path;
         print('ffffffffffffffffffffffffffffs' + pathPIC);
       } else {
@@ -310,5 +365,58 @@ class _AddrestaurantState extends State<Addrestaurant> {
           materialPageRoute, (Route<dynamic> route) => false);
       // ignore: avoid_print, invalid_return_type_for_catch_error
     }).catchError((error) => print("Failed to add user: $error"));
+  }
+
+  chooseImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      _imagef.add(File(pickedFile.path));
+    });
+    if (pickedFile.path == null) retrieveLostData();
+  }
+
+  Future<void> retrieveLostData() async {
+    final LostData response = await picker.getLostData();
+    if (response.isEmpty) {
+      return;
+    }
+    if (response.file != null) {
+      setState(() {
+        _imagef.add(File(response.file.path));
+      });
+    } else {
+      print(response.file);
+    }
+  }
+
+  Future uploadFile() async {
+    int i = 1;
+    List<String> indexList = [];
+    Random o = Random();
+    int oR = o.nextInt(10000);
+    for (var img in _imagef) {
+      setState(() {
+        val = i / _imagef.length;
+      });
+
+      ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('restaurant/res$o');
+      await ref.putFile(img).whenComplete(() async {
+        await ref.getDownloadURL().then((value) {
+          // imgRef.add({'url': value});
+          indexList.add(value);
+          i++;
+        });
+      });
+    }
+    final database = FirebaseFirestore.instance;
+    database.collection('restaurant').add({'res_pic': indexList});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    imgRef = FirebaseFirestore.instance.collection('restaurant');
   }
 }

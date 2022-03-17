@@ -25,59 +25,6 @@ class _SearchState extends State<Search> {
       setState(() {});
     });
   }
-  //  @override
-  // Widget build(BuildContext context) {
-//     uploadData(String name) async {
-
-//       List<String> splitList = name.split(' ');
-//       List<String> indexList = [];
-//       for (var i = 0; i < splitList.length; i++) {
-//         for (var j = 0; j < splitList[i].length; j++) {
-//           indexList.add(splitList[i].substring(0, j).toLowerCase());
-//         }
-//       }
-//  final database = FirebaseFirestore.instance;
-//       database
-//           .collection('news')
-//           .add({'product': name, 'searchIndex': indexList});
-//     }
-
-//     return SafeArea(
-//       child: Scaffold(
-//           body: Container(
-//         child: Column(
-//           children: [
-//             Padding(
-//               padding: EdgeInsets.all(10),
-//               child: TextField(
-//                 controller: textEditingController,
-//                 decoration: InputDecoration(
-//                     prefixIcon: IconButton(
-//                       color: Colors.black,
-//                       icon: Icon(Icons.clear),
-//                       iconSize: 20,
-//                       onPressed: () {
-//                         textEditingController.clear();
-//                       },
-//                     ),
-//                     contentPadding: EdgeInsets.only(left: 25),
-//                     border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(4)),
-//                     hintText: 'Search by name...'),
-//               ),
-//             ),
-//             MaterialButton(
-//               onPressed: () {
-//                 uploadData(textEditingController.text);
-//               },
-//               color: Colors.green,
-//               child: Text('Upload data'),
-//             )
-//           ],
-//         ),
-//       )),
-//     );
-//   }
 
   @override
   Widget build(BuildContext context) {

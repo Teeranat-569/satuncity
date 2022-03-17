@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'edit_region_data.dart';
 
-class RegionPage extends StatefulWidget {
+class EditRegionPage extends StatefulWidget {
   dynamic travelCate;
-  RegionPage({Key key, this.travelCate}) : super(key: key);
+  EditRegionPage({Key key, this.travelCate}) : super(key: key);
   @override
-  _RegionPageState createState() => _RegionPageState();
+  _EditRegionPageState createState() => _EditRegionPageState();
 }
 
-class _RegionPageState extends State<RegionPage> {
+class _EditRegionPageState extends State<EditRegionPage> {
   dynamic travelName;
   dynamic travelCate;
   String url;
@@ -99,7 +99,7 @@ class _RegionPageState extends State<RegionPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => RegionData(
+                                  builder: (BuildContext context) => EditRegionData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));
