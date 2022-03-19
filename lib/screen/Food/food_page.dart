@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
 
-import 'Food/restaurant_data.dart';
-import 'Otop/otop_data.dart';
+import 'restaurant_data.dart';
+import '../Otop/otop_data.dart';
 
 class FoodPage extends StatefulWidget {
   @override
@@ -16,7 +16,8 @@ class _FoodPageState extends State<FoodPage> {
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
-  CollectionReference users = FirebaseFirestore.instance.collection('restaurant');
+  CollectionReference users =
+      FirebaseFirestore.instance.collection('restaurant');
 
   @override
   Widget build(BuildContext context) {
@@ -68,37 +69,50 @@ class _FoodPageState extends State<FoodPage> {
                     // ignore: deprecated_member_use
                     child: Column(
                       children: [
-                        InkWell(
-                          child: Container(
-                              height: 120,
-                              decoration: new BoxDecoration(
-                                  image: new DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: new NetworkImage("$url"))),
-                              // width: MediaQuery.of(context).size.width,
-                              child: Center(
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  color: Color.fromARGB(99, 0, 0, 0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Text(
-                                      data['res_name'],
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
+                        Row(
+                          children: [
+                            InkWell(
+                              child: Container(
+                                color: Colors.cyan,
+                                height: 120,
+                                width: 50,
+                                child: Icon(
+                                  Icons.restaurant,
+                                  size: 40,
+                                  color: Colors.white,
                                 ),
-                              )),
-                          onTap: () {
-                            MaterialPageRoute route = MaterialPageRoute(
-                                builder: (BuildContext context) => FoodData(
-                                      resName: data['res_name'],
-                                    ));
-                            Navigator.push(context, route);
-                          },
+                              ),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: Container(
+                                  height: 120,
+                                  width: 200,
+                                  child: Center(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      color: Color.fromARGB(112, 11, 60, 75),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Text(
+                                          data['res_name'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                              onTap: () {
+                                MaterialPageRoute route = MaterialPageRoute(
+                                    builder: (BuildContext context) => FoodData(
+                                          resName: data['res_name'],
+                                        ));
+                                Navigator.push(context, route);
+                              },
+                            ),
+                          ],
                         )
                       ],
                     ),

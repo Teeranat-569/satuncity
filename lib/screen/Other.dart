@@ -5,7 +5,7 @@ import 'package:satuncity/screen/OTHER/review.dart';
 import 'package:satuncity/screen/OTHER/review_page.dart';
 import 'package:satuncity/screen/OTHER/westher.dart';
 import 'package:satuncity/screen/food.dart';
-import 'package:satuncity/screen/food_page.dart';
+import 'package:satuncity/screen/Food/food_page.dart';
 
 class Other extends StatefulWidget {
   @override

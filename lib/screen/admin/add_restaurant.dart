@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:satuncity/screen/admin/admin.dart';
+import 'package:satuncity/screen/admin/admin.dart';import 'package:path/path.dart' as Path;
 
 class Addrestaurant extends StatefulWidget {
   const Addrestaurant({Key key}) : super(key: key);
@@ -34,106 +34,133 @@ class _AddrestaurantState extends State<Addrestaurant> {
   bool uploading = false;
   final picker = ImagePicker();
   firebase_storage.Reference ref;
-  CollectionReference imgRef;List<File> _imagef = [];
+  CollectionReference imgRef;
+  List<File> _imagef = [];
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('ร้านอาหาร'),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(4),
-                      child: GridView.builder(
-                          itemCount: _imagef.length + 1,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3),
-                          itemBuilder: (context, index) {
-                            return index == 0
-                                ? Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ร้านอาหาร'),
+        actions: [
+          TextButton(
+              onPressed: () async {
+                // setState(() {
+                //   uploading = true;
+                // });
+                uploadFile().whenComplete(() {
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => Admin());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                });
+                await firebase_core.Firebase.initializeApp();
+                // addTravel();
+              },
+              child: Text(
+                'เพิ่มร้านอาหาร',
+                style: TextStyle(color: Colors.white),
+              ))
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(4),
+                    child: GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: _imagef.length + 1,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3),
+                        itemBuilder: (context, index) {
+                          return index == 0
+                              ? Container(
+                                  color: Colors.grey.shade300,
+                                  child: Center(
                                     child: IconButton(
-                                        icon: Icon(Icons.add),
+                                        icon: Icon(
+                                          Icons.add_photo_alternate,
+                                          size: 40,
+                                        ),
                                         onPressed: () =>
                                             !uploading ? chooseImage() : null),
-                                  )
-                                : Container(
-                                    margin: EdgeInsets.all(3),
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: FileImage(_imagef[index - 1]),
-                                            fit: BoxFit.cover)),
-                                  );
-                          }),
-                    ),
-                    uploading
-                        ? Center(
-                            child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                child: const Text(
-                                  'uploading...',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              CircularProgressIndicator(
-                                value: val,
-                                valueColor: const AlwaysStoppedAnimation<Color>(
-                                    Colors.green),
-                              )
-                            ],
-                          ))
-                        : Container(),
-                  ],
-                ),
-                showImage(),
-                IconButton(
-                    onPressed: () {
-                      getImage();
-                    },
-                    icon: const Icon(
-                      Icons.file_upload,
-                      size: 40,
-                    )),
-                const SizedBox(
-                  height: 15,
-                ),
-                restaurantNameForm(),
-                const SizedBox(
-                  height: 10,
-                ),
-                restaurantDataForm(),
-                const SizedBox(
-                  height: 10,
-                ),
-                restaurantAddressForm(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Text('พิกัด : '),
-                    Container(
-                      child: otopMapForm(),
-                      width: 200,
-                    ),
-                  ],
-                ),
-                button()
-              ],
-            ),
+                                  ),
+                                )
+                              : Container(
+                                  margin: EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: FileImage(_imagef[index - 1]),
+                                          fit: BoxFit.cover)),
+                                );
+                        }),
+                  ),
+                ],
+              ),
+              uploading
+                  ? Center(
+                      child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          child: const Text(
+                            'uploading...',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CircularProgressIndicator(
+                          value: val,
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                              Colors.green),
+                        )
+                      ],
+                    ))
+                  : Container(),
+              // showImage(),
+              // IconButton(
+              //     onPressed: () {
+              //       getImage();
+              //     },
+              //     icon: const Icon(
+              //       Icons.file_upload,
+              //       size: 40,
+              //     )),
+              const SizedBox(
+                height: 15,
+              ),
+              restaurantNameForm(),
+              const SizedBox(
+                height: 10,
+              ),
+              restaurantDataForm(),
+              const SizedBox(
+                height: 10,
+              ),
+              restaurantAddressForm(),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text('พิกัด : '),
+                  Container(
+                    child: otopMapForm(),
+                    width: 200,
+                  ),
+                ],
+              ),
+              // button()
+            ],
           ),
         ),
       ),
@@ -191,7 +218,8 @@ class _AddrestaurantState extends State<Addrestaurant> {
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+          prefixIcon: Icon(Icons.drive_file_rename_outline)),
     );
   }
 
@@ -209,7 +237,8 @@ class _AddrestaurantState extends State<Addrestaurant> {
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+          prefixIcon: Icon(Icons.description)),
     );
   }
 
@@ -226,7 +255,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),prefixIcon: Icon(Icons.room)),
     );
   }
 
@@ -277,95 +306,88 @@ class _AddrestaurantState extends State<Addrestaurant> {
     });
   }
 
-  Widget button() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 200,
-        child: RaisedButton(
-          child: const Text("เพิ่มร้านอาหาร",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          onPressed: () async {
-            Random random = Random();
-            int i = random.nextInt(100000);
-            await firebase_core.Firebase.initializeApp();
-            final firebase_storage.FirebaseStorage storage =
-                firebase_storage.FirebaseStorage.instance;
-            File file = File(pathPIC);
-            // print('222222222222222222222222222222 ${pathPIC},');
-            try {
-              await storage.ref('restaurant/restaurant_$i').putFile(file);
-              dynamic url = await storage
-                  .ref('restaurant/restaurant_$i')
-                  .getDownloadURL();
-              img = url;
-              // print('7777777777777777777777777777travel$i');
-              print('7777777777777777777777777777$img');
-              print('77777777777777777222222222222277777777777$url');
-            } on firebase_core.FirebaseException catch (e) {
-              // ignore: avoid_print
-              print(e);
-            }
-            // print(
-            //     '7777777777777777777-------------------------------------777777777 ');
-            addTravel();
+  // Widget button() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Container(
+  //       width: 200,
+  //       child: RaisedButton(
+  //         child: const Text("เพิ่มร้านอาหาร",
+  //             style: TextStyle(
+  //               fontSize: 20,
+  //               color: Colors.white,
+  //               fontWeight: FontWeight.bold,
+  //             )),
+  //         onPressed: () async {
+  //           Random random = Random();
+  //           int i = random.nextInt(100000);
+  //           await firebase_core.Firebase.initializeApp();
+  //           final firebase_storage.FirebaseStorage storage =
+  //               firebase_storage.FirebaseStorage.instance;
+  //           File file = File(pathPIC);
+  //           // print('222222222222222222222222222222 ${pathPIC},');
+  //           try {
+  //             await storage.ref('restaurant/restaurant_$i').putFile(file);
+  //             dynamic url = await storage
+  //                 .ref('restaurant/restaurant_$i')
+  //                 .getDownloadURL();
+  //             img = url;
+  //             // print('7777777777777777777777777777travel$i');
+  //             print('7777777777777777777777777777$img');
+  //             print('77777777777777777222222222222277777777777$url');
+  //           } on firebase_core.FirebaseException catch (e) {
+  //             // ignore: avoid_print
+  //             print(e);
+  //           }
+  //           // print(
+  //           //     '7777777777777777777-------------------------------------777777777 ');
+  //           addTravel();
 
-            print(
-                '7777777777777777777777eeeeeeeeeeeeeeeeee777777restaurant_$i.jpg');
-            // print('7777777777777777777777777777$img');
-            // addTravel();
-          },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14.0),
-              side: const BorderSide(color: Colors.cyan)),
-          color: Colors.cyan,
-          textColor: Colors.white,
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          splashColor: Colors.grey,
-        ),
-      ),
-    );
-  }
+  //           print(
+  //               '7777777777777777777777eeeeeeeeeeeeeeeeee777777restaurant_$i.jpg');
+  //           // print('7777777777777777777777777777$img');
+  //           // addTravel();
+  //         },
+  //         shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(14.0),
+  //             side: const BorderSide(color: Colors.cyan)),
+  //         color: Colors.cyan,
+  //         textColor: Colors.white,
+  //         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+  //         splashColor: Colors.grey,
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  CollectionReference travel =
-      FirebaseFirestore.instance.collection('restaurant');
-  Future<void> addTravel() {
-    // ignore: unnecessary_statements
-    if (img == null || img == '') img == "ไม่มี";
-    return travel.add({
-      'res_name': restaurant_name,
-      'res-data': restaurant_data,
-      'res_pic': img,
-      'res_map': restaurant_map,
-      'res_address': restaurantAddress
-    }).then((value) {
-      // ignore: avoid_print
-      // print('7777777777777777777----------bbbbb$img');
-      print(
-          '7777777777777777777------------------------555555555-------------777777777' +
-              img);
-      print(
-          "3636363636363636363636363636363636363636363636363636363636363636User Added" +
-              restaurant_name);
-      // print('xxxxxxxxxxxxxxxxxxxxxxxxxxx' + dropdownvalue);
-      Fluttertoast.showToast(
-        msg: "เพิ่มสถานที่ท่องเที่ยวสำเร็จ",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Colors.purple[100],
-        textColor: Colors.black,
-      );
-      MaterialPageRoute materialPageRoute =
-          MaterialPageRoute(builder: (BuildContext context) => Admin());
-      Navigator.of(context).pushAndRemoveUntil(
-          materialPageRoute, (Route<dynamic> route) => false);
-      // ignore: avoid_print, invalid_return_type_for_catch_error
-    }).catchError((error) => print("Failed to add user: $error"));
-  }
+  // CollectionReference restaurant =
+  //     FirebaseFirestore.instance.collection('restaurant');
+  // Future<void> addTravel() {
+  //   // ignore: unnecessary_statements
+  //   if (img == null || img == '') img == "ไม่มี";
+  //   return restaurant.add({
+  //     'res_name': restaurant_name,
+  //     'res-data': restaurant_data,
+  //     // 'res_pic': img,
+  //     'res_map': restaurant_map,
+  //     'res_address': restaurantAddress
+  //   }).then((value) {
+  //     print("3636363636363636363636363636363636363636363636363636363636363636" +
+  //         restaurant_name);
+  //     Fluttertoast.showToast(
+  //       msg: "เพิ่มสถานที่ท่องเที่ยวสำเร็จ",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.CENTER,
+  //       backgroundColor: Colors.purple[100],
+  //       textColor: Colors.black,
+  //     );
+  //     MaterialPageRoute materialPageRoute =
+  //         MaterialPageRoute(builder: (BuildContext context) => Admin());
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         materialPageRoute, (Route<dynamic> route) => false);
+  //     // ignore: avoid_print, invalid_return_type_for_catch_error
+  //   }).catchError((error) => print("Failed to add user: $error"));
+  // }
 
   chooseImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -395,13 +417,13 @@ class _AddrestaurantState extends State<Addrestaurant> {
     Random o = Random();
     int oR = o.nextInt(10000);
     for (var img in _imagef) {
-      setState(() {
+      
         val = i / _imagef.length;
-      });
+    
 
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
-          .child('restaurant/res$o');
+          .child('restaurant/${Path.basename(img.path)}');
       await ref.putFile(img).whenComplete(() async {
         await ref.getDownloadURL().then((value) {
           // imgRef.add({'url': value});
@@ -411,7 +433,15 @@ class _AddrestaurantState extends State<Addrestaurant> {
       });
     }
     final database = FirebaseFirestore.instance;
-    database.collection('restaurant').add({'res_pic': indexList});
+    database.collection('restaurant').add({'res_pic': indexList, 'res_name': restaurant_name,
+      'res-data': restaurant_data,
+      // 'res_pic': img,
+      'res_map': restaurant_map,
+      'res_address': restaurantAddress,});
+        MaterialPageRoute materialPageRoute =
+          MaterialPageRoute(builder: (BuildContext context) => Admin());
+      Navigator.of(context).pushAndRemoveUntil(
+          materialPageRoute, (Route<dynamic> route) => false);
   }
 
   @override

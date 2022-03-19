@@ -1,7 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class FoodData extends StatefulWidget {
   dynamic resName;
@@ -11,13 +11,16 @@ class FoodData extends StatefulWidget {
 }
 
 class _FoodDataState extends State<FoodData> {
-  dynamic resName, resData, resMap, resAdddress;
+  dynamic resName, resData, resMap, resAdddress, travelCate_index;
   String url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('restaurant');
+
+  List<dynamic> yy = [];
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -56,8 +59,13 @@ class _FoodDataState extends State<FoodData> {
                   resData = data['res-data'];
                   resMap = data['res_map'];
                   resAdddress = data['res_address'];
-                  url = data['res_pic'].toString();
-
+                  // url = data['res_pic'].toString();
+                  yy = data['res_pic'];
+                  for (var i = 0; i < yy.length; i++) {
+                    travelCate_index = data['res_pic'][i];
+                    print(
+                        'dddddddddddddddddddddddddddddddddddddddd $travelCate_index');
+                  }
                   // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["res_name"]}');
@@ -69,7 +77,40 @@ class _FoodDataState extends State<FoodData> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.network(url),
+                              CarouselSlider(
+                                options: CarouselOptions(
+                                    height: 200.0, autoPlay: true),
+                                items: [
+                                  for (var i = 0; i < yy.length; i++)
+                                    {
+                                      travelCate_index =
+                                          data['res_pic'][i].toString(),
+                                      print(
+                                          'dddddddddddddddddddddddddddddddddddddddd $travelCate_index'),
+                                    }
+                                ].map((j) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      List text = j.toList();
+
+                                      print('gggggggggggggggggggg $text');
+
+                                      return Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          decoration: const BoxDecoration(
+                                              color: Colors.grey),
+                                          child: Image.network(
+                                            text.join(),
+                                            fit: BoxFit.cover,
+                                          ));
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                              // Image.network(url),
                               Padding(padding: EdgeInsets.only(top: 10)),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -142,11 +183,21 @@ class _FoodDataState extends State<FoodData> {
                                   ),
                                 ),
                               ),
-                              IconButton(
-                                  icon: Icon(Icons.directions),
-                                  onPressed: () {
-                                    launchMap(data['res_map']);
-                                  }),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        launchMap(data['res_map']);
+                                      },
+                                      child: Text('คลิกเพื่อดูแผนที่')),
+                                  IconButton(
+                                      icon: Icon(Icons.directions),
+                                      onPressed: () {
+                                        launchMap(data['res_map']);
+                                      }),
+                                ],
+                              ),
                             ],
                           ),
                       ],
