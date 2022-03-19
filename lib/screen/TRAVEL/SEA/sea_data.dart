@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class SeaData extends StatefulWidget {
   dynamic travelName, travelCate;
@@ -47,7 +46,8 @@ class _SeaDataState extends State<SeaData> {
             body: Container(
               // color: Colors.purple[50],
               child: ListView(
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
+                children: 
+                snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
                   data["docid"] = document.id;

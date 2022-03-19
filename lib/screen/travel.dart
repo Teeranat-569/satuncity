@@ -184,43 +184,4 @@ class _TravelState extends State<Travel> {
       ),
     );
   }
-
-  Widget cate(var text, Widget routeName, String pathIMG) {
-    //ทะเล
-    return InkWell(
-      child: Container(
-          height: 100,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/hinngam.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                color: Color.fromARGB(99, 0, 0, 0),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-          )),
-      onTap: () {
-        MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => routeName);
-        Navigator.push(context, route);
-      },
-    );
-  }
 }

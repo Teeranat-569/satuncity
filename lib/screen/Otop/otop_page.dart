@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
 
-import 'Otop/otop_data.dart';
+import 'otop_data.dart';
 
 class OtopPage extends StatefulWidget {
   @override
