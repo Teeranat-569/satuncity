@@ -12,7 +12,7 @@ class RegionPage extends StatefulWidget {
 class _RegionPageState extends State<RegionPage> {
   dynamic travelName;
   dynamic travelCate;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_region')
@@ -48,7 +48,6 @@ class _RegionPageState extends State<RegionPage> {
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
-            // color: Colors.purple[50],
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
@@ -72,7 +71,6 @@ class _RegionPageState extends State<RegionPage> {
                     // ignore: deprecated_member_use
                     child: Column(
                       children: [
-                        // Padding(padding: EdgeInsets.only(bottom: 12.0)),
                         if (travelCate == widget.travelCate)
                           InkWell(
                             child: Container(

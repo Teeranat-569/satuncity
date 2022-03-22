@@ -12,7 +12,7 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> {
   dynamic resName;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
@@ -74,7 +74,7 @@ class _FoodPageState extends State<FoodPage> {
                             InkWell(
                               child: Container(
                                 color: Colors.cyan,
-                                height: 120,
+                                height: 70,
                                 width: 50,
                                 child: Icon(
                                   Icons.restaurant,
@@ -86,19 +86,19 @@ class _FoodPageState extends State<FoodPage> {
                             ),
                             InkWell(
                               child: Container(
-                                  height: 120,
-                                  width: 200,
+                                  height: 70,
+                                  width: 300,
                                   child: Center(
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       color: Color.fromARGB(112, 11, 60, 75),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Text(
                                           data['res_name'],
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 20,
+                                              fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),

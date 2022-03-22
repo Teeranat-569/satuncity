@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
-import 'comment.dart';
 import 'post.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -15,15 +13,14 @@ class _ReviewPageState extends State<ReviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        // bottomNavigationBar: BottomNavigation(),
         appBar: AppBar(
           backgroundColor: Colors.black,
           automaticallyImplyLeading: false,
           title: Text(
-            "Review",
+            "รีวิวสถานที่ท่องเที่ยว",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 30,
+              fontSize: 20,
               fontWeight: FontWeight.w500,
               fontFamily: 'Yaldevi',
             ),
@@ -66,10 +63,9 @@ class _ReviewPageState extends State<ReviewPage> {
                                         : CircleAvatar(
                                             radius: 16.6,
                                             backgroundImage:
-                                                NetworkImage(doc['pic'])),
-                                    title: Text(doc['travelName'], //username
+                                                AssetImage('images/user.png')),
+                                    title: Text(doc['travelName'],
                                         style: TextStyle(
-                                          // color: Colors.white,
                                           fontSize: 16.5,
                                         )),
                                     // subtitle: doc['comment'] != null
@@ -92,10 +88,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                         decoration: BoxDecoration(
                                           //
                                           color: Colors.grey.shade200,
-                                          // border: Border.all(
-                                          //   color: Colors.black,
-                                          //   width: 8,
-                                          // ),
+
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
@@ -103,18 +96,12 @@ class _ReviewPageState extends State<ReviewPage> {
                                           children: [
                                             Container(
                                                 decoration: BoxDecoration(
-                                                  //
                                                   color: Colors.grey.shade200,
-                                                  // border: Border.all(
-                                                  //   color: Colors.black,
-                                                  //   width: 8,
-                                                  // ),
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
-                                                // color: Colors.grey.shade100,
-                                                height: 200,
-                                                width: 200,
+                                                height: 100,
+                                                width: 100,
                                                 child: Image(
                                                   image: NetworkImage(
                                                     doc['pic'],
@@ -127,11 +114,12 @@ class _ReviewPageState extends State<ReviewPage> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                      doc['travelName'], //username
+                                                      doc[
+                                                          'travelName'], //username
                                                       style: TextStyle(
-                                                        // color: Colors.white,
-                                                        fontSize: 16.5,
-                                                      )),
+                                                          fontSize: 16.5,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
                                                 ],
                                               ),
                                             ),
@@ -156,32 +144,15 @@ class _ReviewPageState extends State<ReviewPage> {
                                             halfFilledIconData: Icons.star_half,
                                             defaultIconData: Icons.star_border,
                                             starCount: 1,
-                                            // allowHalfRating: true,
                                             spacing: 2.0,
                                             onRated: (value) {},
                                           ),
                                           Text(
                                             doc['rate'].toString(),
-                                            // style:
-                                            //     TextStyle(color: Colors.white),
                                           )
                                         ],
                                       ),
                                     )
-                                    // IconButton(
-                                    //   icon: Icon(
-                                    //     Icons.mode_comment_outlined,
-                                    //     color: Colors.white,
-                                    //   ),
-                                    //   onPressed: () {
-                                    //     Navigator.push(
-                                    //         context,
-                                    //         MaterialPageRoute(
-                                    //           builder: (context) =>
-                                    //               CommentSection(),
-                                    //         ));
-                                    //   },
-                                    // )
                                   ] else if (doc['pic'] == null) ...[
                                     Container(
                                         height: 400,
@@ -197,9 +168,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                         padding: EdgeInsets.only(bottom: 13.5),
                                         child: Text(
                                           "@ " + doc['travelName'],
-                                          style: TextStyle(
-                                              // color: Colors.white,
-                                              ),
+                                          style: TextStyle(),
                                         ),
                                       ),
                                       subtitle: Padding(
@@ -207,13 +176,9 @@ class _ReviewPageState extends State<ReviewPage> {
                                               EdgeInsets.only(bottom: 13.5),
                                           child: doc['comment'] != null
                                               ? Text(":" + doc['comment'],
-                                                  style: TextStyle(
-                                                      // color: Colors.white,
-                                                      ))
+                                                  style: TextStyle())
                                               : Text("Some Descritiption",
-                                                  style: TextStyle(
-                                                      // color: Colors.white,
-                                                      )))),
+                                                  style: TextStyle()))),
                                   Divider(
                                     color: Colors.black,
                                     height: 10,
@@ -226,5 +191,21 @@ class _ReviewPageState extends State<ReviewPage> {
                 return Center(child: CircularProgressIndicator());
               }
             }));
+  }
+
+  String convertToAgo(DateTime input) {
+    Duration diff = DateTime.now().difference(input);
+
+    if (diff.inDays >= 1) {
+      return '${diff.inDays} day(s) ago';
+    } else if (diff.inHours >= 1) {
+      return '${diff.inHours} hour(s) ago';
+    } else if (diff.inMinutes >= 1) {
+      return '${diff.inMinutes} minute(s) ago';
+    } else if (diff.inSeconds >= 1) {
+      return '${diff.inSeconds} second(s) ago';
+    } else {
+      return 'just now';
+    }
   }
 }

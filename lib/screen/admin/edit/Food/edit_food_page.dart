@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
-
 import 'edit_restaurant_data.dart';
 
 class EditFoodPage extends StatefulWidget {
@@ -10,8 +8,7 @@ class EditFoodPage extends StatefulWidget {
 }
 
 class _EditFoodPageState extends State<EditFoodPage> {
-  dynamic resName;
-  String url;
+  dynamic resName, url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
@@ -45,7 +42,6 @@ class _EditFoodPageState extends State<EditFoodPage> {
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
-            // color: Colors.purple[50],
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =

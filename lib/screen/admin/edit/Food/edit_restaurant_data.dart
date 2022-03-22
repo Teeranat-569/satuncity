@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:math';
 
@@ -5,12 +7,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 import '../edit_page.dart';
 
+// ignore: must_be_immutable
 class EditFoodData extends StatefulWidget {
   dynamic resName, docid;
   EditFoodData({Key key, this.resName, this.docid}) : super(key: key);
@@ -20,9 +22,10 @@ class EditFoodData extends StatefulWidget {
 
 class _EditFoodDataState extends State<EditFoodData> {
   dynamic resName, resData, resMap, resAdddress, travelCate_index;
-  String url, pathPIC, edit_img;
-  String edit_positive, edit_map_url, edit_travelName, edit_url;
+  dynamic url, pathPIC, edit_img;
+  dynamic edit_positive, edit_map_url, edit_travelName, edit_url;
 
+  // ignore: unused_field
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
@@ -160,7 +163,6 @@ class _EditFoodDataState extends State<EditFoodData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
-              // color: Colors.purple[50],
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -170,7 +172,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                   resData = data['res-data'];
                   resMap = data['res_map'];
                   resAdddress = data['res_address'];
-                  // url = data['res_pic'].toString();
                   yy = data['res_pic'];
                   for (var i = 0; i < yy.length; i++) {
                     travelCate_index = data['res_pic'][i];
@@ -191,7 +192,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  // color: Colors.green,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.green,
@@ -201,39 +201,12 @@ class _EditFoodDataState extends State<EditFoodData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'รูปภาพ',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
-
-                              // Container(
-                              //   height: 500,
-                              //   child: ListView(
-                              //     padding: const EdgeInsets.all(8),
-                              //     children: <Widget>[
-                              //       for (var i = 0; i < yy.length; i++)
-                              //         ListTile(
-                              //             title: Row(
-                              //           children: [
-                              //             Container(
-                              //                 height: 100,
-                              //                 child: Image.network(
-                              //                     data['res_pic'][i])),
-                              //             IconButton(
-                              //                 onPressed: () {
-                              //                   print(
-                              //                       'jjjjjjjjjjjjjjjjjjjjj  ${data['res_pic'][i]}');
-                              //                 },
-                              //                 icon: Icon(Icons.edit))
-                              //           ],
-                              //         )),
-                              //     ],
-                              //   ),
-                              // ),
                               CarouselSlider(
                                 options: CarouselOptions(
                                     height: 200.0, autoPlay: true),
@@ -267,12 +240,10 @@ class _EditFoodDataState extends State<EditFoodData> {
                                   );
                                 }).toList(),
                               ),
-                              // Image.network(url),
                               Padding(padding: EdgeInsets.only(top: 10)),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  // color: Colors.green,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.green,
@@ -282,8 +253,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'ชื่อร้านอาหาร',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -297,7 +266,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  // color: Colors.green,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.green,
@@ -307,8 +275,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'ลักษณะเด่น',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -322,7 +288,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  // color: Colors.green,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.green,
@@ -331,8 +296,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'ที่อยู่ร้านอาหาร',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -347,7 +310,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  // color: Colors.green,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: Colors.green,
@@ -356,8 +318,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'พิกัด',
-                                      // maxLines: 2,
-                                      // overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -380,47 +340,6 @@ class _EditFoodDataState extends State<EditFoodData> {
         );
       },
     );
-  }
-
-  //method to launch maps
-  void launchMap(travelMap) async {
-    ;
-    if (await canLaunch(travelMap)) {
-      print("Can launch");
-      void initState() {
-        super.initState();
-
-        canLaunch(travelMap);
-      }
-
-      await launch(travelMap);
-    } else {
-      print("Could not launch");
-      throw 'Could not launch Maps';
-    }
-  }
-
-  void makeDialog() {
-    showDialog(
-        context: context,
-        builder: (_) => new SimpleDialog(
-              contentPadding: EdgeInsets.only(left: 30.0, top: 30.0),
-              children: <Widget>[
-                new Text(
-                  "Address: ",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                new ButtonBar(
-                  children: <Widget>[
-                    new IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                )
-              ],
-            ));
   }
 
   Widget _editTitleTextField(dynamic kk) {
@@ -483,30 +402,4 @@ class _EditFoodDataState extends State<EditFoodData> {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text("เกาะหินงาม"),
-  //     ),
-  //     body:
-  //
-  // Center(
-  //       child: Column(
-  //         children: [
-  //           Padding(padding: EdgeInsets.only(top: 10)),
-  //           Image.asset("images/hinn.jpg"),
-  //           Padding(padding: EdgeInsets.all(10)),
-  //           Text("     ลักษณะเด่น\n"
-  //               "               เป็นเกาะเล็ก ๆ ที่ไม่มีหาดทรายแต่เป็นหาดที่มีก้อนหิน กลม รี"
-  //               "วางเรียงรายอยู่เต็มเกาะ ยามน้ำทะเลซัดขึ้นมาก้อนหินเหล่านี้จะเปียกชุ่ม "
-  //               "ส่องประกายมันวาวสะท้อนไปทั่วหาดหิน ยามน้ำลงแนวหาดหินจะปรากฏกว้างยิ่งขึ้นและจะตัดกับน้ำทะเลสีมรกต "
-  //               "ซึ่งเป็นธรรมชาติที่สวยงามที่หาดูได้ยากในที่อื่น ๆ ในส่วนบริเวณรอบๆเกาะหินงาม"
-  //               "ยังเป็นที่ดำน้ำดูปะการัง")
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

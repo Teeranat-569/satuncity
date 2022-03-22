@@ -19,7 +19,7 @@ class AddFestival extends StatefulWidget {
 }
 
 class _AddFestivalState extends State<AddFestival> {
-  String festival_name, pathPIC, festival_data;
+  dynamic festival_name, pathPIC, festival_data;
   dynamic img;
   double val = 0;
   TextEditingController festivalNameController = TextEditingController();
@@ -28,7 +28,7 @@ class _AddFestivalState extends State<AddFestival> {
   bool uploading = false;
   final picker = ImagePicker();
   firebase_storage.Reference ref;
-  CollectionReference imgRef;
+   CollectionReference imgRef;
   List<File> _imagef = [];
 
   @override
@@ -131,45 +131,6 @@ class _AddFestivalState extends State<AddFestival> {
     );
   }
 
-  Widget cate(var text, Widget routeName, String pathIMG) {
-    //ทะเล
-    return InkWell(
-      child: Container(
-          height: 100,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/hinngam.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                color: Color.fromARGB(99, 0, 0, 0),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-          )),
-      onTap: () {
-        MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => routeName);
-        Navigator.push(context, route);
-      },
-    );
-  }
-
   Widget festivalNameForm() {
     return TextField(
       onChanged: (value) => festival_name = value.trim(),
@@ -181,7 +142,7 @@ class _AddFestivalState extends State<AddFestival> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           prefixIcon: Icon(Icons.drive_file_rename_outline)),
     );
@@ -200,7 +161,7 @@ class _AddFestivalState extends State<AddFestival> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           prefixIcon: Icon(Icons.description)),
     );

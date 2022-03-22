@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../TRAVEL/religious/region_page.dart';
 import 'TRAVEL/SEA/edit_sea_page.dart';
 import 'TRAVEL/mountain/edit_mountain_page.dart';
 import 'TRAVEL/religious/edit_region_page.dart';
@@ -170,17 +169,9 @@ class _EditTravelState extends State<EditTravel> {
     return Scaffold(
         appBar: AppBar(
         title: Text('แก้ไขข้อมูลสถานที่ท่องเที่ยว'),
-        // leading: IconButton(
-        //   icon: Icon(Icons.arrow_back_ios),
-        //   onPressed: () {
-        //     MaterialPageRoute route =
-        //         MaterialPageRoute(builder: (BuildContext context) => Home());
-        //   },
-        // ),
       ),
       body: Center(
         child: ListView(
-          /*mainAxisSize: MainAxisSize.max,*/
           children: [
             imgsea("ทะเล"),
             Padding(padding: EdgeInsets.only(bottom: 12.0)),

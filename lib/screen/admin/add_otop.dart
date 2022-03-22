@@ -20,7 +20,7 @@ class AddOtop extends StatefulWidget {
 
 class _AddOtopState extends State<AddOtop> {
   
-  String otop_name, pathPIC, otop_data, otop_map;
+  dynamic otop_name, pathPIC, otop_data, otop_map;
   dynamic img;
   TextEditingController otopNameController = TextEditingController();
   TextEditingController otopDataController = TextEditingController();
@@ -128,7 +128,7 @@ class _AddOtopState extends State<AddOtop> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -138,7 +138,6 @@ class _AddOtopState extends State<AddOtop> {
       onChanged: (value) => otop_data = value.trim(),
       controller: otopDataController,
       maxLines: 3,
-      // keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: 'ข้อมูลสินค้า',
           hintTextDirection: TextDirection.ltr,
@@ -146,7 +145,7 @@ class _AddOtopState extends State<AddOtop> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -164,7 +163,7 @@ class _AddOtopState extends State<AddOtop> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -217,27 +216,21 @@ class _AddOtopState extends State<AddOtop> {
             final firebase_storage.FirebaseStorage storage =
                 firebase_storage.FirebaseStorage.instance;
             File file = File(pathPIC);
-            // print('222222222222222222222222222222 ${pathPIC},');
             try {
-              await storage.ref('travel/travel_$i').putFile(file);
+              await storage.ref('otop/otop_$i').putFile(file);
               dynamic url =
-                  await storage.ref('travel/travel_$i').getDownloadURL();
+                  await storage.ref('otop/otop_$i').getDownloadURL();
               img = url;
-              // print('7777777777777777777777777777travel$i');
               print('7777777777777777777777777777$img');
               print('77777777777777777222222222222277777777777$url');
             } on firebase_core.FirebaseException catch (e) {
               // ignore: avoid_print
               print(e);
             }
-            // print(
-            //     '7777777777777777777-------------------------------------777777777 ');
             addTravel();
 
             print(
-                '7777777777777777777777eeeeeeeeeeeeeeeeee777777travel_$i.jpg');
-            // print('7777777777777777777777777777$img');
-            // addTravel();
+                '7777777777777777777777eeeeeeeeeeeeeeeeee777777otop_$i.jpg');
           },
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14.0),
@@ -286,26 +279,5 @@ class _AddOtopState extends State<AddOtop> {
     }).catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> uploadFile(String filePath, String fileName) async {
-    await firebase_core.Firebase.initializeApp();
-    final firebase_storage.FirebaseStorage storage =
-        firebase_storage.FirebaseStorage.instance;
-    File file = File(filePath);
-    try {
-      await storage.ref('company/$fileName').putFile(file);
-      dynamic url = await storage.ref('company/$fileName').getDownloadURL();
-      // setState(() {
-      img = url;
-      // downloadURLExample(fileName);
-      print('7777777777777777777777777777$fileName');
-      print(
-          '7777777777777777777-------------------------------------777777777$img');
-      print(
-          '7777777777777777777------------------------555555555-------------777777777$url');
-      // });
-    } on firebase_core.FirebaseException catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-  }
+ 
 }

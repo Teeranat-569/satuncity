@@ -1,8 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/tes.dart';
 
 class Homedata extends StatefulWidget {
   @override
@@ -46,9 +44,7 @@ class _HomedataState extends State<Homedata> {
     return CarouselSlider(
       options: CarouselOptions(height: 200.0, autoPlay: true),
       items: [
-        // yy,
-        // print('gggggggggggggggggggg $indexx'),
-        // print('555555555555555555555555  ${yy.length}')
+      
 
         for (var i = 0; i < yy.length; i++)
           {
@@ -77,48 +73,8 @@ class _HomedataState extends State<Homedata> {
                     //   text.join(),
                     //   fit: BoxFit.cover,
                     // )
-                    Text(text.join()));
-                //     CarouselSlider(
-                //   options: CarouselOptions(height: 200.0, autoPlay: true),
-                //   items: [
-                //     // yy,
-                //     // print('gggggggggggggggggggg $indexx'),
-                //     // print('555555555555555555555555  ${yy.length}')
-
-                   
-
-                //     for (var u = 0; u < name.length; u++)
-                //       {
-                //         index_r2 = name[u].toString(),
-                //         print(
-                //             'dddddddddddddddddddddddddddddddddddddddd $index_r'),
-                //       }
-                //   ].map((jj) {
-                //     return Builder(
-                //       builder: (BuildContext context) {
-                //         List text2 = jj.toList();
-                //         print('gggggggggggggggggggg $text');
-
-                //         return Container(
-                //             width: MediaQuery.of(context).size.width,
-                //             height: 500,
-                //             margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                //             decoration: BoxDecoration(
-                //                 color: Colors.grey,
-                //                 // image: new DecorationImage(
-                //                 //     fit: BoxFit.fill,
-                //                 //     image: new NetworkImage("${text.join()}"))
-                //                     ),
-                //             child:
-                //                 // Image.network(
-                //                 //   text.join(),
-                //                 //   fit: BoxFit.cover,
-                //                 // )
-                //                 Text(text2.join()));
-                //       },
-                //     );
-                //   }).toList(),
-                // ));
+                    Text(''));
+              
           },
         );
       }).toList(),
@@ -137,7 +93,6 @@ class _HomedataState extends State<Homedata> {
       width: 150.0,
       height: 300.0,
       child: Image.asset("images/mixfood.jpg"),
-      //color: Colors.red,
     );
   }
 
@@ -146,7 +101,6 @@ class _HomedataState extends State<Homedata> {
       width: 150.0,
       height: 150.0,
       child: Image.asset("images/mixfood.jpg"),
-      //color: Colors.red,
     );
   }
 

@@ -12,7 +12,7 @@ class FoodData extends StatefulWidget {
 
 class _FoodDataState extends State<FoodData> {
   dynamic resName, resData, resMap, resAdddress, travelCate_index;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
@@ -49,7 +49,6 @@ class _FoodDataState extends State<FoodData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
-              // color: Colors.purple[50],
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =

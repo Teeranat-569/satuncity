@@ -5,10 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-// import 'package:satuncity/screen/conterller/auth_controller.dart';
+import 'package:satuncity/screen/Login/signup_page.dart';
 
-import '../admin/admin.dart';
 import '../home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,19 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final userController = TextEditingController();
   final passwordController = TextEditingController();
   dynamic username, password;
-  // AuthController authController;
-
-  // Map<String, dynamic> _userData;
-  // String welcome = "Facebook";
-//  final LoginResult result = await FacebookAuth.instance.login(permissions:['email']);
-
-  // void _onLogin() {
-  //   if (keyform.currentState.validate()) {
-  //     keyform.currentState.save();
-  //     // authController.onLogin(
-  //     //     email: userController.text, password: passwordController.text);
-  //   }
-  // }
+  FirebaseAuth firebase = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -52,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         print('444444444444444444444444' + username);
       }
     });
-    // authController = AuthController(context);
+  
   }
 
   @override
@@ -89,11 +75,6 @@ class _LoginPageState extends State<LoginPage> {
               key: keyform,
               child: Column(
                 children: [
-                  // _createInput(controller: userController, hintText: 'e-mail',),
-                  // _createInput(
-                  //     controller: passwordController,
-                  //     hintText: 'password',
-                  //     isPassword: true)
                   usernameText(),
                   SizedBox(
                     height: 5,
@@ -139,7 +120,6 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                // onTap: () => authController.loginWithFacebook(context),
                 onTap: () => facebookLogin(),
                 child: Image.asset(
                   'images/facebook.png',
@@ -149,6 +129,33 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: 10,
               ),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('หากยังไม่มีบัญชีผู้ใช้'),
+              SizedBox(
+                width: 15,
+              ),
+              // ignore: deprecated_member_use
+              FlatButton(
+                  color: Colors.blue.shade100,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(20.0)),
+                  onPressed: () {
+                    MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                        builder: (BuildContext context) => SignUpPage());
+                    Navigator.of(context).push(materialPageRoute);
+                  },
+                  child: Text(
+                    'สมัครสมาชิก',
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  )),
             ],
           )
         ])),
@@ -167,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -183,45 +190,10 @@ class _LoginPageState extends State<LoginPage> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
-
-  // Widget _createInput(
-  //     {@required TextEditingController controller,
-  //     @required String hintText,
-  //     TextInputType keyboardType = TextInputType.text,
-  //     bool isPassword = false,dynamic onChanged,}) {
-  //   return
-  // Container(
-  //     decoration: BoxDecoration(boxShadow: [
-  //       BoxShadow(offset: Offset.zero, color: Colors.grey, blurRadius: 8)
-  //     ]),
-  //     margin: EdgeInsets.symmetric(vertical: 8),
-  //     child: TextFormField(
-  //       controller: controller,
-  //       keyboardType: keyboardType,
-  //       obscureText: isPassword,
-  //        onChanged: (value) => onChanged = value.trim(),
-  //       validator: (msg) {
-  //         if (msg.isEmpty) return 'Input InValid';
-
-  //         return null;
-  //       },
-  //       decoration: InputDecoration(
-  //           hintText: hintText,
-  //           filled: true,
-  //           fillColor: Colors.white,
-  //           enabledBorder: OutlineInputBorder(
-  //               borderSide: BorderSide(
-  //                   width: 2,
-  //                   color: Colors.grey[400],
-  //                   style: BorderStyle.solid)),
-  //           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
-  //     ),
-  //   );
-  // }
 
   Future<void> facebookLogin() async {
     final result = await FacebookAuth.instance

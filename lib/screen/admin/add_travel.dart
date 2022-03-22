@@ -20,7 +20,7 @@ class AddTravel extends StatefulWidget {
 
 class _AddTravelState extends State<AddTravel> {
   String dropdownvalue = 'ทะเล';
-  String travelName, pathPIC, positive, travel_map;
+ dynamic travelName, pathPIC, positive, travel_map;
   dynamic img, img_mountain, img_waterfall, img_region, img_r;
   TextEditingController travelNameController = TextEditingController();
   TextEditingController positiveController = TextEditingController();
@@ -51,8 +51,6 @@ class _AddTravelState extends State<AddTravel> {
                 setState(() {
                   img = url;
                 });
-
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img');
                 print(
                     '77777777777777777222222eeeeeeeeee222222277777777777$url');
@@ -84,8 +82,6 @@ class _AddTravelState extends State<AddTravel> {
                 setState(() {
                   img_mountain = url_mountain;
                 });
-
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img_mountain');
                 print('77777777777777777222222222222277777777777$url_mountain');
               } on firebase_core.FirebaseException catch (e) {
@@ -110,8 +106,6 @@ class _AddTravelState extends State<AddTravel> {
                 setState(() {
                   img_waterfall = url_waterfall;
                 });
-
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img_waterfall');
                 print(
                     '77777777777777777222222222222277777777777$url_waterfall');
@@ -136,8 +130,6 @@ class _AddTravelState extends State<AddTravel> {
                 setState(() {
                   img_region = url_region;
                 });
-
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img_region');
                 print('77777777777777777222222222222277777777777$url_region');
               } on firebase_core.FirebaseException catch (e) {
@@ -173,22 +165,15 @@ class _AddTravelState extends State<AddTravel> {
                       width: 10,
                     ),
                     DropdownButton(
-                      // Initial Value
                       value: dropdownvalue,
-
-                      // Down Arrow Icon
                       icon: const Icon(Icons.keyboard_arrow_down),
-
-                      // Array list of items
                       items: items.map((String items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Text(items),
                         );
                       }).toList(),
-                      // After selecting the desired option,it will
-                      // change button value to selected value
-                      onChanged: (String newValue) async {
+                      onChanged: (dynamic newValue) async {
                         setState(() {
                           dropdownvalue = newValue;
                         });
@@ -225,7 +210,6 @@ class _AddTravelState extends State<AddTravel> {
                     ),
                   ],
                 ),
-                // button()
               ],
             ),
           ),
@@ -310,7 +294,7 @@ class _AddTravelState extends State<AddTravel> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -320,7 +304,6 @@ class _AddTravelState extends State<AddTravel> {
       onChanged: (value) => positive = value.trim(),
       controller: positiveController,
       maxLines: 3,
-      // keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: 'ลักษณะเด่น',
           hintTextDirection: TextDirection.ltr,
@@ -328,7 +311,7 @@ class _AddTravelState extends State<AddTravel> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -337,8 +320,6 @@ class _AddTravelState extends State<AddTravel> {
     return TextField(
       onChanged: (value) => travel_map = value.trim(),
       controller: travelMapController,
-      // maxLines: 3,
-      // keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: 'ลิ้งก์จาก Google Map',
           hintTextDirection: TextDirection.ltr,
@@ -346,7 +327,7 @@ class _AddTravelState extends State<AddTravel> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -408,7 +389,6 @@ class _AddTravelState extends State<AddTravel> {
                   img = url;
                 });
 
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img');
                 print(
                     '77777777777777777222222eeeeeeeeee222222277777777777$url');
@@ -441,7 +421,6 @@ class _AddTravelState extends State<AddTravel> {
                   img_mountain = url_mountain;
                 });
 
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img_mountain');
                 print('77777777777777777222222222222277777777777$url_mountain');
               } on firebase_core.FirebaseException catch (e) {
@@ -493,7 +472,6 @@ class _AddTravelState extends State<AddTravel> {
                   img_region = url_region;
                 });
 
-                // print('7777777777777777777777777777travel$i');
                 print('7777777777777777777777777777$img_region');
                 print('77777777777777777222222222222277777777777$url_region');
               } on firebase_core.FirebaseException catch (e) {
@@ -635,7 +613,6 @@ class _AddTravelState extends State<AddTravel> {
       'travelCate': dropdownvalue,
     }).then((value) {
       // ignore: avoid_print
-      // print('7777777777777777777----------bbbbb$img');
       print(
           '7777777777777777777------------------------555555555-------------777777777' +
               img);

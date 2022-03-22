@@ -20,7 +20,7 @@ class EditSeaData extends StatefulWidget {
 
 class _EditSeaDataState extends State<EditSeaData> {
   dynamic travelName, travelCate, positive, travelMap, pathPIC, kk, kk_2;
-  String url, edit_positive, edit_map_url, edit_travelName;
+  dynamic url, edit_positive, edit_map_url, edit_travelName;
   dynamic _image, edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel').snapshots();

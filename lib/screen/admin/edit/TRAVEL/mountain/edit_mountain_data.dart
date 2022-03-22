@@ -21,7 +21,7 @@ class EditMountainData extends StatefulWidget {
 
 class _EditMountainDataState extends State<EditMountainData> {
   dynamic travelName, travelCate, positive, travelMap, pathPIC, kk, kk_2;
-  String url, edit_positive, edit_map_url, edit_travelName;
+  dynamic url, edit_positive, edit_map_url, edit_travelName;
   dynamic _image, edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_mountain').snapshots();
@@ -77,9 +77,9 @@ class _EditMountainDataState extends State<EditMountainData> {
                     if (pathPIC != null) {
                       File file = File(pathPIC);
                       try {
-                        await storage.ref('travel/travel_sea_$i').putFile(file);
+                        await storage.ref('travel/travel_mountain_$i').putFile(file);
                         dynamic url2 = await storage
-                            .ref('travel/travel_sea_$i')
+                            .ref('travel/travel_mountain_$i')
                             .getDownloadURL();
                         setState(() {
                           edit_img = url2;
@@ -151,7 +151,6 @@ class _EditMountainDataState extends State<EditMountainData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
-              // color: Colors.purple[50],
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -268,24 +267,6 @@ class _EditMountainDataState extends State<EditMountainData> {
         );
       },
     );
-  }
-
-  //method to launch maps
-  void launchMap(travelMap) async {
-    ;
-    if (await canLaunch(travelMap)) {
-      print("Can launch");
-      void initState() {
-        super.initState();
-
-        canLaunch(travelMap);
-      }
-
-      await launch(travelMap);
-    } else {
-      print("Could not launch");
-      throw 'Could not launch Maps';
-    }
   }
 
   Widget showImage() {

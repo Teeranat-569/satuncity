@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
-
 import 'otop_data.dart';
 
 class OtopPage extends StatefulWidget {
@@ -11,7 +9,7 @@ class OtopPage extends StatefulWidget {
 
 class _OtopPageState extends State<OtopPage> {
   dynamic otopName;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
@@ -40,12 +38,9 @@ class _OtopPageState extends State<OtopPage> {
 
         return SafeArea(
           child: Scaffold(
-            // appBar: AppBar(
-            //   title: Text('สินค้า OTOP'),
-            // ),
+           
             // ignore: avoid_unnecessary_containers
             body: Container(
-              // color: Colors.purple[50],
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -76,7 +71,6 @@ class _OtopPageState extends State<OtopPage> {
                                     image: new DecorationImage(
                                         fit: BoxFit.fill,
                                         image: new NetworkImage("$url"))),
-                                // width: MediaQuery.of(context).size.width,
                                 child: Center(
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,

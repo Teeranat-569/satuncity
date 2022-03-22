@@ -11,7 +11,7 @@ class FestivalData extends StatefulWidget {
 
 class _FestivalDataState extends State<FestivalData> {
   dynamic fesName, fesData, fes_index, otopAdddress;
-  String url;
+ dynamic url;
   dynamic _image;
   List<dynamic> yy = [];
 

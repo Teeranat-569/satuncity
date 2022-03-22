@@ -12,7 +12,7 @@ class EditSeaPage extends StatefulWidget {
 class _EditSeaPageState extends State<EditSeaPage> {
   dynamic travelName;
   dynamic travelCate;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel')

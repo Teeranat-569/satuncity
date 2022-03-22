@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:satuncity/screen/admin/admin.dart';import 'package:path/path.dart' as Path;
@@ -19,7 +18,7 @@ class Addrestaurant extends StatefulWidget {
 }
 
 class _AddrestaurantState extends State<Addrestaurant> {
-  String restaurant_name,
+  dynamic restaurant_name,
       pathPIC,
       restaurant_data,
       restaurant_map,
@@ -45,9 +44,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
         actions: [
           TextButton(
               onPressed: () async {
-                // setState(() {
-                //   uploading = true;
-                // });
+               
                 uploadFile().whenComplete(() {
                   MaterialPageRoute materialPageRoute = MaterialPageRoute(
                       builder: (BuildContext context) => Admin());
@@ -55,7 +52,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
                       materialPageRoute, (Route<dynamic> route) => false);
                 });
                 await firebase_core.Firebase.initializeApp();
-                // addTravel();
               },
               child: Text(
                 'เพิ่มร้านอาหาร',
@@ -126,15 +122,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
                       ],
                     ))
                   : Container(),
-              // showImage(),
-              // IconButton(
-              //     onPressed: () {
-              //       getImage();
-              //     },
-              //     icon: const Icon(
-              //       Icons.file_upload,
-              //       size: 40,
-              //     )),
+            
               const SizedBox(
                 height: 15,
               ),
@@ -159,7 +147,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
                   ),
                 ],
               ),
-              // button()
             ],
           ),
         ),
@@ -217,7 +204,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           prefixIcon: Icon(Icons.drive_file_rename_outline)),
     );
@@ -228,7 +215,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
       onChanged: (value) => restaurant_data = value.trim(),
       controller: restaurantDataController,
       maxLines: 3,
-      // keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: 'ข้อมูลร้านอาหาร',
           hintTextDirection: TextDirection.ltr,
@@ -236,7 +222,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           prefixIcon: Icon(Icons.description)),
     );
@@ -254,7 +240,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),prefixIcon: Icon(Icons.room)),
     );
   }
@@ -263,8 +249,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
     return TextField(
       onChanged: (value) => restaurant_map = value.trim(),
       controller: restaurantMapController,
-      // maxLines: 3,
-      // keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
           hintText: 'ลิ้งก์จาก Google Map',
           hintTextDirection: TextDirection.ltr,
@@ -272,7 +256,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey[400], style: BorderStyle.solid)),
+                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -305,89 +289,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
       }
     });
   }
-
-  // Widget button() {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8.0),
-  //     child: Container(
-  //       width: 200,
-  //       child: RaisedButton(
-  //         child: const Text("เพิ่มร้านอาหาร",
-  //             style: TextStyle(
-  //               fontSize: 20,
-  //               color: Colors.white,
-  //               fontWeight: FontWeight.bold,
-  //             )),
-  //         onPressed: () async {
-  //           Random random = Random();
-  //           int i = random.nextInt(100000);
-  //           await firebase_core.Firebase.initializeApp();
-  //           final firebase_storage.FirebaseStorage storage =
-  //               firebase_storage.FirebaseStorage.instance;
-  //           File file = File(pathPIC);
-  //           // print('222222222222222222222222222222 ${pathPIC},');
-  //           try {
-  //             await storage.ref('restaurant/restaurant_$i').putFile(file);
-  //             dynamic url = await storage
-  //                 .ref('restaurant/restaurant_$i')
-  //                 .getDownloadURL();
-  //             img = url;
-  //             // print('7777777777777777777777777777travel$i');
-  //             print('7777777777777777777777777777$img');
-  //             print('77777777777777777222222222222277777777777$url');
-  //           } on firebase_core.FirebaseException catch (e) {
-  //             // ignore: avoid_print
-  //             print(e);
-  //           }
-  //           // print(
-  //           //     '7777777777777777777-------------------------------------777777777 ');
-  //           addTravel();
-
-  //           print(
-  //               '7777777777777777777777eeeeeeeeeeeeeeeeee777777restaurant_$i.jpg');
-  //           // print('7777777777777777777777777777$img');
-  //           // addTravel();
-  //         },
-  //         shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(14.0),
-  //             side: const BorderSide(color: Colors.cyan)),
-  //         color: Colors.cyan,
-  //         textColor: Colors.white,
-  //         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-  //         splashColor: Colors.grey,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // CollectionReference restaurant =
-  //     FirebaseFirestore.instance.collection('restaurant');
-  // Future<void> addTravel() {
-  //   // ignore: unnecessary_statements
-  //   if (img == null || img == '') img == "ไม่มี";
-  //   return restaurant.add({
-  //     'res_name': restaurant_name,
-  //     'res-data': restaurant_data,
-  //     // 'res_pic': img,
-  //     'res_map': restaurant_map,
-  //     'res_address': restaurantAddress
-  //   }).then((value) {
-  //     print("3636363636363636363636363636363636363636363636363636363636363636" +
-  //         restaurant_name);
-  //     Fluttertoast.showToast(
-  //       msg: "เพิ่มสถานที่ท่องเที่ยวสำเร็จ",
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.CENTER,
-  //       backgroundColor: Colors.purple[100],
-  //       textColor: Colors.black,
-  //     );
-  //     MaterialPageRoute materialPageRoute =
-  //         MaterialPageRoute(builder: (BuildContext context) => Admin());
-  //     Navigator.of(context).pushAndRemoveUntil(
-  //         materialPageRoute, (Route<dynamic> route) => false);
-  //     // ignore: avoid_print, invalid_return_type_for_catch_error
-  //   }).catchError((error) => print("Failed to add user: $error"));
-  // }
 
   chooseImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);

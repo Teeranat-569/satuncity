@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'package:satuncity/screen/OTHER/search_page.dart';
+import 'package:satuncity/screen/OTHER/review/search_page.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
 import 'review_page.dart';
 
 class Post extends StatefulWidget {
@@ -17,8 +15,8 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   final _formKey = GlobalKey<FormState>();
-  String comments;
-  double valued;
+  dynamic comments;
+  dynamic valued;
   var rating = 0.0;
   TextEditingController textEditingController = TextEditingController();
   @override
@@ -112,7 +110,7 @@ class _PostState extends State<Post> {
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 2,
-                                        color: Colors.grey[400],
+                                        color: Colors.grey.shade400,
                                         style: BorderStyle.solid)),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide.none)),
@@ -128,13 +126,10 @@ class _PostState extends State<Post> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // MyStyle().sizedBox20(),
-                  // Text('โปรดให้คะแนนการซ่อมบำรุงเพื่อประเมินความพึงพอใจ'),
-                  // SizedBox(height: 50),
                   Center(
                       child: SmoothStarRating(
                     borderColor: Colors.orange.shade700,
-                    color: Colors.pink[900],
+                    color: Colors.pink.shade900,
                     rating: rating,
                     isReadOnly: false,
                     size: 35,
@@ -152,9 +147,6 @@ class _PostState extends State<Post> {
                     },
                   )),
                   SizedBox(height: 50),
-
-                  // nameForm(),
-                  // ignore: deprecated_member_use
                 ],
               ),
             ],
@@ -167,17 +159,23 @@ class _PostState extends State<Post> {
   CollectionReference travel_sea =
       FirebaseFirestore.instance.collection('comment');
   Future<void> addReview() {
-    // ignore: unnecessary_statements
-    // if (img == null || img == '') img == "ไม่มี";
+
+     DateTime currentPhoneDate = DateTime.now(); //DateTime
+
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+
+    DateTime myDateTime = myTimeStamp.toDate(); // TimeStamp to DateTime
+
+    print("current phone data is: $currentPhoneDate");
+    print("current phone data is: $myDateTime");
     return travel_sea.add({
       'travelName': widget.travelName,
       'comment': textEditingController.text,
       'pic': widget.picUrl,
       'rate': valued,
-      // 'travelCate': dropdownvalue,
+      'timeago' : myDateTime,
     }).then((value) {
-      // ignore: avoid_print
-      // print('7777777777777777777----------bbbbb$img');
+      // ignore: 
       print(
           '7777777777777777777------------------------555555555-------------777777777' +
               widget.travelName);
@@ -196,4 +194,20 @@ class _PostState extends State<Post> {
       // ignore: avoid_print, invalid_return_type_for_catch_error
     }).catchError((error) => print("Failed to add user: $error"));
   }
+
+  String convertToAgo(DateTime input){
+  Duration diff = DateTime.now().difference(input);
+  
+  if(diff.inDays >= 1){
+    return '${diff.inDays} day(s) ago';
+  } else if(diff.inHours >= 1){
+    return '${diff.inHours} hour(s) ago';
+  } else if(diff.inMinutes >= 1){
+    return '${diff.inMinutes} minute(s) ago';
+  } else if (diff.inSeconds >= 1){
+    return '${diff.inSeconds} second(s) ago';
+  } else {
+    return 'just now';
+  }
+}
 }

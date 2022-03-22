@@ -19,7 +19,7 @@ class EditOtopData extends StatefulWidget {
 
 class _EditOtopDataState extends State<EditOtopData> {
   dynamic otopName, otopData, otopMap, otopAdddress,pathPIC;
-  String url,edit_otopName,edit_otopData,edit_otopMap;
+  dynamic url,edit_otopName,edit_otopData,edit_otopMap;
   dynamic _image,edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
@@ -73,9 +73,9 @@ var collection = FirebaseFirestore.instance.collection('otop');
                     if (pathPIC != null) {
                       File file = File(pathPIC);
                       try {
-                        await storage.ref('travel/travel_sea_$i').putFile(file);
+                        await storage.ref('otop/otop_$i').putFile(file);
                         dynamic url2 = await storage
-                            .ref('travel/travel_sea_$i')
+                            .ref('otop/otop_$i')
                             .getDownloadURL();
                         setState(() {
                           edit_img = url2;
@@ -229,28 +229,6 @@ var collection = FirebaseFirestore.instance.collection('otop');
                                   padding: const EdgeInsets.only(left: 25),
                                   child:
                                       _editTitleTextField_2(data['otop-data'])),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(8.0),
-                              //   child: Container(
-                              //     width: MediaQuery.of(context).size.width,
-                              //     decoration: BoxDecoration(
-                              //       borderRadius: BorderRadius.circular(10.0),
-                              //       color: Colors.green,
-                              //     ),
-                              //     child: const Padding(
-                              //       padding: EdgeInsets.all(8.0),
-                              //       child: Text(
-                              //         'พิกัด',
-                              //         style: TextStyle(
-                              //             fontSize: 20, color: Colors.white),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //     padding: const EdgeInsets.only(left: 25),
-                              //     child: _editTitleTextField_3(
-                              //         data['travel_map'])),
                             ],
                           ),
                     ],

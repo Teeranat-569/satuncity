@@ -12,7 +12,7 @@ class EditRegionPage extends StatefulWidget {
 class _EditRegionPageState extends State<EditRegionPage> {
   dynamic travelName;
   dynamic travelCate;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_region')

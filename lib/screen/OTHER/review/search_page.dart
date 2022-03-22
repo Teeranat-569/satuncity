@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/OTHER/post.dart';
+import 'package:satuncity/screen/OTHER/review/post.dart';
 
 class Search extends StatefulWidget {
   dynamic travelName, travelCate;
@@ -15,8 +15,6 @@ class _SearchState extends State<Search> {
   dynamic searchString, result;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_name').snapshots();
-
-  // final database = FirebaseFirestore.instance;
   @override
   void initState() {
     super.initState();
@@ -111,10 +109,6 @@ class _SearchState extends State<Search> {
                       Text(document['name']),
                     ],
                   ));
-
-              // ListTile(
-              //   title: Text(document['product']),
-              // );
             }).toList());
         }
       },

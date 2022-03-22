@@ -1,8 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/OTHER/festival_page.dart';
-import 'package:satuncity/screen/OTHER/review_page.dart';
+import 'package:satuncity/screen/OTHER/festival/festival_page.dart';
+import 'package:satuncity/screen/OTHER/review/review_page.dart';
 import 'package:satuncity/screen/OTHER/westher.dart';
 import 'package:satuncity/screen/Food/food_page.dart';
 

@@ -10,7 +10,7 @@ class EditOtopPage extends StatefulWidget {
 
 class _EditOtopPageState extends State<EditOtopPage> {
   dynamic otopName;
-  String url;
+  dynamic url;
   dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();

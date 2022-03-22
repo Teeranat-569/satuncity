@@ -2,13 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_page.dart';
-import 'package:satuncity/screen/admin/add_travel.dart';
-import 'package:satuncity/screen/admin/add_otop.dart';
-import 'package:satuncity/screen/admin/add_restaurant.dart';
 import 'package:satuncity/screen/admin/edit/Food/edit_food_page.dart';
 import 'package:satuncity/screen/admin/edit/Otop/edit_otop_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import '../../Login/login.dart';
 import '../admin.dart';
 import 'edit_travel.dart';
 
@@ -111,10 +108,10 @@ class _EditPageState extends State<EditPage> {
     // ignore: avoid_print
     print('SIgnOut>>>>>>>>>>>>>>>>>>>>successssssssss');
     await FirebaseAuth.instance.signOut();
-    // MaterialPageRoute materialPageRoute =
-    //     MaterialPageRoute(builder: (BuildContext context) => LoginPage());
-    // await Navigator.of(context)
-    //     .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
+    MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext context) => LoginPage());
+    await Navigator.of(context)
+        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
     Fluttertoast.showToast(
       msg: "ออกจากระบบ",
       toastLength: Toast.LENGTH_SHORT,
@@ -163,24 +160,21 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  void _launchURL(String _url) async {
-    if (!await launch(_url)) throw 'Could not launch $_url';
-  }
-
   Widget listMenu(Icon icon, String title, int admin) {
     return ListTile(
       leading: icon,
       title: Text(title),
       onTap: () {
-        route(pageAdmin[admin]);
-        // _launchURL('https://goo.gl/maps/eEgoNRvepKtraS1U9');
+       route(pageAdmin[admin]);
       },
     );
   }
-
-  Future<Null> route(Widget routeName) async {
+Future<Null> route(Widget routeName) async {
     MaterialPageRoute materialPageRoute =
         MaterialPageRoute(builder: (BuildContext context) => routeName);
     await Navigator.of(context).push(materialPageRoute);
   }
+
+
+ 
 }

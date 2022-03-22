@@ -17,7 +17,7 @@ class _WestherState extends State<Westher> {
     getapi();
   }
 
-  double ss;
+  dynamic ss;
 
   void getapi() async {
     var response = await http.post(urlapi);
