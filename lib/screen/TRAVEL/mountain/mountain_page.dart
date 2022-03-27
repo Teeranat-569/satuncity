@@ -1,8 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'mountain_data.dart';
-
 
 class MountainPage extends StatefulWidget {
   dynamic travelCate;
@@ -15,12 +16,12 @@ class _MountainPageState extends State<MountainPage> {
   dynamic travelName;
   dynamic travelCate;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_mountain')
       .where('travelCate')
       .snapshots();
-  CollectionReference users = FirebaseFirestore.instance.collection('travel_mountain');
+  CollectionReference users =
+      FirebaseFirestore.instance.collection('travel_mountain');
 
   @override
   Widget build(BuildContext context) {
@@ -98,12 +99,22 @@ class _MountainPageState extends State<MountainPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => MountainData(
+                                  builder: (BuildContext context) =>
+                                      MountainData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));
                               Navigator.push(context, route);
                             },
+                          )
+                        else
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'ไม่มีข้อมูล "${widget.travelCate}"',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey),
+                            ),
                           )
                       ],
                     ),

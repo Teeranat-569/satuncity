@@ -6,6 +6,8 @@ import 'package:satuncity/screen/OTHER/review/review_page.dart';
 import 'package:satuncity/screen/OTHER/westher.dart';
 import 'package:satuncity/screen/Food/food_page.dart';
 
+import 'OTHER/trip_page.dart';
+
 class Other extends StatefulWidget {
   @override
   _OtherState createState() => _OtherState();
@@ -96,6 +98,27 @@ class _OtherState extends State<Other> {
     );
   }
 
+  Widget icontrip() {
+    return OutlineButton(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.airport_shuttle,
+            size: 60.0,
+          ),
+          Text("การเดินทาง")
+        ],
+      ),
+      borderSide: BorderSide.none,
+      onPressed: () {
+        MaterialPageRoute route =
+            MaterialPageRoute(builder: (BuildContext context) => TripPage());
+        Navigator.push(context, route);
+      },
+    );
+  }
+
   Widget row2() {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -119,7 +142,10 @@ class _OtherState extends State<Other> {
           children: [
             row1(),
             Padding(padding: EdgeInsets.only(bottom: 25.0)),
-            row2()
+            row2(),
+                        Padding(padding: EdgeInsets.only(bottom: 25.0)),
+
+            icontrip()
           ],
         ),
       ),

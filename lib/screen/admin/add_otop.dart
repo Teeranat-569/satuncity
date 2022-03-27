@@ -20,6 +20,7 @@ class AddOtop extends StatefulWidget {
 
 class _AddOtopState extends State<AddOtop> {
   
+  // ignore: non_constant_identifier_names
   dynamic otop_name, pathPIC, otop_data, otop_map;
   dynamic img;
   TextEditingController otopNameController = TextEditingController();
@@ -184,7 +185,6 @@ class _AddOtopState extends State<AddOtop> {
 
   Future getImage() async {
     final pickedFile =
-        // ignore: deprecated_member_use
         await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {

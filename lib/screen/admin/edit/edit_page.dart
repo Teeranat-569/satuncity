@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_page.dart';
 import 'package:satuncity/screen/admin/edit/Food/edit_food_page.dart';
 import 'package:satuncity/screen/admin/edit/Otop/edit_otop_page.dart';
+import 'package:satuncity/screen/admin/edit/Otop/store/edit_store_page.dart';
+import 'package:satuncity/screen/admin/edit/festival/edit_festival_page.dart';
 
 import '../../Login/login.dart';
 import '../admin.dart';
@@ -40,16 +42,19 @@ class _EditPageState extends State<EditPage> {
       ),
       appBar: AppBar(
         title: Text('แก้ไขข้อมูลสถานที่'),
+        backgroundColor: Color.fromARGB(255, 102, 38, 102),
       ),
       body: Column(
         children: [
-          cate("สถานที่ท่องเที่ยว", EditTravel(), "images/sea1.jpg"),
+          cate("สถานที่ท่องเที่ยว", EditTravel()),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),
-          cate("สินค้า OTOP", EditOtopPage(), "images/sea1.jpg"),
+          cate("สินค้า OTOP", EditOtopPage()),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),
-          cate("ร้านอาหาร", EditFoodPage(), "images/sea1.jpg"),
+          cate("ร้านขายสินค้า OTOP", EditStorePage()),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),
-          cate("งานประจำปี", SeaPage(), "images/sea1.jpg"),
+          cate("ร้านอาหาร", EditFoodPage()),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("งานประจำปี", EditFestival()),
           Padding(padding: EdgeInsets.only(bottom: 12.0)),
         ],
       ),
@@ -121,14 +126,14 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  Widget cate(var text, Widget routeName, String pathIMG) {
+  Widget cate(var text, Widget routeName) {
     //ทะเล
     return InkWell(
       child: Container(
           height: 100,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/hinngam.jpg'),
+              image: AssetImage('images/aaa.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -165,16 +170,14 @@ class _EditPageState extends State<EditPage> {
       leading: icon,
       title: Text(title),
       onTap: () {
-       route(pageAdmin[admin]);
+        route(pageAdmin[admin]);
       },
     );
   }
-Future<Null> route(Widget routeName) async {
+
+  Future<Null> route(Widget routeName) async {
     MaterialPageRoute materialPageRoute =
         MaterialPageRoute(builder: (BuildContext context) => routeName);
     await Navigator.of(context).push(materialPageRoute);
   }
-
-
- 
 }

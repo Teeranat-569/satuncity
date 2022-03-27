@@ -169,6 +169,8 @@ class _EditTravelState extends State<EditTravel> {
     return Scaffold(
         appBar: AppBar(
         title: Text('แก้ไขข้อมูลสถานที่ท่องเที่ยว'),
+                backgroundColor: Color.fromARGB(255, 102, 38, 102),
+
       ),
       body: Center(
         child: ListView(

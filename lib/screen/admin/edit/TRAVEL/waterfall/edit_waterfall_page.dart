@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/admin/edit/TRAVEL/waterfall/edit_waterfall_data.dart';
-import '../mountain/edit_mountain_data.dart';
 
 class EditWaterfallPage extends StatefulWidget {
   dynamic travelCate;
@@ -14,7 +15,6 @@ class _EditWaterfallPageState extends State<EditWaterfallPage> {
   dynamic travelName;
   dynamic travelCate;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_waterfall')
       .where('travelCate')
@@ -47,9 +47,7 @@ class _EditWaterfallPageState extends State<EditWaterfallPage> {
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
           ),
-          // ignore: avoid_unnecessary_containers
           body: Container(
-            // color: Colors.purple[50],
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
@@ -58,8 +56,6 @@ class _EditWaterfallPageState extends State<EditWaterfallPage> {
                 travelName = data['travelName'];
                 travelCate = data['travelCate'];
                 url = data['pic'].toString();
-
-                // ignore: avoid_print
                 print('4444444444444444444444444 ${data["docid"]}');
                 print('4444444444444444444444444 ${data["travelCate"]}');
                 return Padding(

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'edit_otop_data.dart';
 
-
 class EditOtopPage extends StatefulWidget {
   @override
   _EditOtopPageState createState() => _EditOtopPageState();
@@ -11,7 +10,6 @@ class EditOtopPage extends StatefulWidget {
 class _EditOtopPageState extends State<EditOtopPage> {
   dynamic otopName;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('otop');
@@ -41,10 +39,10 @@ class _EditOtopPageState extends State<EditOtopPage> {
           child: Scaffold(
             appBar: AppBar(
               title: Text('สินค้า OTOP'),
+              backgroundColor: Color.fromARGB(255, 102, 38, 102),
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
-              // color: Colors.purple[50],
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -52,7 +50,6 @@ class _EditOtopPageState extends State<EditOtopPage> {
                   data["docid"] = document.id;
                   otopName = data['otop_name'];
                   url = data['otop_pic'].toString();
-
                   // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["otop_name"]}');
@@ -67,7 +64,6 @@ class _EditOtopPageState extends State<EditOtopPage> {
                       // ignore: deprecated_member_use
                       child: Column(
                         children: [
-
                           InkWell(
                             child: Container(
                                 height: 120,
@@ -75,7 +71,6 @@ class _EditOtopPageState extends State<EditOtopPage> {
                                     image: new DecorationImage(
                                         fit: BoxFit.fill,
                                         image: new NetworkImage("$url"))),
-                                // width: MediaQuery.of(context).size.width,
                                 child: Center(
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
@@ -94,7 +89,8 @@ class _EditOtopPageState extends State<EditOtopPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => EditOtopData(
+                                  builder: (BuildContext context) =>
+                                      EditOtopData(
                                         otopName: data['otop_name'],
                                       ));
                               Navigator.push(context, route);

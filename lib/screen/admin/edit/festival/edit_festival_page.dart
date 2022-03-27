@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'edit_restaurant_data.dart';
+import 'edit_festival_data.dart';
 
-class EditFoodPage extends StatefulWidget {
+class EditFestival extends StatefulWidget {
   @override
-  _EditFoodPageState createState() => _EditFoodPageState();
+  _EditFestivalState createState() => _EditFestivalState();
 }
 
-class _EditFoodPageState extends State<EditFoodPage> {
-  dynamic resName, url;
+class _EditFestivalState extends State<EditFestival> {
+  dynamic resName;
+  dynamic url;
+  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('restaurant').snapshots();
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('restaurant');
+      FirebaseFirestore.instance.collection('festival').snapshots();
+  CollectionReference users = FirebaseFirestore.instance.collection('festival');
 
   @override
   Widget build(BuildContext context) {
@@ -37,23 +38,24 @@ class _EditFoodPageState extends State<EditFoodPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('ร้านอาหาร'),        backgroundColor: Color.fromARGB(255, 102, 38, 102),
-
+            backgroundColor: Color.fromARGB(255, 102, 38, 102),
+            title: Text('งานประจำปี'),
           ),
+          // ignore: avoid_unnecessary_containers
           body: Container(
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data() as Map<String, dynamic>;
                 data["docid"] = document.id;
-                resName = data['res_name'];
-                url = data['res_pic'].toString();
+                resName = data['fes_name'];
+                // url = data['res_pic'].toString();
 
                 // ignore: avoid_print
                 print('4444444444444444444444444 ${data["docid"]}');
-                print('4444444444444444444444444 ${data["res_name"]}');
+                print('4444444444444444444444444 ${data["fes_name"]}');
                 return Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
@@ -67,11 +69,11 @@ class _EditFoodPageState extends State<EditFoodPage> {
                           children: [
                             InkWell(
                               child: Container(
-                                color: Colors.cyan,
+                                color: Colors.deepOrange.shade700,
                                 height: 50,
                                 width: 50,
                                 child: Icon(
-                                  Icons.restaurant,
+                                  Icons.festival,
                                   size: 40,
                                   color: Colors.white,
                                 ),
@@ -80,19 +82,18 @@ class _EditFoodPageState extends State<EditFoodPage> {
                             ),
                             InkWell(
                               child: Container(
-                                  height: 100,
+                                  height: 50,
                                   width: 300,
                                   child: Center(
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
-                                      color: Color.fromARGB(112, 11, 60, 75),
+                                      // color: Color.fromARGB(112, 11, 60, 75),
                                       child: Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          data['res_name'],
+                                          data['fes_name'],
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
+                                              fontSize: 18,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -100,8 +101,9 @@ class _EditFoodPageState extends State<EditFoodPage> {
                                   )),
                               onTap: () {
                                 MaterialPageRoute route = MaterialPageRoute(
-                                    builder: (BuildContext context) => EditFoodData(
-                                          resName: data['res_name'],
+                                    builder: (BuildContext context) =>
+                                        EditFestivalData(
+                                          fesName: data['fes_name'],
                                         ));
                                 Navigator.push(context, route);
                               },

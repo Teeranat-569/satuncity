@@ -2,14 +2,12 @@
 
 import 'dart:io';
 import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-
 import '../edit_page.dart';
 
 // ignore: must_be_immutable
@@ -74,6 +72,7 @@ class _EditFoodDataState extends State<EditFoodData> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(widget.resName),
+              backgroundColor: Color.fromARGB(255, 102, 38, 102),
               actions: [
                 TextButton(
                   onPressed: () async {
@@ -82,7 +81,6 @@ class _EditFoodDataState extends State<EditFoodData> {
                     await firebase_core.Firebase.initializeApp();
                     final firebase_storage.FirebaseStorage storage =
                         firebase_storage.FirebaseStorage.instance;
-
                     if (pathPIC != null) {
                       File file = File(pathPIC);
                       try {

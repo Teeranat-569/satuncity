@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:math';
 
@@ -11,25 +13,25 @@ import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import '../edit_page.dart';
 
 class EditOtopData extends StatefulWidget {
-  dynamic otopName,docid;
-  EditOtopData({Key key, this.otopName,this.docid}) : super(key: key);
+  dynamic otopName, docid;
+  EditOtopData({Key key, this.otopName, this.docid}) : super(key: key);
   @override
   _EditOtopDataState createState() => _EditOtopDataState();
 }
 
 class _EditOtopDataState extends State<EditOtopData> {
-  dynamic otopName, otopData, otopMap, otopAdddress,pathPIC;
-  dynamic url,edit_otopName,edit_otopData,edit_otopMap;
-  dynamic _image,edit_img;
+  dynamic otopName, otopData, otopMap, otopAdddress, pathPIC;
+  dynamic url, edit_otopName, edit_otopData, edit_otopMap;
+  dynamic _image, edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('otop');
-var collection = FirebaseFirestore.instance.collection('otop');
+  var collection = FirebaseFirestore.instance.collection('otop');
   TextEditingController textEditingController = TextEditingController();
   TextEditingController textEditingController_2 = TextEditingController();
   TextEditingController textEditingController_3 = TextEditingController();
 
- @override
+  @override
   void dispose() {
     textEditingController.dispose();
     textEditingController_2.dispose();
@@ -61,89 +63,88 @@ var collection = FirebaseFirestore.instance.collection('otop');
         return Scaffold(
           appBar: AppBar(
             title: Text(widget.otopName),
-               actions: [
-                TextButton(
-                  onPressed: () async {
-                    Random random = Random();
-                    int i = random.nextInt(100000);
-                    await firebase_core.Firebase.initializeApp();
-                    final firebase_storage.FirebaseStorage storage =
-                        firebase_storage.FirebaseStorage.instance;
+            backgroundColor: Color.fromARGB(255, 102, 38, 102),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  Random random = Random();
+                  int i = random.nextInt(100000);
+                  await firebase_core.Firebase.initializeApp();
+                  final firebase_storage.FirebaseStorage storage =
+                      firebase_storage.FirebaseStorage.instance;
 
-                    if (pathPIC != null) {
-                      File file = File(pathPIC);
-                      try {
-                        await storage.ref('otop/otop_$i').putFile(file);
-                        dynamic url2 = await storage
-                            .ref('otop/otop_$i')
-                            .getDownloadURL();
-                        setState(() {
-                          edit_img = url2;
-                        });
-                        collection
-                            .doc(widget
-                                .docid) // <-- Doc ID where data should be updated.
-                            .update({
-                          'otop_name': textEditingController.text,
-                          // 'travel_map': t,
-                          'otop-data': textEditingController_2.text,
-                          'otop_pic': edit_img,
-                        });
-                        Fluttertoast.showToast(
-                          msg: "แก้ไขสำเร็จ",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          backgroundColor: Colors.orange[100],
-                          textColor: Colors.black,
-                        );
+                  if (pathPIC != null) {
+                    File file = File(pathPIC);
+                    try {
+                      await storage.ref('otop/otop_$i').putFile(file);
+                      dynamic url2 =
+                          await storage.ref('otop/otop_$i').getDownloadURL();
+                      setState(() {
+                        edit_img = url2;
+                      });
+                      collection
+                          .doc(widget
+                              .docid) // <-- Doc ID where data should be updated.
+                          .update({
+                        'otop_name': textEditingController.text,
+                        // 'travel_map': t,
+                        'otop-data': textEditingController_2.text,
+                        'otop_pic': edit_img,
+                      });
+                      Fluttertoast.showToast(
+                        msg: "แก้ไขสำเร็จ",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        backgroundColor: Colors.orange[100],
+                        textColor: Colors.black,
+                      );
 
-                        print('7777777777777777777777777777$edit_img');
-                        print(
-                            '77777777777777777222222eeeeeeeeee222222277777777777$url2');
-                      } on firebase_core.FirebaseException catch (e) {
-                        // ignore: avoid_print
-                        print(e);
-                      }
-                      MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                          builder: (BuildContext context) => EditPage());
-                      Navigator.of(context).pushAndRemoveUntil(
-                          materialPageRoute, (Route<dynamic> route) => false);
-                    } else {
-                      try {
-                        collection
-                            .doc(widget
-                                .docid) // <-- Doc ID where data should be updated.
-                            .update({
-                         'otop_name': textEditingController.text,
-                          // 'travel_map': t,
-                          'otop-data': textEditingController_2.text,
-                        });
-                        Fluttertoast.showToast(
-                          msg: "แก้ไขสำเร็จ",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          backgroundColor: Colors.orange[100],
-                          textColor: Colors.black,
-                        );
-                       
-                        print(
-                            '7777777777777777777777777777${textEditingController.text}');
-                      } on firebase_core.FirebaseException catch (e) {
-                        // ignore: avoid_print
-                        print(e);
-                      }
-                      MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                          builder: (BuildContext context) => EditPage());
-                      Navigator.of(context).pushAndRemoveUntil(
-                          materialPageRoute, (Route<dynamic> route) => false);
+                      print('7777777777777777777777777777$edit_img');
+                      print(
+                          '77777777777777777222222eeeeeeeeee222222277777777777$url2');
+                    } on firebase_core.FirebaseException catch (e) {
+                      // ignore: avoid_print
+                      print(e);
                     }
-                  },
-                  child: Text(
-                    'แก้ไข',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
-              ],
+                    MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                        builder: (BuildContext context) => EditPage());
+                    Navigator.of(context).pushAndRemoveUntil(
+                        materialPageRoute, (Route<dynamic> route) => false);
+                  } else {
+                    try {
+                      collection
+                          .doc(widget
+                              .docid) // <-- Doc ID where data should be updated.
+                          .update({
+                        'otop_name': textEditingController.text,
+                        // 'travel_map': t,
+                        'otop-data': textEditingController_2.text,
+                      });
+                      Fluttertoast.showToast(
+                        msg: "แก้ไขสำเร็จ",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        backgroundColor: Colors.orange[100],
+                        textColor: Colors.black,
+                      );
+
+                      print(
+                          '7777777777777777777777777777${textEditingController.text}');
+                    } on firebase_core.FirebaseException catch (e) {
+                      print(e);
+                    }
+                    MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                        builder: (BuildContext context) => EditPage());
+                    Navigator.of(context).pushAndRemoveUntil(
+                        materialPageRoute, (Route<dynamic> route) => false);
+                  }
+                },
+                child: Text(
+                  'แก้ไข',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
@@ -167,70 +168,69 @@ var collection = FirebaseFirestore.instance.collection('otop');
                     children: [
                       Padding(padding: EdgeInsets.only(top: 10)),
                       if (data['otop_name'] == widget.otopName)
-                       Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  showImage(),
-                                  IconButton(
-                                      onPressed: () {
-                                        getImage();
-                                      },
-                                      icon: const Icon(
-                                        Icons.file_upload,
-                                        size: 40,
-                                      )),
-                                ],
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 10)),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.green,
-                                  ),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'ชื่อสินค้า',
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                showImage(),
+                                IconButton(
+                                    onPressed: () {
+                                      getImage();
+                                    },
+                                    icon: const Icon(
+                                      Icons.file_upload,
+                                      size: 40,
+                                    )),
+                              ],
+                            ),
+                            Padding(padding: EdgeInsets.only(top: 10)),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.green,
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'ชื่อสินค้า',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 25),
-                                  child:
-                                      _editTitleTextField(data['otop_name'])),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.green,
-                                  ),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'ลักษณะเด่น',
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 25),
+                                child: _editTitleTextField(data['otop_name'])),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.green,
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'ลักษณะเด่น',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 25),
-                                  child:
-                                      _editTitleTextField_2(data['otop-data'])),
-                            ],
-                          ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 25),
+                                child:
+                                    _editTitleTextField_2(data['otop-data'])),
+                          ],
+                        ),
                     ],
                   ),
                 );
@@ -300,21 +300,6 @@ var collection = FirebaseFirestore.instance.collection('otop');
           });
         },
         controller: textEditingController_2,
-      ),
-    );
-  }
-
-  Widget _editTitleTextField_3(dynamic kk) {
-    textEditingController_3 = TextEditingController(text: kk);
-
-    return Center(
-      child: TextField(
-        onSubmitted: (newValue) {
-          setState(() {
-            edit_otopMap = newValue;
-          });
-        },
-        controller: textEditingController_3,
       ),
     );
   }

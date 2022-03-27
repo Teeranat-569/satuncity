@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'edit_sea_data.dart';
@@ -13,7 +15,6 @@ class _EditSeaPageState extends State<EditSeaPage> {
   dynamic travelName;
   dynamic travelCate;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel')
       .where('travelCate')
@@ -44,6 +45,8 @@ class _EditSeaPageState extends State<EditSeaPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
+                    backgroundColor: Color.fromARGB(255, 102, 38, 102),
+
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(

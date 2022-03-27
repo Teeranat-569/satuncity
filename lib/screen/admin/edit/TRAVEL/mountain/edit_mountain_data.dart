@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, deprecated_member_use, must_be_immutable
+
 import 'dart:io';
 import 'dart:math';
 
@@ -5,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -65,6 +66,7 @@ class _EditMountainDataState extends State<EditMountainData> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(widget.travelName),
+              backgroundColor: Color.fromARGB(255, 102, 38, 102),
               actions: [
                 TextButton(
                   onPressed: () async {
@@ -77,7 +79,9 @@ class _EditMountainDataState extends State<EditMountainData> {
                     if (pathPIC != null) {
                       File file = File(pathPIC);
                       try {
-                        await storage.ref('travel/travel_mountain_$i').putFile(file);
+                        await storage
+                            .ref('travel/travel_mountain_$i')
+                            .putFile(file);
                         dynamic url2 = await storage
                             .ref('travel/travel_mountain_$i')
                             .getDownloadURL();
@@ -149,7 +153,6 @@ class _EditMountainDataState extends State<EditMountainData> {
                 )
               ],
             ),
-            // ignore: avoid_unnecessary_containers
             body: Container(
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
@@ -161,8 +164,6 @@ class _EditMountainDataState extends State<EditMountainData> {
                   positive = data['positive'];
                   travelMap = data['travel_map'];
                   url = data['pic'].toString();
-
-                  // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["travelCate"]}');
                   return Center(
@@ -171,7 +172,7 @@ class _EditMountainDataState extends State<EditMountainData> {
                         Padding(padding: EdgeInsets.only(top: 10)),
                         if (data['travelCate'] == widget.travelCate &&
                             data['travelName'] == widget.travelName)
-                       Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -272,7 +273,6 @@ class _EditMountainDataState extends State<EditMountainData> {
   Widget showImage() {
     return Container(
         decoration: BoxDecoration(
-            // color: Colors.grey[200],
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         width: 250.0,
         height: 150.0,
@@ -287,7 +287,6 @@ class _EditMountainDataState extends State<EditMountainData> {
 
   Future getImage() async {
     final pickedFile =
-        // ignore: deprecated_member_use
         await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
@@ -345,6 +344,4 @@ class _EditMountainDataState extends State<EditMountainData> {
       ),
     );
   }
-
- 
 }

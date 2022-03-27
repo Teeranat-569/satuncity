@@ -7,11 +7,12 @@ import 'package:satuncity/screen/admin/add_otop.dart';
 import 'package:satuncity/screen/admin/add_restaurant.dart';
 
 import '../Login/login.dart';
+import 'add_otop_store.dart';
 import 'edit/edit_page.dart';
 
 class Admin extends StatefulWidget {
-  const Admin({Key key}) : super(key: key);
-
+  dynamic username;
+  Admin({Key key, this.username}) : super(key: key);
   @override
   _AdminState createState() => _AdminState();
 }
@@ -20,40 +21,50 @@ class _AdminState extends State<Admin> {
   List<Widget> pageAdmin = [Admin(), EditPage()];
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        drawer: Drawer(
-          child: Column(children: [
-            SafeArea(
-              child: ListTile(
-                leading: Icon(Icons.logout),
-                title: Text("ออกจากระบบ"),
-                onTap: () => myAlert(),
-              ),
+    return Scaffold(
+      drawer: Drawer(
+        child: Column(children: [
+          const DrawerHeader(
+            child: Center(
+                child: Text(
+              'Admin',
+              style: TextStyle(fontSize: 50),
+            )),
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              color: Colors.red,
             ),
-            Divider(
-              color: Colors.black,
-              height: 10,
-            ),
-            listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
-            listMenu(Icon(Icons.edit), 'แก้ไขข้อมูลสถานที่', 1)
-          ]),
-        ),
-        appBar: AppBar(
-          title: Text('เพิ่มข้อมูลสถานที่'),
-        ),
-        body: Column(
-          children: [
-            cate("สถานที่ท่องเที่ยว", AddTravel(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            cate("สินค้า OTOP", AddOtop(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            cate("ร้านอาหาร", Addrestaurant(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-            cate("งานประจำปี", AddFestival(), "images/sea1.jpg"),
-            Padding(padding: EdgeInsets.only(bottom: 12.0)),
-          ],
-        ),
+            title: Text("ออกจากระบบ"),
+            onTap: () => myAlert(),
+          ),
+          Divider(
+            color: Colors.black,
+            height: 10,
+          ),
+          listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
+          listMenu(Icon(Icons.edit), 'แก้ไขข้อมูลสถานที่', 1)
+        ]),
+      ),
+      appBar: AppBar(
+        title: Text('เพิ่มข้อมูลสถานที่'),
+      ),
+      body: Column(
+        children: [
+          cate("สถานที่ท่องเที่ยว", AddTravel(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("สินค้า OTOP", AddOtop(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("ร้านขายสินค้า OTOP", AddOtopStore(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("ร้านอาหาร", Addrestaurant(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+          cate("งานประจำปี", AddFestival(), "images/sea1.jpg"),
+          Padding(padding: EdgeInsets.only(bottom: 12.0)),
+        ],
       ),
     );
   }
@@ -174,6 +185,4 @@ class _AdminState extends State<Admin> {
         MaterialPageRoute(builder: (BuildContext context) => routeName);
     await Navigator.of(context).push(materialPageRoute);
   }
-
-
 }

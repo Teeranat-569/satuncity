@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'dart:io';
 import 'dart:math';
@@ -277,7 +277,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
 
   Future getImage() async {
     final pickedFile =
-        // ignore: deprecated_member_use
         await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
@@ -315,8 +314,6 @@ class _AddrestaurantState extends State<Addrestaurant> {
   Future uploadFile() async {
     int i = 1;
     List<String> indexList = [];
-    Random o = Random();
-    int oR = o.nextInt(10000);
     for (var img in _imagef) {
       
         val = i / _imagef.length;

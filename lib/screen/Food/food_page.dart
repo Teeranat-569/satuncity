@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
-
 import 'restaurant_data.dart';
-import '../Otop/otop_data.dart';
 
 class FoodPage extends StatefulWidget {
   @override
@@ -13,7 +10,6 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> {
   dynamic resName;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
   CollectionReference users =

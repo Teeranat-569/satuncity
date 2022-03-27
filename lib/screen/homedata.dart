@@ -10,6 +10,7 @@ class Homedata extends StatefulWidget {
 class _HomedataState extends State<Homedata> {
   List<String> yy = [];
   List<String> name = [];
+  // ignore: non_constant_identifier_names
   dynamic indexx, index_r, travel_name, index_r2;
 
   @override
@@ -79,12 +80,12 @@ class _HomedataState extends State<Homedata> {
         );
       }).toList(),
     );
-    Container(
-      padding: EdgeInsets.only(top: 15.0),
-      width: MediaQuery.of(context).size.width * 0.3,
-      height: MediaQuery.of(context).size.height * 0.3,
-      child: Image.asset("images/aaa.jpg"),
-    );
+    // Container(
+    //   padding: EdgeInsets.only(top: 15.0),
+    //   width: MediaQuery.of(context).size.width * 0.3,
+    //   height: MediaQuery.of(context).size.height * 0.3,
+    //   child: Image.asset("images/aaa.jpg"),
+    // );
   }
 
   Widget imgtest() {

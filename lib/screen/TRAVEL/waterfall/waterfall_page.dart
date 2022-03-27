@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../mountain/mountain_data.dart';
@@ -13,7 +15,6 @@ class _WaterfallPageState extends State<WaterfallPage> {
   dynamic travelName;
   dynamic travelCate;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_waterfall')
       .where('travelCate')
@@ -103,6 +104,14 @@ class _WaterfallPageState extends State<WaterfallPage> {
                                       ));
                               Navigator.push(context, route);
                             },
+                          ) else
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'ไม่มีข้อมูล "${widget.travelCate}"',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey),
+                            ),
                           )
                       ],
                     ),

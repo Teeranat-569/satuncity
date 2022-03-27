@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'dart:io';
 import 'dart:math';
@@ -348,7 +348,6 @@ class _AddTravelState extends State<AddTravel> {
 
   Future getImage() async {
     final pickedFile =
-        // ignore: deprecated_member_use
         await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, unused_element
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,7 +14,6 @@ class SeaData extends StatefulWidget {
 class _SeaDataState extends State<SeaData> {
   dynamic travelName, travelCate, positive, travelMap;
  dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel');
@@ -144,7 +145,6 @@ class _SeaDataState extends State<SeaData> {
 
   //method to launch maps
   void launchMap(travelMap) async {
-    ;
     if (await canLaunch(travelMap)) {
       print("Can launch");
       void initState() {

@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unused_local_variable
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,28 +20,45 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   dynamic username, password;
   FirebaseAuth firebase = FirebaseAuth.instance;
+//  User  user = FirebaseAuth.getInstance().getCurrentUser();
 
   @override
   void initState() {
     super.initState();
+
     FirebaseAuth.instance.authStateChanges().listen((User user) {
       if (user == null) {
-        print('User is currently signed out!');
       } else {
         print('User is signed in!');
+        String uid = user.uid; // <-- User ID
+        String email = user.email;
+        // String username = user.
+        print('kkkkkkkkkkkkkk-------kkkkkkkkk $email');
+        print('User is currently signed out!');
         MaterialPageRoute materialPageRoute = MaterialPageRoute(
             builder: (BuildContext context) => Home(
-                  username: username,
+                  username: email,
                 ));
+
         Navigator.of(context).pushAndRemoveUntil(
             materialPageRoute, (Route<dynamic> route) => false);
-        print('444444444444444444444444' + username);
       }
     });
-  
+    User user = FirebaseAuth.instance.currentUser;
+
+// Check if the user is signed in
+    if (user != null) {
+      String uid = user.uid; // <-- User ID
+      String email = user.email;
+      print('kkkkkkkkkkkkkkkkkkkkkkk $email');
+      // //   MaterialPageRoute materialPageRoute =
+      // //     MaterialPageRoute(builder: (BuildContext context) => LoginPage());
+
+      // // Navigator.of(context)
+      // //     .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
+    }
   }
 
-  @override
   void dispose() {
     userController.dispose();
     passwordController.dispose();
@@ -141,7 +158,6 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 width: 15,
               ),
-              // ignore: deprecated_member_use
               FlatButton(
                   color: Colors.blue.shade100,
                   shape: new RoundedRectangleBorder(
@@ -174,7 +190,9 @@ class _LoginPageState extends State<LoginPage> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -190,7 +208,9 @@ class _LoginPageState extends State<LoginPage> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -208,10 +228,8 @@ class _LoginPageState extends State<LoginPage> {
 
       print("Facebook Data with Credentials -> ${userObj.user.toString()}");
 
-      // ignore: unused_local_variable
       final email = userObj.user.providerData[0].email;
 
-      // ignore: unused_local_variable
       final displayName = userObj.user.providerData[0].displayName;
     } else {
       print('///////////////////////////ffffffff');

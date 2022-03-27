@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,7 +14,6 @@ class RegionData extends StatefulWidget {
 class _RegionDataState extends State<RegionData> {
   dynamic travelName, travelCate, positive, travelMap;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_region').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel_region');
@@ -143,14 +144,8 @@ class _RegionDataState extends State<RegionData> {
 
   //method to launch maps
   void launchMap(travelMap) async {
-    ;
     if (await canLaunch(travelMap)) {
       print("Can launch");
-      void initState() {
-        super.initState();
-
-        canLaunch(travelMap);
-      }
 
       await launch(travelMap);
     } else {

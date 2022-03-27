@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -40,12 +42,37 @@ class _HomeState extends State<Home> {
     return Scaffold(
       drawer: Drawer(
         child: Column(children: [
-          SafeArea(
-            child: ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("ออกจากระบบ"),
-              onTap: () => myAlert(),
+          widget.username == 'satuncity-app@gmail.com'
+              ? const DrawerHeader(
+                  child: Center(
+                      child: Text(
+                    'Admin',
+                    style: TextStyle(fontSize: 50),
+                  )),
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
+                )
+              : const DrawerHeader(
+                  child: Center(
+                      child: Text(
+                    'User',
+                    style: TextStyle(fontSize: 50),
+                  )),
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
+                ),
+          ListTile(
+            leading: Icon(Icons.account_circle),
+            title: Text(widget.username),
+            // onTap: () => myAlert(),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              color: Colors.red,
             ),
+            title: Text("ออกจากระบบ"),
+            onTap: () => myAlert(),
           ),
           Divider(
             color: Colors.black,
@@ -169,6 +196,4 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(builder: (BuildContext context) => routeName);
     await Navigator.of(context).push(materialPageRoute);
   }
-
-
 }

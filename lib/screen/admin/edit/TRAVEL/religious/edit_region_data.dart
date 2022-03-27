@@ -1,13 +1,13 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
-
 import '../../edit_page.dart';
 
 class EditRegionData extends StatefulWidget {
@@ -65,6 +65,7 @@ class _EditRegionDataState extends State<EditRegionData> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(widget.travelName),
+              backgroundColor: Color.fromARGB(255, 102, 38, 102),
               actions: [
                 TextButton(
                   onPressed: () async {
@@ -77,7 +78,9 @@ class _EditRegionDataState extends State<EditRegionData> {
                     if (pathPIC != null) {
                       File file = File(pathPIC);
                       try {
-                        await storage.ref('travel/travel_region_$i').putFile(file);
+                        await storage
+                            .ref('travel/travel_region_$i')
+                            .putFile(file);
                         dynamic url2 = await storage
                             .ref('travel/travel_region_$i')
                             .getDownloadURL();

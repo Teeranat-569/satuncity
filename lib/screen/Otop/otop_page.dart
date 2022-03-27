@@ -10,7 +10,6 @@ class OtopPage extends StatefulWidget {
 class _OtopPageState extends State<OtopPage> {
   dynamic otopName;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('otop');

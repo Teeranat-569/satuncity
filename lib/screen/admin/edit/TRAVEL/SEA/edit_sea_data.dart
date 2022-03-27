@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:math';
 
@@ -63,6 +65,7 @@ class _EditSeaDataState extends State<EditSeaData> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(widget.travelName),
+              backgroundColor: Color.fromARGB(255, 102, 38, 102),
               actions: [
                 TextButton(
                   onPressed: () async {
@@ -127,7 +130,7 @@ class _EditSeaDataState extends State<EditSeaData> {
                           backgroundColor: Colors.orange[100],
                           textColor: Colors.black,
                         );
-                       
+
                         print(
                             '7777777777777777777777777777${textEditingController.text}');
                       } on firebase_core.FirebaseException catch (e) {

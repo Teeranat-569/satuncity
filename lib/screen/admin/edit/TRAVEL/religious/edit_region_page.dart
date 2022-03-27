@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'edit_region_data.dart';
@@ -13,7 +15,6 @@ class _EditRegionPageState extends State<EditRegionPage> {
   dynamic travelName;
   dynamic travelCate;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_region')
       .where('travelCate')
@@ -45,10 +46,10 @@ class _EditRegionPageState extends State<EditRegionPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
+            backgroundColor: Color.fromARGB(255, 102, 38, 102),
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
-            // color: Colors.purple[50],
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
@@ -72,7 +73,6 @@ class _EditRegionPageState extends State<EditRegionPage> {
                     // ignore: deprecated_member_use
                     child: Column(
                       children: [
-                        // Padding(padding: EdgeInsets.only(bottom: 12.0)),
                         if (travelCate == widget.travelCate)
                           InkWell(
                             child: Container(
@@ -99,12 +99,21 @@ class _EditRegionPageState extends State<EditRegionPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => EditRegionData(
+                                  builder: (BuildContext context) =>
+                                      EditRegionData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));
                               Navigator.push(context, route);
                             },
+                          ) else
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'ไม่มีข้อมูล "${widget.travelCate}"',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey),
+                            ),
                           )
                       ],
                     ),

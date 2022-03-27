@@ -4,27 +4,20 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/screen/home.dart';
 
 import 'customClipper.dart';
 import 'login.dart';
 
 class SignUpPage extends StatefulWidget {
-  // const SignUpPage({Key? key, required this.title}) : super(key: key);
-
-  // final String title;
-
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  dynamic _success;
-  dynamic _userEmail;
 
   @override
   void dispose() {
@@ -259,6 +252,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ],
                             ),
                           ),
+                          // ignore: deprecated_member_use
                           child: FlatButton(
                             onPressed: () {
                               signUp();
@@ -370,7 +364,12 @@ class _SignUpPageState extends State<SignUpPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      return null;
+      MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext context) => Home(username: _emailController.text,));
+  
+    Navigator.of(context)
+        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
+
     } on FirebaseAuthException catch (e) {
       return e.message;
     }

@@ -1,26 +1,18 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'edit_mountain_data.dart';
+import 'package:satuncity/screen/admin/edit/Otop/store/store_name_page.dart';
 
-class EditMountainPage extends StatefulWidget {
-  dynamic travelCate;
-  EditMountainPage({Key key, this.travelCate}) : super(key: key);
+class EditStorePage extends StatefulWidget {
   @override
-  _EditMountainPageState createState() => _EditMountainPageState();
+  _EditStorePageState createState() => _EditStorePageState();
 }
 
-class _EditMountainPageState extends State<EditMountainPage> {
-  dynamic travelName;
-  dynamic travelCate;
+class _EditStorePageState extends State<EditStorePage> {
+  dynamic otopName;
   dynamic url;
-  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-      .collection('travel_mountain')
-      .where('travelCate')
-      .snapshots();
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('travel_mountain');
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('otop').snapshots();
+  CollectionReference users = FirebaseFirestore.instance.collection('otop');
 
   @override
   Widget build(BuildContext context) {
@@ -43,36 +35,36 @@ class _EditMountainPageState extends State<EditMountainPage> {
           );
         }
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('${widget.travelCate}'),
-            backgroundColor: Color.fromARGB(255, 102, 38, 102),
-          ),
-          body: Container(
-            child: ListView(
-              children: snapshot.data.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                data["docid"] = document.id;
-                travelName = data['travelName'];
-                travelCate = data['travelCate'];
-                url = data['pic'].toString();
+        return SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('สินค้า OTOP'),
+              backgroundColor: Color.fromARGB(255, 102, 38, 102),
+            ),
+            // ignore: avoid_unnecessary_containers
+            body: Container(
+              child: ListView(
+                children: snapshot.data.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data() as Map<String, dynamic>;
+                  data["docid"] = document.id;
+                  otopName = data['otop_name'];
+                  url = data['otop_pic'].toString();
 
-                // ignore: avoid_print
-                print('4444444444444444444444444 ${data["docid"]}');
-                print('4444444444444444444444444 ${data["travelCate"]}');
-                return Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.grey.shade200,
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    // ignore: deprecated_member_use
-                    child: Column(
-                      children: [
-                        if (travelCate == widget.travelCate)
+                  // ignore: avoid_print
+                  print('4444444444444444444444444 ${data["docid"]}');
+                  print('4444444444444444444444444 ${data["otop_name"]}');
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.grey.shade200,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      // ignore: deprecated_member_use
+                      child: Column(
+                        children: [
                           InkWell(
                             child: Container(
                                 height: 120,
@@ -87,7 +79,7 @@ class _EditMountainPageState extends State<EditMountainPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(20.0),
                                       child: Text(
-                                        data['travelName'],
+                                        data['otop_name'],
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 20,
@@ -99,18 +91,18 @@ class _EditMountainPageState extends State<EditMountainPage> {
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      EditMountainData(
-                                        travelName: data['travelName'],
-                                        travelCate: data['travelCate'],
+                                      StoreNamePage(
+                                        otopName: data['otop_name'],
                                       ));
                               Navigator.push(context, route);
                             },
                           )
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
+              ),
             ),
           ),
         );

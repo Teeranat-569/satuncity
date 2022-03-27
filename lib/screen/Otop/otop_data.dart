@@ -1,5 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/screen/Otop/store_page.dart';
 
 class OtopData extends StatefulWidget {
   dynamic otopName;
@@ -11,7 +14,6 @@ class OtopData extends StatefulWidget {
 class _OtopDataState extends State<OtopData> {
   dynamic otopName, otopData, otopMap, otopAdddress;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('otop');
@@ -39,6 +41,7 @@ class _OtopDataState extends State<OtopData> {
         return Scaffold(
           appBar: AppBar(
             title: Text(widget.otopName),
+            backgroundColor: Colors.indigo,
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
@@ -71,7 +74,7 @@ class _OtopDataState extends State<OtopData> {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
-                                  color: Colors.green,
+                                  color: Colors.indigo,
                                 ),
                                 width: MediaQuery.of(context).size.width,
                                 child: const Padding(
@@ -88,6 +91,43 @@ class _OtopDataState extends State<OtopData> {
                               padding: const EdgeInsets.only(left: 25),
                               child: Text(otopData),
                             ),
+                              Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.indigo,
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'ร้านขายสินค้า',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                             Row(mainAxisAlignment: MainAxisAlignment.center,
+                                children: [  IconButton(
+                                      icon: Icon(Icons.store),
+                                      onPressed: () {
+                                        // launchMap(data['travel_map']);
+                                      }),
+                                  TextButton(
+                                      onPressed: () {
+                                        // launchMap(data['travel_map']);
+                                         MaterialPageRoute route = MaterialPageRoute(
+                                  builder: (BuildContext context) => StorePage(
+                                        otopName: data['otop_name'],
+                                      ));
+                              Navigator.push(context, route);
+                                      },
+                                      child: Text('คลิกเพื่อดูร้านค้า')),
+                                
+                                ],
+                              ),
                           ],
                         ),
                     ],

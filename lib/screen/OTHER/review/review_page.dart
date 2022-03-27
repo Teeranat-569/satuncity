@@ -54,36 +54,42 @@ class _ReviewPageState extends State<ReviewPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // ListTile(
+                                  //   leading: doc['pic'] == null //profile
+                                  //       ? CircleAvatar(
+                                  //           radius: 16.6,
+                                  //           backgroundColor: Colors.white24,
+                                  //         )
+                                  //       : CircleAvatar(
+                                  //           radius: 16.6,
+                                  //           backgroundImage:
+                                  //               AssetImage('images/user.png')),
+                                  //   title: Text(doc['travelName'],
+                                  //       style: TextStyle(
+                                  //         fontSize: 16.5,
+                                  //       )),
+                                  //   // subtitle: doc['comment'] != null
+                                  //   //     ? Text(
+                                  //   //         doc['comment'],
+                                  //   //         style: TextStyle(
+                                  //   //           color: Colors.white,
+                                  //   //           fontSize: 12.5,
+                                  //   //         ),
+                                  //   //       )
+                                  //   //     : Text("Some Title",
+                                  //   //         style: TextStyle(
+                                  //   //           color: Colors.white,
+                                  //   //         )),
+                                  // ),
                                   ListTile(
-                                    leading: doc['pic'] == null //profile
-                                        ? CircleAvatar(
-                                            radius: 16.6,
-                                            backgroundColor: Colors.white24,
-                                          )
-                                        : CircleAvatar(
-                                            radius: 16.6,
-                                            backgroundImage:
-                                                AssetImage('images/user.png')),
-                                    title: Text(doc['travelName'],
-                                        style: TextStyle(
-                                          fontSize: 16.5,
-                                        )),
-                                    // subtitle: doc['comment'] != null
-                                    //     ? Text(
-                                    //         doc['comment'],
-                                    //         style: TextStyle(
-                                    //           color: Colors.white,
-                                    //           fontSize: 12.5,
-                                    //         ),
-                                    //       )
-                                    //     : Text("Some Title",
-                                    //         style: TextStyle(
-                                    //           color: Colors.white,
-                                    //         )),
-                                  ),
+                                      title: Text(
+                                        "@ " + doc['travelName'],
+                                        style: TextStyle(),
+                                      ),
+                                     ),
                                   if (doc['pic'] != null) ...[
                                     Padding(
-                                      padding: const EdgeInsets.all(15.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           //
@@ -127,9 +133,6 @@ class _ReviewPageState extends State<ReviewPage> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 15),
                                       child: Row(
@@ -149,7 +152,12 @@ class _ReviewPageState extends State<ReviewPage> {
                                           ),
                                           Text(
                                             doc['rate'].toString(),
-                                          )
+                                          ),
+                                          doc['comment'] != null
+                                          ? Text(":" + doc['comment'],
+                                              style: TextStyle())
+                                          : Text("Some Descritiption",
+                                              style: TextStyle())
                                         ],
                                       ),
                                     )
@@ -163,22 +171,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                           fit: BoxFit.contain,
                                         ))
                                   ],
-                                  ListTile(
-                                      leading: Padding(
-                                        padding: EdgeInsets.only(bottom: 13.5),
-                                        child: Text(
-                                          "@ " + doc['travelName'],
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                      subtitle: Padding(
-                                          padding:
-                                              EdgeInsets.only(bottom: 13.5),
-                                          child: doc['comment'] != null
-                                              ? Text(":" + doc['comment'],
-                                                  style: TextStyle())
-                                              : Text("Some Descritiption",
-                                                  style: TextStyle()))),
+
                                   Divider(
                                     color: Colors.black,
                                     height: 10,

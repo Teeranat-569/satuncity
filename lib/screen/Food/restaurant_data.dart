@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, unused_element
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,6 @@ class FoodData extends StatefulWidget {
 class _FoodDataState extends State<FoodData> {
   dynamic resName, resData, resMap, resAdddress, travelCate_index;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('restaurant').snapshots();
   CollectionReference users =
@@ -213,7 +214,7 @@ class _FoodDataState extends State<FoodData> {
 
   //method to launch maps
   void launchMap(travelMap) async {
-    ;
+    
     if (await canLaunch(travelMap)) {
       print("Can launch");
       void initState() {
@@ -251,30 +252,4 @@ class _FoodDataState extends State<FoodData> {
               ],
             ));
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text("เกาะหินงาม"),
-  //     ),
-  //     body:
-  //
-  // Center(
-  //       child: Column(
-  //         children: [
-  //           Padding(padding: EdgeInsets.only(top: 10)),
-  //           Image.asset("images/hinn.jpg"),
-  //           Padding(padding: EdgeInsets.all(10)),
-  //           Text("     ลักษณะเด่น\n"
-  //               "               เป็นเกาะเล็ก ๆ ที่ไม่มีหาดทรายแต่เป็นหาดที่มีก้อนหิน กลม รี"
-  //               "วางเรียงรายอยู่เต็มเกาะ ยามน้ำทะเลซัดขึ้นมาก้อนหินเหล่านี้จะเปียกชุ่ม "
-  //               "ส่องประกายมันวาวสะท้อนไปทั่วหาดหิน ยามน้ำลงแนวหาดหินจะปรากฏกว้างยิ่งขึ้นและจะตัดกับน้ำทะเลสีมรกต "
-  //               "ซึ่งเป็นธรรมชาติที่สวยงามที่หาดูได้ยากในที่อื่น ๆ ในส่วนบริเวณรอบๆเกาะหินงาม"
-  //               "ยังเป็นที่ดำน้ำดูปะการัง")
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

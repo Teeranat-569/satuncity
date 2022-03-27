@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
@@ -220,8 +219,6 @@ class _AddFestivalState extends State<AddFestival> {
   Future uploadFile() async {
     int i = 1;
     List<String> indexList = [];
-    Random o = Random();
-    // int oR = o.nextInt(10000);
     for (var img in _imagef) {
       val = i / _imagef.length;
 
