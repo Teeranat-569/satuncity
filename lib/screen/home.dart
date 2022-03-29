@@ -67,6 +67,11 @@ class _HomeState extends State<Home> {
             // onTap: () => myAlert(),
           ),
           ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            onTap: () => route(Home()),
+          ),
+          ListTile(
             leading: Icon(
               Icons.logout,
               color: Colors.red,

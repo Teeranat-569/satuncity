@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:satuncity/loading/loading_screen.dart';
 import 'package:satuncity/screen/admin/admin.dart';
 
 class AddOtop extends StatefulWidget {
@@ -19,7 +20,6 @@ class AddOtop extends StatefulWidget {
 }
 
 class _AddOtopState extends State<AddOtop> {
-  
   // ignore: non_constant_identifier_names
   dynamic otop_name, pathPIC, otop_data, otop_map;
   dynamic img;
@@ -27,20 +27,57 @@ class _AddOtopState extends State<AddOtop> {
   TextEditingController otopDataController = TextEditingController();
   TextEditingController otopMapController = TextEditingController();
   var _image;
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text('สินค้า OTOP'),
+          actions: [
+            TextButton(
+                child: Text(
+                  'เพิ่มสินค้า',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  LoadingScreen().show(
+                    context: context,
+                    text: 'Please wait a moment',
+                  );
+
+                  // await for 2 seconds to Mock Loading Data
+                  await Future.delayed(const Duration(seconds: 3));
+                  Random random = Random();
+                  int i = random.nextInt(100000);
+                  await firebase_core.Firebase.initializeApp();
+                  final firebase_storage.FirebaseStorage storage =
+                      firebase_storage.FirebaseStorage.instance;
+                  File file = File(pathPIC);
+                  try {
+                    await storage.ref('otop/otop_$i').putFile(file);
+                    dynamic url =
+                        await storage.ref('otop/otop_$i').getDownloadURL();
+                    img = url;
+                    print('7777777777777777777777777777$img');
+                    print('77777777777777777222222222222277777777777$url');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
+                  }
+                  addTravel();
+
+                  print(
+                      '7777777777777777777777eeeeeeeeeeeeeeeeee777777otop_$i.jpg');
+                  LoadingScreen().hide();
+                }),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-               
                 showImage(),
                 IconButton(
                     onPressed: () {
@@ -61,16 +98,6 @@ class _AddOtopState extends State<AddOtop> {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  children: [
-                    Text('พิกัด : '),
-                    Container(
-                      child: otopMapForm(),
-                      width: 200,
-                    ),
-                  ],
-                ),
-                button()
               ],
             ),
           ),
@@ -129,7 +156,9 @@ class _AddOtopState extends State<AddOtop> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -146,28 +175,32 @@ class _AddOtopState extends State<AddOtop> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
 
-  Widget otopMapForm() {
-    return TextField(
-      onChanged: (value) => otop_map = value.trim(),
-      controller: otopMapController,
-      // maxLines: 3,
-      // keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          hintText: 'ลิ้งก์จาก Google Map',
-          hintTextDirection: TextDirection.ltr,
-          filled: true,
-          fillColor: Colors.white,
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
-    );
-  }
+  // Widget otopMapForm() {
+  //   return TextField(
+  //     onChanged: (value) => otop_map = value.trim(),
+  //     controller: otopMapController,
+  //     // maxLines: 3,
+  //     // keyboardType: TextInputType.emailAddress,
+  //     decoration: InputDecoration(
+  //         hintText: 'ลิ้งก์จาก Google Map',
+  //         hintTextDirection: TextDirection.ltr,
+  //         filled: true,
+  //         fillColor: Colors.white,
+  //         enabledBorder: OutlineInputBorder(
+  //             borderSide: BorderSide(
+  //                 width: 2,
+  //                 color: Colors.grey.shade400,
+  //                 style: BorderStyle.solid)),
+  //         focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
+  //   );
+  // }
 
   Widget showImage() {
     return Container(
@@ -218,8 +251,7 @@ class _AddOtopState extends State<AddOtop> {
             File file = File(pathPIC);
             try {
               await storage.ref('otop/otop_$i').putFile(file);
-              dynamic url =
-                  await storage.ref('otop/otop_$i').getDownloadURL();
+              dynamic url = await storage.ref('otop/otop_$i').getDownloadURL();
               img = url;
               print('7777777777777777777777777777$img');
               print('77777777777777777222222222222277777777777$url');
@@ -229,8 +261,7 @@ class _AddOtopState extends State<AddOtop> {
             }
             addTravel();
 
-            print(
-                '7777777777777777777777eeeeeeeeeeeeeeeeee777777otop_$i.jpg');
+            print('7777777777777777777777eeeeeeeeeeeeeeeeee777777otop_$i.jpg');
           },
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14.0),
@@ -246,14 +277,12 @@ class _AddOtopState extends State<AddOtop> {
 
   CollectionReference travel = FirebaseFirestore.instance.collection('otop');
   Future<void> addTravel() {
-     // ignore: unnecessary_statements
-     if (img == null || img == '') img == "ไม่มี";
+    // ignore: unnecessary_statements
+    if (img == null || img == '') img == "ไม่มี";
     return travel.add({
       'otop_name': otop_name,
       'otop-data': otop_data,
       'otop_pic': img,
-      'otop_map': otop_map,
-      
     }).then((value) {
       // ignore: avoid_print
       // print('7777777777777777777----------bbbbb$img');
@@ -278,6 +307,4 @@ class _AddOtopState extends State<AddOtop> {
       // ignore: avoid_print, invalid_return_type_for_catch_error
     }).catchError((error) => print("Failed to add user: $error"));
   }
-
- 
 }

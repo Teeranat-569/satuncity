@@ -58,8 +58,10 @@ class _StorePageState extends State<StorePage> {
               // ignore: avoid_print
               print('4444444444444444444444444 ${data["docid"]}');
               print('4444444444444444444444444 ${data["store_name"]}');
-              return widget.otopName == data['otop_name']
-                  ? Padding(
+              return Column(
+                children: [
+                  if (widget.otopName == data['otop_name'])
+                    Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Container(
                         decoration: BoxDecoration(
@@ -119,16 +121,9 @@ class _StorePageState extends State<StorePage> {
                           ],
                         ),
                       ),
-                    )
-                  :  
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'ไม่มีข้อมูลร้านขายสินค้า "${widget.otopName}"',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.grey),
-                            ),
-                          );
+                    ),
+                ],
+              );
             }).toList()),
           ),
         );

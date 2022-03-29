@@ -55,67 +55,67 @@ class _StoreNamePageState extends State<StoreNamePage> {
               storeName = data['store_name'];
               print('4444444444444444444444444 ${data["docid"]}');
               print('4444444444444444444444444 ${data["store_name"]}');
-              return widget.otopName == data['otop_name']
-                  ? Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: Colors.grey.shade200,
-                        ),
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
+              return Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.grey.shade200,
+                  ),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      if (widget.otopName == data['otop_name'])
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                InkWell(
-                                  child: Container(
-                                    color: Color.fromARGB(255, 102, 38, 102),
-                                    height: 50,
-                                    width: 50,
-                                    child: Icon(
-                                      Icons.store,
-                                      size: 40,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  onTap: () {},
+                            InkWell(
+                              child: Container(
+                                color: Color.fromARGB(255, 102, 38, 102),
+                                height: 50,
+                                width: 50,
+                                child: Icon(
+                                  Icons.store,
+                                  size: 40,
+                                  color: Colors.white,
                                 ),
-                                InkWell(
-                                  child: Container(
-                                      height: 50,
-                                      width: 300,
-                                      child: Center(
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Text(
-                                              data['store_name'],
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
+                              ),
+                              onTap: () {},
+                            ),
+                            InkWell(
+                              child: Container(
+                                  height: 50,
+                                  width: 300,
+                                  child: Center(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          data['store_name'],
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      )),
-                                  onTap: () {
-                                    MaterialPageRoute route = MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            EditStoreData(
-                                              storeName: data['store_name'],
-                                            ));
-                                    Navigator.push(context, route);
-                                  },
-                                ),
-                              ],
-                            )
+                                      ),
+                                    ),
+                                  )),
+                              onTap: () {
+                                MaterialPageRoute route = MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        EditStoreData(
+                                          storeName: data['store_name'],
+                                          docid: data['docid'],
+                                        ));
+                                Navigator.push(context, route);
+                              },
+                            ),
                           ],
-                        ),
-                      ),
-                    )
-                  : Text('');
+                        )
+                    ],
+                  ),
+                ),
+              );
+              // : Text('');
             }).toList()),
           ),
         );

@@ -5,6 +5,7 @@ import 'package:satuncity/screen/admin/add_festival.dart';
 import 'package:satuncity/screen/admin/add_travel.dart';
 import 'package:satuncity/screen/admin/add_otop.dart';
 import 'package:satuncity/screen/admin/add_restaurant.dart';
+import 'package:satuncity/screen/home.dart';
 
 import '../Login/login.dart';
 import 'add_otop_store.dart';
@@ -32,6 +33,11 @@ class _AdminState extends State<Admin> {
             )),
             decoration:
                 BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            onTap: () => route(Home()),
           ),
           ListTile(
             leading: Icon(

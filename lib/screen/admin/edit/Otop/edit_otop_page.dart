@@ -92,6 +92,7 @@ class _EditOtopPageState extends State<EditOtopPage> {
                                   builder: (BuildContext context) =>
                                       EditOtopData(
                                         otopName: data['otop_name'],
+                                        docid: data['docid'],
                                       ));
                               Navigator.push(context, route);
                             },

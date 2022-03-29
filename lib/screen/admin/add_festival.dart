@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:satuncity/loading/loading_screen.dart';
 import 'package:satuncity/screen/admin/admin.dart';
 import 'package:path/path.dart' as Path;
 
@@ -27,7 +28,7 @@ class _AddFestivalState extends State<AddFestival> {
   bool uploading = false;
   final picker = ImagePicker();
   firebase_storage.Reference ref;
-   CollectionReference imgRef;
+  CollectionReference imgRef;
   List<File> _imagef = [];
 
   @override
@@ -38,6 +39,13 @@ class _AddFestivalState extends State<AddFestival> {
         actions: [
           TextButton(
               onPressed: () async {
+                LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
                 uploadFile().whenComplete(() {
                   MaterialPageRoute materialPageRoute = MaterialPageRoute(
                       builder: (BuildContext context) => Admin());
@@ -45,6 +53,7 @@ class _AddFestivalState extends State<AddFestival> {
                       materialPageRoute, (Route<dynamic> route) => false);
                 });
                 await firebase_core.Firebase.initializeApp();
+                LoadingScreen().hide();
               },
               child: Text(
                 'เพิ่มงานประจำปี',

@@ -96,9 +96,11 @@ class _EditWaterfallPageState extends State<EditWaterfallPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => EditWaterfallData(
+                                  builder: (BuildContext context) =>
+                                      EditWaterfallData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        docid: data['docid'],
                                       ));
                               Navigator.push(context, route);
                             },

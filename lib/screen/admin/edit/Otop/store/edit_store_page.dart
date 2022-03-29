@@ -38,7 +38,7 @@ class _EditStorePageState extends State<EditStorePage> {
         return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title: Text('สินค้า OTOP'),
+              title: Text('ร้านขายสินค้า OTOP'),
               backgroundColor: Color.fromARGB(255, 102, 38, 102),
             ),
             // ignore: avoid_unnecessary_containers

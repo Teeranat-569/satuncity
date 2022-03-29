@@ -6,6 +6,7 @@ import 'package:satuncity/screen/admin/edit/Food/edit_food_page.dart';
 import 'package:satuncity/screen/admin/edit/Otop/edit_otop_page.dart';
 import 'package:satuncity/screen/admin/edit/Otop/store/edit_store_page.dart';
 import 'package:satuncity/screen/admin/edit/festival/edit_festival_page.dart';
+import 'package:satuncity/screen/home.dart';
 
 import '../../Login/login.dart';
 import '../admin.dart';
@@ -24,13 +25,27 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: Column(children: [
-          SafeArea(
-            child: ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("ออกจากระบบ"),
-              onTap: () => myAlert(),
+        child: Column(children: [ const DrawerHeader(
+            child: Center(
+                child: Text(
+              'Admin',
+              style: TextStyle(fontSize: 50),
+            )),
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
+          ),
+           ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            onTap: () => route(Home()),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              color: Colors.red,
             ),
+            title: Text("ออกจากระบบ"),
+            onTap: () => myAlert(),
           ),
           Divider(
             color: Colors.black,

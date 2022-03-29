@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:satuncity/loading/loading_screen.dart';
 
 import '../../edit_page.dart';
 
@@ -69,6 +70,13 @@ class _EditSeaDataState extends State<EditSeaData> {
               actions: [
                 TextButton(
                   onPressed: () async {
+                      LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
                     Random random = Random();
                     int i = random.nextInt(100000);
                     await firebase_core.Firebase.initializeApp();
@@ -142,6 +150,8 @@ class _EditSeaDataState extends State<EditSeaData> {
                       Navigator.of(context).pushAndRemoveUntil(
                           materialPageRoute, (Route<dynamic> route) => false);
                     }
+                                    LoadingScreen().hide();
+
                   },
                   child: Text(
                     'แก้ไข',

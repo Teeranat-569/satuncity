@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:satuncity/loading/loading_screen.dart';
 import '../edit_page.dart';
 
 // ignore: must_be_immutable
@@ -76,81 +77,59 @@ class _EditFoodDataState extends State<EditFoodData> {
               actions: [
                 TextButton(
                   onPressed: () async {
+                      LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
                     Random random = Random();
                     int i = random.nextInt(100000);
                     await firebase_core.Firebase.initializeApp();
                     final firebase_storage.FirebaseStorage storage =
                         firebase_storage.FirebaseStorage.instance;
-                    if (pathPIC != null) {
-                      File file = File(pathPIC);
-                      try {
-                        await storage
-                            .ref('restaurant/restaurant_$i')
-                            .putFile(file);
-                        dynamic url2 = await storage
-                            .ref('restaurant/restaurant_$i')
-                            .getDownloadURL();
-                        setState(() {
-                          edit_img = url2;
-                        });
-                        collection
-                            .doc(widget
-                                .docid) // <-- Doc ID where data should be updated.
-                            .update({
-                          'res_name': textEditingController_4.text,
-                          'res_map': textEditingController_3.text,
-                          'res_data': textEditingController.text,
-                          'res_address': textEditingController_2.text,
-                        });
-                        Fluttertoast.showToast(
-                          msg: "แก้ไขสำเร็จ",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          backgroundColor: Colors.orange[100],
-                          textColor: Colors.black,
-                        );
+                    // File file = File(pathPIC);
+                    try {
+                      // await storage
+                      //     .ref('restaurant/restaurant_$i')
+                      //     .putFile(file);
+                      // dynamic url2 = await storage
+                      //     .ref('restaurant/restaurant_$i')
+                      //     .getDownloadURL();
+                      // setState(() {
+                      //   edit_img = url2;
+                      // });
+                      collection
+                          .doc(widget
+                              .docid) // <-- Doc ID where data should be updated.
+                          .update({
+                        'res_name': textEditingController_4.text,
+                        'res_map': textEditingController_3.text,
+                        'res-data': textEditingController.text,
+                        'res_address': textEditingController_2.text,
+                      });
+                      Fluttertoast.showToast(
+                        msg: "แก้ไขสำเร็จ",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        backgroundColor: Colors.orange[100],
+                        textColor: Colors.black,
+                      );
 
-                        print('7777777777777777777777777777$edit_img');
-                        print(
-                            '77777777777777777222222eeeeeeeeee222222277777777777$url2');
-                      } on firebase_core.FirebaseException catch (e) {
-                        // ignore: avoid_print
-                        print(e);
-                      }
-                      MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                          builder: (BuildContext context) => EditPage());
-                      Navigator.of(context).pushAndRemoveUntil(
-                          materialPageRoute, (Route<dynamic> route) => false);
-                    } else {
-                      try {
-                        collection
-                            .doc(widget
-                                .docid) // <-- Doc ID where data should be updated.
-                            .update({
-                          'res_name': textEditingController_4.text,
-                          'res_map': textEditingController_3.text,
-                          'res_data': textEditingController.text,
-                          'res_address': textEditingController_2.text,
-                        });
-                        Fluttertoast.showToast(
-                          msg: "แก้ไขสำเร็จ",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          backgroundColor: Colors.orange[100],
-                          textColor: Colors.black,
-                        );
-
-                        print(
-                            '7777777777777777777777777777${textEditingController.text}');
-                      } on firebase_core.FirebaseException catch (e) {
-                        // ignore: avoid_print
-                        print(e);
-                      }
-                      MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                          builder: (BuildContext context) => EditPage());
-                      Navigator.of(context).pushAndRemoveUntil(
-                          materialPageRoute, (Route<dynamic> route) => false);
+                      print('7777777777777777777777777777$edit_img');
+                      // print(
+                      //     '77777777777777777222222eeeeeeeeee222222277777777777$url2');
+                    } on firebase_core.FirebaseException catch (e) {
+                      // ignore: avoid_print
+                      print(e);
                     }
+                    MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                        builder: (BuildContext context) => EditPage());
+                    Navigator.of(context).pushAndRemoveUntil(
+                        materialPageRoute, (Route<dynamic> route) => false);
+                                        LoadingScreen().hide();
+
                   },
                   child: Text(
                     'แก้ไข',

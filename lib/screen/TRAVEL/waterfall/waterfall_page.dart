@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/screen/TRAVEL/waterfall/waterfall_data.dart';
 import '../mountain/mountain_data.dart';
 
 class WaterfallPage extends StatefulWidget {
@@ -98,7 +99,7 @@ class _WaterfallPageState extends State<WaterfallPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => MountainData(
+                                  builder: (BuildContext context) => WaterfallData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));

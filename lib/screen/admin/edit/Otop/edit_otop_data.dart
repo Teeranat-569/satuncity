@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:satuncity/loading/loading_screen.dart';
 
 import '../edit_page.dart';
 
@@ -20,13 +21,14 @@ class EditOtopData extends StatefulWidget {
 }
 
 class _EditOtopDataState extends State<EditOtopData> {
-  dynamic otopName, otopData, otopMap, otopAdddress, pathPIC;
+  dynamic otopName, otopData, otopMap, otopAdddress, pathPIC, docID, otop_name;
   dynamic url, edit_otopName, edit_otopData, edit_otopMap;
   dynamic _image, edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('otop').snapshots();
+ 
   CollectionReference users = FirebaseFirestore.instance.collection('otop');
-  var collection = FirebaseFirestore.instance.collection('otop');
+  var collection = FirebaseFirestore.instance;
   TextEditingController textEditingController = TextEditingController();
   TextEditingController textEditingController_2 = TextEditingController();
   TextEditingController textEditingController_3 = TextEditingController();
@@ -67,6 +69,13 @@ class _EditOtopDataState extends State<EditOtopData> {
             actions: [
               TextButton(
                 onPressed: () async {
+                    LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
                   Random random = Random();
                   int i = random.nextInt(100000);
                   await firebase_core.Firebase.initializeApp();
@@ -83,6 +92,7 @@ class _EditOtopDataState extends State<EditOtopData> {
                         edit_img = url2;
                       });
                       collection
+                          .collection('otop')
                           .doc(widget
                               .docid) // <-- Doc ID where data should be updated.
                           .update({
@@ -113,6 +123,7 @@ class _EditOtopDataState extends State<EditOtopData> {
                   } else {
                     try {
                       collection
+                          .collection('otop')
                           .doc(widget
                               .docid) // <-- Doc ID where data should be updated.
                           .update({
@@ -138,6 +149,37 @@ class _EditOtopDataState extends State<EditOtopData> {
                     Navigator.of(context).pushAndRemoveUntil(
                         materialPageRoute, (Route<dynamic> route) => false);
                   }
+
+                  FirebaseFirestore.instance
+                      .collection('otop_store')
+                      .get()
+                      .then((QuerySnapshot querySnapshot) {
+                    querySnapshot.docs.forEach((doc) {
+                      setState(() {
+                        docID = doc.id;
+                        otop_name = doc["otop_name"];
+                      });
+
+                      // print(doc["otop_name"]);
+                      // print(docID);
+
+                      if (widget.otopName == doc["otop_name"]) {
+                        print('dddddddddddddddeeeeeeeeeddddddd${doc.id}');
+                        collection
+                            .collection('otop_store')
+                            .doc(doc
+                                .id) // <-- Doc ID where data should be updated.
+                            .update({
+                          'otop_name': textEditingController.text,
+                          // 'travel_map': t,
+                        });
+                      }
+                    });
+                  });
+                LoadingScreen().hide();
+
+                  // print('ggggggggggggggggggggg$docID');
+                  // print('ggggggggttttttttttggggggggggggg + $otop_name');
                 },
                 child: Text(
                   'แก้ไข',
@@ -161,8 +203,8 @@ class _EditOtopDataState extends State<EditOtopData> {
                 url = data['otop_pic'].toString();
 
                 // ignore: avoid_print
-                print('4444444444444444444444444 ${data["docid"]}');
-                print('4444444444444444444444444 ${data["otop_name"]}');
+                // print('4444444444444444444444444 ${data["docid"]}');
+                // print('4444444444444444444444444 ${data["otop_name"]}');
                 return Center(
                   child: Column(
                     children: [
@@ -226,7 +268,7 @@ class _EditOtopDataState extends State<EditOtopData> {
                               ),
                             ),
                             Padding(
-                                padding: const EdgeInsets.only(left: 25),
+                                padding: const EdgeInsets.only(left: 25,right: 10),
                                 child:
                                     _editTitleTextField_2(data['otop-data'])),
                           ],
@@ -293,7 +335,7 @@ class _EditOtopDataState extends State<EditOtopData> {
     textEditingController_2 = TextEditingController(text: kk);
 
     return Center(
-      child: TextField(
+      child: TextField(maxLines: 10,
         onSubmitted: (newValue) {
           setState(() {
             edit_otopData = newValue;

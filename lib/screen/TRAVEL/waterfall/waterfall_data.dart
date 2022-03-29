@@ -16,7 +16,8 @@ class _WaterfallDataState extends State<WaterfallData> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_waterfall').snapshots();
-  CollectionReference users = FirebaseFirestore.instance.collection('travel_waterfall');
+  CollectionReference users =
+      FirebaseFirestore.instance.collection('travel_waterfall');
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -63,8 +64,7 @@ class _WaterfallDataState extends State<WaterfallData> {
                     child: Column(
                       children: [
                         Padding(padding: EdgeInsets.only(top: 10)),
-                        if (data['travelCate'] == widget.travelCate &&
-                            data['travelName'] == widget.travelName)
+                        if (data['travelName'] == widget.travelName)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -113,8 +113,14 @@ class _WaterfallDataState extends State<WaterfallData> {
                                   ),
                                 ),
                               ),
-                              Row(mainAxisAlignment: MainAxisAlignment.center,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        launchMap(data['travel_map']);
+                                      },
+                                      child: Text('คลิกเพื่อดูแผนที่')),
                                   IconButton(
                                       icon: Icon(Icons.directions),
                                       onPressed: () {

@@ -102,6 +102,7 @@ class _EditMountainPageState extends State<EditMountainPage> {
                                       EditMountainData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        docid: data['docid'],
                                       ));
                               Navigator.push(context, route);
                             },

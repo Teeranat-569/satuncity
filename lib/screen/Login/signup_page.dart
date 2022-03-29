@@ -83,49 +83,49 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Column(
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Username",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                TextField(
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: "username",
-                                    suffixIcon: Icon(
-                                      Icons.person,
-                                      color: Colors.black54,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        15,
-                                      ),
-                                    ),
-                                    fillColor: Color(
-                                      0xfff3f3f4,
-                                    ),
-                                    filled: true,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.symmetric(
+                          //     vertical: 10,
+                          //   ),
+                          //   child: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: <Widget>[
+                          //       Text(
+                          //         "Username",
+                          //         style: TextStyle(
+                          //           fontWeight: FontWeight.bold,
+                          //           fontSize: 15,
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         height: 10,
+                          //       ),
+                          //       TextField(
+                          //         style: TextStyle(
+                          //           fontSize: 20,
+                          //         ),
+                          //         textAlign: TextAlign.start,
+                          //         obscureText: false,
+                          //         decoration: InputDecoration(
+                          //           hintText: "username",
+                          //           suffixIcon: Icon(
+                          //             Icons.person,
+                          //             color: Colors.black54,
+                          //           ),
+                          //           border: OutlineInputBorder(
+                          //             borderRadius: BorderRadius.circular(
+                          //               15,
+                          //             ),
+                          //           ),
+                          //           fillColor: Color(
+                          //             0xfff3f3f4,
+                          //           ),
+                          //           filled: true,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Container(
                             margin: EdgeInsets.symmetric(
                               vertical: 10,

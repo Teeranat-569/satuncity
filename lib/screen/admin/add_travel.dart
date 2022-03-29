@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:satuncity/loading/loading_screen.dart';
 import 'package:satuncity/screen/admin/admin.dart';
 
 class AddTravel extends StatefulWidget {
@@ -20,7 +21,7 @@ class AddTravel extends StatefulWidget {
 
 class _AddTravelState extends State<AddTravel> {
   String dropdownvalue = 'ทะเล';
- dynamic travelName, pathPIC, positive, travel_map;
+  dynamic travelName, pathPIC, positive, travel_map;
   dynamic img, img_mountain, img_waterfall, img_region, img_r;
   TextEditingController travelNameController = TextEditingController();
   TextEditingController positiveController = TextEditingController();
@@ -35,123 +36,142 @@ class _AddTravelState extends State<AddTravel> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('สถานที่ท่องเที่ยว'),actions: [  TextButton(
-                  onPressed: () async {
-                    Random random = Random();
-            int i = random.nextInt(100000);
-            await firebase_core.Firebase.initializeApp();
-            final firebase_storage.FirebaseStorage storage =
-                firebase_storage.FirebaseStorage.instance;
-            File file = File(pathPIC);
-            if (dropdownvalue == 'ทะเล') {
-              try {
-                await storage.ref('travel/travel_sea_$i').putFile(file);
-                dynamic url =
-                    await storage.ref('travel/travel_sea_$i').getDownloadURL();
-                setState(() {
-                  img = url;
-                });
-                print('7777777777777777777777777777$img');
-                print(
-                    '77777777777777777222222eeeeeeeeee222222277777777777$url');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_sea();
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-            }
+          title: Text('สถานที่ท่องเที่ยว'),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
 
-            if (dropdownvalue == 'ภูเขา') {
-              Random random = Random();
-              int i = random.nextInt(100000);
-              await firebase_core.Firebase.initializeApp();
-              final firebase_storage.FirebaseStorage storage_mountain =
-                  firebase_storage.FirebaseStorage.instance;
-              File file = File(pathPIC);
-              try {
-                await storage_mountain
-                    .ref('travel/travel_mountain_$i')
-                    .putFile(file);
-                dynamic url_mountain = await storage_mountain
-                    .ref('travel/travel_mountain_$i')
-                    .getDownloadURL();
-                setState(() {
-                  img_mountain = url_mountain;
-                });
-                print('7777777777777777777777777777$img_mountain');
-                print('77777777777777777222222222222277777777777$url_mountain');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_mountain();
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-              print(
-                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_mountain$i.jpg');
-            }
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
+              
 
-            if (dropdownvalue == 'น้ำตก') {
-              try {
-                await storage.ref('travel/travel_waterfall_$i').putFile(file);
-                dynamic url_waterfall = await storage
-                    .ref('travel/travel_waterfall_$i')
-                    .getDownloadURL();
-                setState(() {
-                  img_waterfall = url_waterfall;
-                });
-                print('7777777777777777777777777777$img_waterfall');
-                print(
-                    '77777777777777777222222222222277777777777$url_waterfall');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_waterfall();
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-              print(
-                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_waterfall$i.jpg');
-            }
-            if (dropdownvalue == 'ศาสนสถาน') {
-              try {
-                await storage.ref('travel/travel_region_$i').putFile(file);
-                dynamic url_region = await storage
-                    .ref('travel/travel_region_$i')
-                    .getDownloadURL();
-                setState(() {
-                  img_region = url_region;
-                });
-                print('7777777777777777777777777777$img_region');
-                print('77777777777777777222222222222277777777777$url_region');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_region();
-              print(
-                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_region$i.jpg');
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-            }
+                // Call LoadingScreen().hide() to HIDE  Loading Dialog
+                Random random = Random();
+                int i = random.nextInt(100000);
+                await firebase_core.Firebase.initializeApp();
+                final firebase_storage.FirebaseStorage storage =
+                    firebase_storage.FirebaseStorage.instance;
+                File file = File(pathPIC);
+                if (dropdownvalue == 'ทะเล') {
+                  try {
+                    await storage.ref('travel/travel_sea_$i').putFile(file);
+                    dynamic url = await storage
+                        .ref('travel/travel_sea_$i')
+                        .getDownloadURL();
+                    setState(() {
+                      img = url;
+                    });
+                    print('7777777777777777777777777777$img');
+                    print(
+                        '77777777777777777222222eeeeeeeeee222222277777777777$url');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
+                  }
+                  addTravel_sea();
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => Admin());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                }
 
-            uploadData(travelNameController.text);
-                  },
-                  child: Text(
-                    'เพิ่มสถานที่',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )],
+                if (dropdownvalue == 'ภูเขา') {
+                  Random random = Random();
+                  int i = random.nextInt(100000);
+                  await firebase_core.Firebase.initializeApp();
+                  final firebase_storage.FirebaseStorage storage_mountain =
+                      firebase_storage.FirebaseStorage.instance;
+                  File file = File(pathPIC);
+                  try {
+                    await storage_mountain
+                        .ref('travel/travel_mountain_$i')
+                        .putFile(file);
+                    dynamic url_mountain = await storage_mountain
+                        .ref('travel/travel_mountain_$i')
+                        .getDownloadURL();
+                    setState(() {
+                      img_mountain = url_mountain;
+                    });
+                    print('7777777777777777777777777777$img_mountain');
+                    print(
+                        '77777777777777777222222222222277777777777$url_mountain');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
+                  }
+                  addTravel_mountain();
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => Admin());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                  print(
+                      '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_mountain$i.jpg');
+                }
+
+                if (dropdownvalue == 'น้ำตก') {
+                  try {
+                    await storage
+                        .ref('travel/travel_waterfall_$i')
+                        .putFile(file);
+                    dynamic url_waterfall = await storage
+                        .ref('travel/travel_waterfall_$i')
+                        .getDownloadURL();
+                    setState(() {
+                      img_waterfall = url_waterfall;
+                    });
+                    print('7777777777777777777777777777$img_waterfall');
+                    print(
+                        '77777777777777777222222222222277777777777$url_waterfall');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
+                  }
+                  addTravel_waterfall();
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => Admin());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                  print(
+                      '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_waterfall$i.jpg');
+                }
+                if (dropdownvalue == 'ศาสนสถาน') {
+                  try {
+                    await storage.ref('travel/travel_region_$i').putFile(file);
+                    dynamic url_region = await storage
+                        .ref('travel/travel_region_$i')
+                        .getDownloadURL();
+                    setState(() {
+                      img_region = url_region;
+                    });
+                    print('7777777777777777777777777777$img_region');
+                    print(
+                        '77777777777777777222222222222277777777777$url_region');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
+                  }
+                  addTravel_region();
+                  print(
+                      '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_region$i.jpg');
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => Admin());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                }
+
+                uploadData(travelNameController.text);
+                LoadingScreen().hide();
+              },
+              child: Text(
+                'เพิ่มสถานที่',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -294,7 +314,9 @@ class _AddTravelState extends State<AddTravel> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -311,7 +333,9 @@ class _AddTravelState extends State<AddTravel> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -327,7 +351,9 @@ class _AddTravelState extends State<AddTravel> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -360,145 +386,145 @@ class _AddTravelState extends State<AddTravel> {
     });
   }
 
-  Widget button() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 200,
-        child: RaisedButton(
-          child: const Text("เพิ่มสถานที่",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )),
-          onPressed: () async {
-            Random random = Random();
-            int i = random.nextInt(100000);
-            await firebase_core.Firebase.initializeApp();
-            final firebase_storage.FirebaseStorage storage =
-                firebase_storage.FirebaseStorage.instance;
-            File file = File(pathPIC);
-            if (dropdownvalue == 'ทะเล') {
-              try {
-                await storage.ref('travel/travel_sea_$i').putFile(file);
-                dynamic url =
-                    await storage.ref('travel/travel_sea_$i').getDownloadURL();
-                setState(() {
-                  img = url;
-                });
+  // Widget button() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Container(
+  //       width: 200,
+  //       child: RaisedButton(
+  //         child: const Text("เพิ่มสถานที่",
+  //             style: TextStyle(
+  //               fontSize: 20,
+  //               color: Colors.white,
+  //               fontWeight: FontWeight.bold,
+  //             )),
+  //         onPressed: () async {
+  //           Random random = Random();
+  //           int i = random.nextInt(100000);
+  //           await firebase_core.Firebase.initializeApp();
+  //           final firebase_storage.FirebaseStorage storage =
+  //               firebase_storage.FirebaseStorage.instance;
+  //           File file = File(pathPIC);
+  //           if (dropdownvalue == 'ทะเล') {
+  //             try {
+  //               await storage.ref('travel/travel_sea_$i').putFile(file);
+  //               dynamic url =
+  //                   await storage.ref('travel/travel_sea_$i').getDownloadURL();
+  //               setState(() {
+  //                 img = url;
+  //               });
 
-                print('7777777777777777777777777777$img');
-                print(
-                    '77777777777777777222222eeeeeeeeee222222277777777777$url');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_sea();
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-            }
+  //               print('7777777777777777777777777777$img');
+  //               print(
+  //                   '77777777777777777222222eeeeeeeeee222222277777777777$url');
+  //             } on firebase_core.FirebaseException catch (e) {
+  //               // ignore: avoid_print
+  //               print(e);
+  //             }
+  //             addTravel_sea();
+  //             MaterialPageRoute materialPageRoute =
+  //                 MaterialPageRoute(builder: (BuildContext context) => Admin());
+  //             Navigator.of(context).pushAndRemoveUntil(
+  //                 materialPageRoute, (Route<dynamic> route) => false);
+  //           }
 
-            if (dropdownvalue == 'ภูเขา') {
-              Random random = Random();
-              int i = random.nextInt(100000);
-              await firebase_core.Firebase.initializeApp();
-              final firebase_storage.FirebaseStorage storage_mountain =
-                  firebase_storage.FirebaseStorage.instance;
-              File file = File(pathPIC);
-              try {
-                await storage_mountain
-                    .ref('travel/travel_mountain_$i')
-                    .putFile(file);
-                dynamic url_mountain = await storage_mountain
-                    .ref('travel/travel_mountain_$i')
-                    .getDownloadURL();
-                setState(() {
-                  img_mountain = url_mountain;
-                });
+  //           if (dropdownvalue == 'ภูเขา') {
+  //             Random random = Random();
+  //             int i = random.nextInt(100000);
+  //             await firebase_core.Firebase.initializeApp();
+  //             final firebase_storage.FirebaseStorage storage_mountain =
+  //                 firebase_storage.FirebaseStorage.instance;
+  //             File file = File(pathPIC);
+  //             try {
+  //               await storage_mountain
+  //                   .ref('travel/travel_mountain_$i')
+  //                   .putFile(file);
+  //               dynamic url_mountain = await storage_mountain
+  //                   .ref('travel/travel_mountain_$i')
+  //                   .getDownloadURL();
+  //               setState(() {
+  //                 img_mountain = url_mountain;
+  //               });
 
-                print('7777777777777777777777777777$img_mountain');
-                print('77777777777777777222222222222277777777777$url_mountain');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_mountain();
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-              print(
-                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_mountain$i.jpg');
-            }
+  //               print('7777777777777777777777777777$img_mountain');
+  //               print('77777777777777777222222222222277777777777$url_mountain');
+  //             } on firebase_core.FirebaseException catch (e) {
+  //               // ignore: avoid_print
+  //               print(e);
+  //             }
+  //             addTravel_mountain();
+  //             MaterialPageRoute materialPageRoute =
+  //                 MaterialPageRoute(builder: (BuildContext context) => Admin());
+  //             Navigator.of(context).pushAndRemoveUntil(
+  //                 materialPageRoute, (Route<dynamic> route) => false);
+  //             print(
+  //                 '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_mountain$i.jpg');
+  //           }
 
-            if (dropdownvalue == 'น้ำตก') {
-              try {
-                await storage.ref('travel/travel_waterfall_$i').putFile(file);
-                dynamic url_waterfall = await storage
-                    .ref('travel/travel_waterfall_$i')
-                    .getDownloadURL();
-                setState(() {
-                  img_waterfall = url_waterfall;
-                });
+  //           if (dropdownvalue == 'น้ำตก') {
+  //             try {
+  //               await storage.ref('travel/travel_waterfall_$i').putFile(file);
+  //               dynamic url_waterfall = await storage
+  //                   .ref('travel/travel_waterfall_$i')
+  //                   .getDownloadURL();
+  //               setState(() {
+  //                 img_waterfall = url_waterfall;
+  //               });
 
-                // print('7777777777777777777777777777travel$i');
-                print('7777777777777777777777777777$img_waterfall');
-                print(
-                    '77777777777777777222222222222277777777777$url_waterfall');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_waterfall();
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-              print(
-                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_waterfall$i.jpg');
-            }
-            if (dropdownvalue == 'ศาสนสถาน') {
-              try {
-                await storage.ref('travel/travel_region_$i').putFile(file);
-                dynamic url_region = await storage
-                    .ref('travel/travel_region_$i')
-                    .getDownloadURL();
-                setState(() {
-                  img_region = url_region;
-                });
+  //               // print('7777777777777777777777777777travel$i');
+  //               print('7777777777777777777777777777$img_waterfall');
+  //               print(
+  //                   '77777777777777777222222222222277777777777$url_waterfall');
+  //             } on firebase_core.FirebaseException catch (e) {
+  //               // ignore: avoid_print
+  //               print(e);
+  //             }
+  //             addTravel_waterfall();
+  //             MaterialPageRoute materialPageRoute =
+  //                 MaterialPageRoute(builder: (BuildContext context) => Admin());
+  //             Navigator.of(context).pushAndRemoveUntil(
+  //                 materialPageRoute, (Route<dynamic> route) => false);
+  //             print(
+  //                 '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_waterfall$i.jpg');
+  //           }
+  //           if (dropdownvalue == 'ศาสนสถาน') {
+  //             try {
+  //               await storage.ref('travel/travel_region_$i').putFile(file);
+  //               dynamic url_region = await storage
+  //                   .ref('travel/travel_region_$i')
+  //                   .getDownloadURL();
+  //               setState(() {
+  //                 img_region = url_region;
+  //               });
 
-                print('7777777777777777777777777777$img_region');
-                print('77777777777777777222222222222277777777777$url_region');
-              } on firebase_core.FirebaseException catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
-              addTravel_region();
-              print(
-                  '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_region$i.jpg');
-              MaterialPageRoute materialPageRoute =
-                  MaterialPageRoute(builder: (BuildContext context) => Admin());
-              Navigator.of(context).pushAndRemoveUntil(
-                  materialPageRoute, (Route<dynamic> route) => false);
-            }
+  //               print('7777777777777777777777777777$img_region');
+  //               print('77777777777777777222222222222277777777777$url_region');
+  //             } on firebase_core.FirebaseException catch (e) {
+  //               // ignore: avoid_print
+  //               print(e);
+  //             }
+  //             addTravel_region();
+  //             print(
+  //                 '7777777777777777777777eeeeeeeeeeeeeeeeee777777------travel_region$i.jpg');
+  //             MaterialPageRoute materialPageRoute =
+  //                 MaterialPageRoute(builder: (BuildContext context) => Admin());
+  //             Navigator.of(context).pushAndRemoveUntil(
+  //                 materialPageRoute, (Route<dynamic> route) => false);
+  //           }
 
-            uploadData(travelNameController.text);
-          },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14.0),
-              side: const BorderSide(color: Colors.cyan)),
-          color: Colors.cyan,
-          textColor: Colors.white,
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          splashColor: Colors.grey,
-        ),
-      ),
-    );
-  }
+  //           uploadData(travelNameController.text);
+  //         },
+  //         shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(14.0),
+  //             side: const BorderSide(color: Colors.cyan)),
+  //         color: Colors.cyan,
+  //         textColor: Colors.white,
+  //         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+  //         splashColor: Colors.grey,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   CollectionReference travel_sea =
       FirebaseFirestore.instance.collection('travel');

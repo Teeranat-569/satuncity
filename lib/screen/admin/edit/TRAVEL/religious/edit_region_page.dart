@@ -103,6 +103,7 @@ class _EditRegionPageState extends State<EditRegionPage> {
                                       EditRegionData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        docid: data['docid'],
                                       ));
                               Navigator.push(context, route);
                             },

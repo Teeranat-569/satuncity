@@ -9,12 +9,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:satuncity/loading/loading_screen.dart';
 
 import '../../edit_page.dart';
 
 class EditMountainData extends StatefulWidget {
   dynamic travelName, travelCate, docid;
-  EditMountainData({Key key, this.travelName, this.travelCate})
+  EditMountainData({Key key, this.travelName, this.travelCate, this.docid})
       : super(key: key);
   @override
   _EditMountainDataState createState() => _EditMountainDataState();
@@ -70,6 +71,13 @@ class _EditMountainDataState extends State<EditMountainData> {
               actions: [
                 TextButton(
                   onPressed: () async {
+                    LoadingScreen().show(
+                      context: context,
+                      text: 'Please wait a moment',
+                    );
+
+                    // await for 2 seconds to Mock Loading Data
+                    await Future.delayed(const Duration(seconds: 3));
                     Random random = Random();
                     int i = random.nextInt(100000);
                     await firebase_core.Firebase.initializeApp();
@@ -88,15 +96,23 @@ class _EditMountainDataState extends State<EditMountainData> {
                         setState(() {
                           edit_img = url2;
                         });
+
                         collection
                             .doc(widget
                                 .docid) // <-- Doc ID where data should be updated.
                             .update({
-                          'travelName': edit_travelName,
-                          'travel_map': edit_map_url,
-                          'positive': edit_positive,
+                          'travelName': textEditingController.text,
+                          'travel_map': textEditingController_3.text,
+                          'positive': textEditingController_2.text,
                           'pic': edit_img,
                         });
+                        print(
+                            '777777777777775555577777777777777${textEditingController.text}');
+                        print(
+                            '777777777777ttttt7777777777777777${textEditingController_3.text}');
+                        print(
+                            '77777777777777777jjjjj77777777777${textEditingController_2.text}');
+
                         Fluttertoast.showToast(
                           msg: "แก้ไขสำเร็จ",
                           toastLength: Toast.LENGTH_SHORT,
@@ -105,9 +121,9 @@ class _EditMountainDataState extends State<EditMountainData> {
                           textColor: Colors.black,
                         );
 
-                        print('7777777777777777777777777777$edit_img');
-                        print(
-                            '77777777777777777222222eeeeeeeeee222222277777777777$url2');
+                        print('777777777777eeeeee7777777777777777$edit_img');
+                        // print(
+                        // '77777777777777777222222eeeeeeeeee222222277777777777$url2');
                       } on firebase_core.FirebaseException catch (e) {
                         // ignore: avoid_print
                         print(e);
@@ -133,9 +149,14 @@ class _EditMountainDataState extends State<EditMountainData> {
                           backgroundColor: Colors.orange[100],
                           textColor: Colors.black,
                         );
-
                         print(
-                            '7777777777777777777777777777${textEditingController.text}');
+                            '777777mmmm7777777777777777777777${textEditingController.text}');
+                        print(
+                            '777777777uuuuuu7777777777777777777${textEditingController_3.text}');
+                        print(
+                            '777777777777555557777777777777777${textEditingController_2.text}');
+                        print(
+                            '777777777777777444447777777777777${textEditingController.text}');
                       } on firebase_core.FirebaseException catch (e) {
                         // ignore: avoid_print
                         print(e);
@@ -145,6 +166,7 @@ class _EditMountainDataState extends State<EditMountainData> {
                       Navigator.of(context).pushAndRemoveUntil(
                           materialPageRoute, (Route<dynamic> route) => false);
                     }
+                    LoadingScreen().hide();
                   },
                   child: Text(
                     'แก้ไข',

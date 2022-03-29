@@ -10,7 +10,6 @@ class EditFestival extends StatefulWidget {
 class _EditFestivalState extends State<EditFestival> {
   dynamic resName;
   dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('festival').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('festival');
@@ -104,6 +103,7 @@ class _EditFestivalState extends State<EditFestival> {
                                     builder: (BuildContext context) =>
                                         EditFestivalData(
                                           fesName: data['fes_name'],
+                                          docid: data['docid'],
                                         ));
                                 Navigator.push(context, route);
                               },

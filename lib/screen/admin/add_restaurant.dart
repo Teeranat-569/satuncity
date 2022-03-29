@@ -8,7 +8,9 @@ import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:satuncity/screen/admin/admin.dart';import 'package:path/path.dart' as Path;
+import 'package:satuncity/loading/loading_screen.dart';
+import 'package:satuncity/screen/admin/admin.dart';
+import 'package:path/path.dart' as Path;
 
 class Addrestaurant extends StatefulWidget {
   const Addrestaurant({Key key}) : super(key: key);
@@ -44,7 +46,13 @@ class _AddrestaurantState extends State<Addrestaurant> {
         actions: [
           TextButton(
               onPressed: () async {
-               
+                LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
                 uploadFile().whenComplete(() {
                   MaterialPageRoute materialPageRoute = MaterialPageRoute(
                       builder: (BuildContext context) => Admin());
@@ -52,6 +60,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
                       materialPageRoute, (Route<dynamic> route) => false);
                 });
                 await firebase_core.Firebase.initializeApp();
+                LoadingScreen().hide();
               },
               child: Text(
                 'เพิ่มร้านอาหาร',
@@ -116,13 +125,12 @@ class _AddrestaurantState extends State<Addrestaurant> {
                         ),
                         CircularProgressIndicator(
                           value: val,
-                          valueColor: const AlwaysStoppedAnimation<Color>(
-                              Colors.green),
+                          valueColor:
+                              const AlwaysStoppedAnimation<Color>(Colors.green),
                         )
                       ],
                     ))
                   : Container(),
-            
               const SizedBox(
                 height: 15,
               ),
@@ -204,7 +212,9 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           prefixIcon: Icon(Icons.drive_file_rename_outline)),
     );
@@ -222,7 +232,9 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           prefixIcon: Icon(Icons.description)),
     );
@@ -240,8 +252,11 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),prefixIcon: Icon(Icons.room)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+          prefixIcon: Icon(Icons.room)),
     );
   }
 
@@ -256,7 +271,9 @@ class _AddrestaurantState extends State<Addrestaurant> {
           fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  width: 2, color: Colors.grey.shade400, style: BorderStyle.solid)),
+                  width: 2,
+                  color: Colors.grey.shade400,
+                  style: BorderStyle.solid)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none)),
     );
   }
@@ -315,9 +332,7 @@ class _AddrestaurantState extends State<Addrestaurant> {
     int i = 1;
     List<String> indexList = [];
     for (var img in _imagef) {
-      
-        val = i / _imagef.length;
-    
+      val = i / _imagef.length;
 
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
@@ -331,15 +346,17 @@ class _AddrestaurantState extends State<Addrestaurant> {
       });
     }
     final database = FirebaseFirestore.instance;
-    database.collection('restaurant').add({'res_pic': indexList, 'res_name': restaurant_name,
+    database.collection('restaurant').add({
+      'res_pic': indexList, 'res_name': restaurant_name,
       'res-data': restaurant_data,
       // 'res_pic': img,
       'res_map': restaurant_map,
-      'res_address': restaurantAddress,});
-        MaterialPageRoute materialPageRoute =
-          MaterialPageRoute(builder: (BuildContext context) => Admin());
-      Navigator.of(context).pushAndRemoveUntil(
-          materialPageRoute, (Route<dynamic> route) => false);
+      'res_address': restaurantAddress,
+    });
+    MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext context) => Admin());
+    Navigator.of(context)
+        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
   }
 
   @override

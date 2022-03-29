@@ -1,24 +1,36 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:satuncity/loading/loading_screen.dart';
+import 'package:satuncity/screen/admin/edit/edit_page.dart';
 
 class EditFestivalData extends StatefulWidget {
-  dynamic fesName;
-  EditFestivalData({Key key, this.fesName}) : super(key: key);
+  dynamic fesName, docid;
+  EditFestivalData({Key key, this.fesName, this.docid}) : super(key: key);
   @override
   _EditFestivalDataState createState() => _EditFestivalDataState();
 }
 
 class _EditFestivalDataState extends State<EditFestivalData> {
-  dynamic fesName, fesData, fes_index, otopAdddress, edit_fesData;
+  // ignore: non_constant_identifier_names
+  dynamic fesName, fesData, fes_index, otopAdddress, edit_fesData, edit_fesname;
   dynamic url;
-  dynamic _image;
   List<dynamic> yy = [];
   TextEditingController textEditingController = TextEditingController();
+  TextEditingController textEditingController_2 = TextEditingController();
 
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('festival').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('festival');
+  var collection = FirebaseFirestore.instance.collection('festival');
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -44,6 +56,52 @@ class _EditFestivalDataState extends State<EditFestivalData> {
           appBar: AppBar(
             title: Text(widget.fesName),
             backgroundColor: Color.fromARGB(255, 102, 38, 102),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                   LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
+
+                  try {
+                    collection
+                        .doc(widget
+                            .docid) // <-- Doc ID where data should be updated.
+                        .update({
+                      'fes_name': textEditingController.text,
+                      'fes_data': textEditingController_2.text,
+                    });
+                    Fluttertoast.showToast(
+                      msg: "แก้ไขสำเร็จ",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      backgroundColor: Colors.orange[100],
+                      textColor: Colors.black,
+                    );
+
+                    print(
+                        '7777777777777777777777777777${textEditingController.text}');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
+                  }
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => EditPage());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                                      LoadingScreen().hide();
+
+                },
+                child: Text(
+                  'แก้ไข',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
@@ -111,6 +169,29 @@ class _EditFestivalDataState extends State<EditFestivalData> {
                                 child: const Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: Text(
+                                    'ชื่องานปรำจำปี',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 25),
+                                child: _editTitleTextField(
+                                  data['fes_name'],
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.deepOrange.shade800,
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
                                     'ลักษณะเด่น',
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.white),
@@ -121,8 +202,9 @@ class _EditFestivalDataState extends State<EditFestivalData> {
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 25, right: 10),
-                              child: _editTitleTextField(
-                                  fesData, edit_fesData, textEditingController),
+                              child: _editTitleTextField_2(
+                                data['fes_data'],
+                              ),
                             ),
                           ],
                         ),
@@ -138,20 +220,31 @@ class _EditFestivalDataState extends State<EditFestivalData> {
   }
 
   Widget _editTitleTextField(
-      dynamic kk, value, TextEditingController controller) {
-    controller = TextEditingController(text: kk);
+    dynamic kk,
+  ) {
+    textEditingController = TextEditingController(text: kk);
 
     return Container(
-      
       child: Center(
         child: TextField(
-          onSubmitted: (newValue) {
-            setState(() {
-              value = newValue;
-              // _isEditingText = false;
-            });
-          },
-          controller: controller,
+          // maxLines: 10,
+
+          controller: textEditingController,
+        ),
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_2(
+    dynamic kk,
+  ) {
+    textEditingController_2 = TextEditingController(text: kk);
+
+    return Container(
+      child: Center(
+        child: TextField(
+          maxLines: 10,
+          controller: textEditingController_2,
         ),
       ),
     );

@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:satuncity/loading/loading_screen.dart';
 
 import '../../edit_page.dart';
 
@@ -22,7 +23,7 @@ class EditWaterfallData extends StatefulWidget {
 
 class _EditWaterfallDataState extends State<EditWaterfallData> {
   dynamic travelName, travelCate, positive, travelMap, pathPIC, kk, kk_2;
- dynamic url, edit_positive, edit_map_url, edit_travelName;
+  dynamic url, edit_positive, edit_map_url, edit_travelName;
   dynamic _image, edit_img;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_waterfall').snapshots();
@@ -69,6 +70,13 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
               actions: [
                 TextButton(
                   onPressed: () async {
+                    LoadingScreen().show(
+                      context: context,
+                      text: 'Please wait a moment',
+                    );
+
+                    // await for 2 seconds to Mock Loading Data
+                    await Future.delayed(const Duration(seconds: 3));
                     Random random = Random();
                     int i = random.nextInt(100000);
                     await firebase_core.Firebase.initializeApp();
@@ -78,7 +86,9 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                     if (pathPIC != null) {
                       File file = File(pathPIC);
                       try {
-                        await storage.ref('travel/travel_waterfall_$i').putFile(file);
+                        await storage
+                            .ref('travel/travel_waterfall_$i')
+                            .putFile(file);
                         dynamic url2 = await storage
                             .ref('travel/travel_waterfall_$i')
                             .getDownloadURL();
@@ -89,9 +99,9 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                             .doc(widget
                                 .docid) // <-- Doc ID where data should be updated.
                             .update({
-                          'travelName': edit_travelName,
-                          'travel_map': edit_map_url,
-                          'positive': edit_positive,
+                          'travelName': textEditingController.text,
+                          'travel_map': textEditingController_3.text,
+                          'positive': textEditingController_2.text,
                           'pic': edit_img,
                         });
                         Fluttertoast.showToast(
@@ -142,6 +152,7 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
                       Navigator.of(context).pushAndRemoveUntil(
                           materialPageRoute, (Route<dynamic> route) => false);
                     }
+                    LoadingScreen().hide();
                   },
                   child: Text(
                     'แก้ไข',
@@ -323,11 +334,6 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
 
     return Center(
       child: TextField(
-        onSubmitted: (newValue) {
-          setState(() {
-            edit_positive = newValue;
-          });
-        },
         controller: textEditingController_2,
       ),
     );
@@ -338,11 +344,6 @@ class _EditWaterfallDataState extends State<EditWaterfallData> {
 
     return Center(
       child: TextField(
-        onSubmitted: (newValue) {
-          setState(() {
-            edit_map_url = newValue;
-          });
-        },
         controller: textEditingController_3,
       ),
     );

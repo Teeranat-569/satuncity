@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:satuncity/loading/loading_screen.dart';
 import 'package:satuncity/screen/admin/edit/edit_page.dart';
 
 class EditStoreData extends StatefulWidget {
@@ -92,82 +93,66 @@ class _EditStoreDataState extends State<EditStoreData> {
             actions: [
               TextButton(
                 onPressed: () async {
-                  Random random = Random();
-                  int i = random.nextInt(100000);
+                    LoadingScreen().show(
+                  context: context,
+                  text: 'Please wait a moment',
+                );
+
+                // await for 2 seconds to Mock Loading Data
+                await Future.delayed(const Duration(seconds: 3));
                   await firebase_core.Firebase.initializeApp();
                   final firebase_storage.FirebaseStorage storage =
                       firebase_storage.FirebaseStorage.instance;
 
-                  if (pathPIC != null) {
-                    File file = File(pathPIC);
-                    try {
-                      await storage.ref('otop/otop_$i').putFile(file);
-                      dynamic url2 =
-                          await storage.ref('otop/otop_$i').getDownloadURL();
-                      setState(() {
-                        edit_img = url2;
-                      });
-                      collection
-                          .doc(widget
-                              .docid) // <-- Doc ID where data should be updated.
-                          .update({
-                        'otop_name': textEditingController.text,
-                        // 'travel_map': t,
-                        'otop-data': textEditingController_2.text,
-                        'otop_pic': edit_img,
-                      });
-                      Fluttertoast.showToast(
-                        msg: "แก้ไขสำเร็จ",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        backgroundColor: Colors.orange[100],
-                        textColor: Colors.black,
-                      );
+                  try {
+                    collection
+                        .doc(widget
+                            .docid) // <-- Doc ID where data should be updated.
+                        .update({
+                      'store_name': textEditingController.text,
+                      'store_address': textEditingController_2.text,
+                      'store_phone': textEditingController_3.text,
+                      'store_map': textEditingController_4.text,
+                      'store_facebook': textEditingController_5.text,
+                      'store_Line': textEditingController_6.text,
+                      'store_website': textEditingController_7.text,
+                    });
 
-                      print('7777777777777777777777777777$edit_img');
-                      print(
-                          '77777777777777777222222eeeeeeeeee222222277777777777$url2');
-                    } on firebase_core.FirebaseException catch (e) {
-                      // ignore: avoid_print
-                      print(e);
-                    }
-                    MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                        builder: (BuildContext context) => EditPage());
-                    Navigator.of(context).pushAndRemoveUntil(
-                        materialPageRoute, (Route<dynamic> route) => false);
-                  } else {
-                    try {
-                      collection
-                          .doc(widget
-                              .docid) // <-- Doc ID where data should be updated.
-                          .update({
-                        'store_name': textEditingController.text,
-                        'store_address': textEditingController_2.text,
-                        'store_phone': textEditingController_3.text,
-                        'store_map': textEditingController_4.text,
-                        'store_facebook': textEditingController_5.text,
-                        'store_Line': textEditingController_6.text,
-                        'store_website': textEditingController_7.text,
-                      });
-                      Fluttertoast.showToast(
-                        msg: "แก้ไขสำเร็จ",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        backgroundColor: Colors.orange[100],
-                        textColor: Colors.black,
-                      );
+                    print(
+                        '777777777777775555577777777777777${textEditingController.text}');
+                    print(
+                        '777777777777ttttt7777777777777777${textEditingController_2.text}');
+                    print(
+                        '77777777777777777jjjjj77777777777${textEditingController_3.text}');
+                    print(
+                        '7777777777777rfrrrr77777777777777${textEditingController_4.text}');
+                    print(
+                        '77777777777ssss777777777777777${textEditingController_5.text}');
+                    print(
+                        '77777777777777777[[[]]]77777777777${textEditingController_6.text}');
+                    print(
+                        '77777777777775555asaa7777777777777${textEditingController_7.text}');
 
-                      print(
-                          '7777777777777777777777777777${textEditingController.text}');
-                    } on firebase_core.FirebaseException catch (e) {
-                      // ignore: avoid_print
-                      print(e);
-                    }
-                    MaterialPageRoute materialPageRoute = MaterialPageRoute(
-                        builder: (BuildContext context) => EditPage());
-                    Navigator.of(context).pushAndRemoveUntil(
-                        materialPageRoute, (Route<dynamic> route) => false);
+                    Fluttertoast.showToast(
+                      msg: "แก้ไขสำเร็จ",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      backgroundColor: Colors.orange[100],
+                      textColor: Colors.black,
+                    );
+
+                    print(
+                        '7777777777777777777777777777${textEditingController.text}');
+                  } on firebase_core.FirebaseException catch (e) {
+                    // ignore: avoid_print
+                    print(e);
                   }
+                  MaterialPageRoute materialPageRoute = MaterialPageRoute(
+                      builder: (BuildContext context) => EditPage());
+                  Navigator.of(context).pushAndRemoveUntil(
+                      materialPageRoute, (Route<dynamic> route) => false);
+                                      LoadingScreen().hide();
+
                 },
                 child: Text(
                   'แก้ไข',
@@ -242,42 +227,43 @@ class _EditStoreDataState extends State<EditStoreData> {
                             topics('ชือร้าน'),
                             Padding(
                                 padding: const EdgeInsets.only(left: 25),
-                                child: _editTitleTextField(data['store_name'],
-                                    edit_storeName, textEditingController)),
+                                child: _editTitleTextField(data['store_name'])),
                             topics('ที่อยู่'),
                             Padding(
                                 padding: const EdgeInsets.only(left: 25),
-                                child: _editTitleTextField(
-                                    data['store_address'],
-                                    edit_storeAddress,
-                                    textEditingController_2)),
+                                child: _editTitleTextField_2(
+                                  data['store_address'],
+                                )),
                             topics('เบอร์โทร'),
                             Padding(
                                 padding: const EdgeInsets.only(left: 25),
-                                child: _editTitleTextField(data['store_phone'],
-                                    edit_phone, textEditingController_3)),
+                                child: _editTitleTextField_3(
+                                  data['store_phone'],
+                                )),
                             topics('Google Map'),
                             Padding(
                                 padding: const EdgeInsets.only(left: 25),
-                                child: _editTitleTextField(data['store_map'],
-                                    edit_storeMap, textEditingController_4)),
+                                child: _editTitleTextField_4(
+                                  data['store_map'],
+                                )),
                             topics('Facebook'),
                             Padding(
                                 padding: const EdgeInsets.only(left: 25),
-                                child: _editTitleTextField(
-                                    data['store_facebook'],
-                                    edit_facebook,
-                                    textEditingController_5)),
+                                child: _editTitleTextField_5(
+                                  data['store_facebook'],
+                                )),
                             topics('Line'),
                             Padding(
                                 padding: const EdgeInsets.only(left: 25),
-                                child: _editTitleTextField(data['store_Line'],
-                                    edit_Line, textEditingController_6)),
+                                child: _editTitleTextField_6(
+                                  data['store_Line'],
+                                )),
                             topics('Website'),
                             Padding(
                               padding: const EdgeInsets.only(left: 25),
-                              child: _editTitleTextField(data['store_website'],
-                                  edit_website, textEditingController_7),
+                              child: _editTitleTextField_7(
+                                data['store_website'],
+                              ),
                             ),
                           ],
                         ),
@@ -312,23 +298,73 @@ class _EditStoreDataState extends State<EditStoreData> {
     );
   }
 
-  Widget _editTitleTextField(
-      dynamic kk, value, TextEditingController controller) {
-    controller = TextEditingController(text: kk);
+  Widget _editTitleTextField(dynamic kk) {
+    textEditingController = TextEditingController(text: kk);
 
     return Center(
       child: TextField(
-        onSubmitted: (newValue) {
-          setState(() {
-            value = newValue;
-            // _isEditingText = false;
-          });
-        },
-        controller: controller,
+        controller: textEditingController,
       ),
     );
   }
 
+  Widget _editTitleTextField_2(dynamic kk) {
+    textEditingController_2 = TextEditingController(text: kk);
 
- 
+    return Center(
+      child: TextField(
+        controller: textEditingController_2,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_3(dynamic kk) {
+    textEditingController_3 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        controller: textEditingController_3,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_4(dynamic kk) {
+    textEditingController_4 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        controller: textEditingController_4,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_5(dynamic kk) {
+    textEditingController_5 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        controller: textEditingController_5,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_6(dynamic kk) {
+    textEditingController_6 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        controller: textEditingController_6,
+      ),
+    );
+  }
+
+  Widget _editTitleTextField_7(dynamic kk) {
+    textEditingController_7 = TextEditingController(text: kk);
+
+    return Center(
+      child: TextField(
+        controller: textEditingController_7,
+      ),
+    );
+  }
 }

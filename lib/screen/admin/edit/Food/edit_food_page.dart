@@ -102,6 +102,7 @@ class _EditFoodPageState extends State<EditFoodPage> {
                                 MaterialPageRoute route = MaterialPageRoute(
                                     builder: (BuildContext context) => EditFoodData(
                                           resName: data['res_name'],
+                                          docid:  data['docid'],
                                         ));
                                 Navigator.push(context, route);
                               },
