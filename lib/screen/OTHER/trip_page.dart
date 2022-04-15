@@ -13,7 +13,9 @@ class _TripPageState extends State<TripPage> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        appBar: AppBar(title: Text('การเดินทาง'),backgroundColor: Colors.deepPurple,
+        appBar: AppBar(
+          title: Text('การเดินทาง'),
+          backgroundColor: Colors.deepPurple,
           bottom: const TabBar(
             indicatorWeight: 5.0,
             indicatorColor: Colors.white,
@@ -49,7 +51,7 @@ class _TripPageState extends State<TripPage> {
       ),
     );
   }
-
+// Tab Bar //////////////////////////////////////////////////////////////////////
   Widget tab(String text, text2) {
     return Column(
       children: [

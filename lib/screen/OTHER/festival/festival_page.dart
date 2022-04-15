@@ -10,7 +10,6 @@ class Festival extends StatefulWidget {
 class _FestivalState extends State<Festival> {
   dynamic resName;
  dynamic url;
-  dynamic _image;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('festival').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('festival');

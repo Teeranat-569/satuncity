@@ -13,7 +13,7 @@ class SeaData extends StatefulWidget {
 
 class _SeaDataState extends State<SeaData> {
   dynamic travelName, travelCate, positive, travelMap;
- dynamic url;
+  dynamic url;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel').snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel');
@@ -45,9 +45,10 @@ class _SeaDataState extends State<SeaData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
+              // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
               child: ListView(
-                children: 
-                snapshot.data.docs.map((DocumentSnapshot document) {
+                children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
                   data["docid"] = document.id;
@@ -56,7 +57,6 @@ class _SeaDataState extends State<SeaData> {
                   positive = data['positive'];
                   travelMap = data['travel_map'];
                   url = data['pic'].toString();
-
                   // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["travelCate"]}');
@@ -143,7 +143,7 @@ class _SeaDataState extends State<SeaData> {
     );
   }
 
-  //method to launch maps
+// แสดงแผนที่ //////////////////////////////////////////////////////////////////////
   void launchMap(travelMap) async {
     if (await canLaunch(travelMap)) {
       print("Can launch");

@@ -82,11 +82,11 @@ class _ReviewPageState extends State<ReviewPage> {
                                   //   //         )),
                                   // ),
                                   ListTile(
-                                      title: Text(
-                                        "@ " + doc['travelName'],
-                                        style: TextStyle(),
-                                      ),
-                                     ),
+                                    title: Text(
+                                      "@ " + doc['travelName'],
+                                      style: TextStyle(),
+                                    ),
+                                  ),
                                   if (doc['pic'] != null) ...[
                                     Padding(
                                       padding: const EdgeInsets.all(10.0),
@@ -154,10 +154,10 @@ class _ReviewPageState extends State<ReviewPage> {
                                             doc['rate'].toString(),
                                           ),
                                           doc['comment'] != null
-                                          ? Text(":" + doc['comment'],
-                                              style: TextStyle())
-                                          : Text("Some Descritiption",
-                                              style: TextStyle())
+                                              ? Text(":" + doc['comment'],
+                                                  style: TextStyle())
+                                              : Text("Some Descritiption",
+                                                  style: TextStyle())
                                         ],
                                       ),
                                     )
@@ -184,21 +184,5 @@ class _ReviewPageState extends State<ReviewPage> {
                 return Center(child: CircularProgressIndicator());
               }
             }));
-  }
-
-  String convertToAgo(DateTime input) {
-    Duration diff = DateTime.now().difference(input);
-
-    if (diff.inDays >= 1) {
-      return '${diff.inDays} day(s) ago';
-    } else if (diff.inHours >= 1) {
-      return '${diff.inHours} hour(s) ago';
-    } else if (diff.inMinutes >= 1) {
-      return '${diff.inMinutes} minute(s) ago';
-    } else if (diff.inSeconds >= 1) {
-      return '${diff.inSeconds} second(s) ago';
-    } else {
-      return 'just now';
-    }
   }
 }

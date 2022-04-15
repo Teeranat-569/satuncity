@@ -179,6 +179,7 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
+// กรอกอีเมล //////////////////////////////////////////////////////////////////////
   Widget usernameText() {
     return TextField(
       onChanged: (value) => username = value.trim(),
@@ -197,6 +198,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+// กรอกรหัสผ่าน //////////////////////////////////////////////////////////////////////
   Widget passwordText() {
     return TextField(
       onChanged: (value) => password = value.trim(),
@@ -215,6 +217,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+// การเข้าสู่ระบบด้วย Facebook //////////////////////////////////////////////////////////////////////
   Future<void> facebookLogin() async {
     final result = await FacebookAuth.instance
         .login(permissions: ["email", "public_profile"]);
@@ -235,7 +238,7 @@ class _LoginPageState extends State<LoginPage> {
       print('///////////////////////////ffffffff');
     }
   }
-
+// เข้าสู่ระบบด้วยอีเมล-รหัสผ่าน //////////////////////////////////////////////////////////////////////
   Future<Null> checkAuthen() async {
     await Firebase.initializeApp().then((value) {
       // ignore: avoid_print
@@ -286,6 +289,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+// Dialog เตือน //////////////////////////////////////////////////////////////////////
   void myAlert(String title, String message) {
     showDialog(
         context: context,

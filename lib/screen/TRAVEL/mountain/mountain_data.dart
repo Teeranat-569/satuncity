@@ -16,7 +16,8 @@ class _MountainDataState extends State<MountainData> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_mountain').snapshots();
-  CollectionReference users = FirebaseFirestore.instance.collection('travel_mountain');
+  CollectionReference users =
+      FirebaseFirestore.instance.collection('travel_mountain');
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -45,6 +46,8 @@ class _MountainDataState extends State<MountainData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
+              // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -82,7 +85,6 @@ class _MountainDataState extends State<MountainData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'ลักษณะเด่น',
-                                  
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -108,14 +110,14 @@ class _MountainDataState extends State<MountainData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'พิกัด',
-                                     
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
-                              Row(mainAxisAlignment: MainAxisAlignment.center,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   TextButton(
                                       onPressed: () {
@@ -143,9 +145,9 @@ class _MountainDataState extends State<MountainData> {
     );
   }
 
-  //method to launch maps
+// แสดงแผนที่ //////////////////////////////////////////////////////////////////////
+
   void launchMap(travelMap) async {
-    
     if (await canLaunch(travelMap)) {
       print("Can launch");
 
@@ -155,5 +157,4 @@ class _MountainDataState extends State<MountainData> {
       throw 'Could not launch Maps';
     }
   }
-
 }

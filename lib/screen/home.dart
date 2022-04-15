@@ -4,13 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:satuncity/screen/Other.dart';
-import 'package:satuncity/screen/admin/edit/edit_page.dart';
 import 'package:satuncity/screen/homedata.dart';
 import 'package:satuncity/screen/Otop/otop_page.dart';
 import 'package:satuncity/screen/travel.dart';
 
 import 'Login/login.dart';
-import 'admin/admin.dart';
 
 class Home extends StatefulWidget {
   dynamic username;
@@ -21,7 +19,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Widget> page = [Homedata(), Travel(), OtopPage(), Other()];
-  List<Widget> pageAdmin = [Admin(), EditPage()];
 
   int a = 0;
   var text = [
@@ -83,10 +80,6 @@ class _HomeState extends State<Home> {
             color: Colors.black,
             height: 10,
           ),
-          if (widget.username == 'satuncity-app@gmail.com')
-            listMenu(Icon(Icons.add), 'เพิ่มข้อมูลสถานที่', 0),
-          if (widget.username == 'satuncity-app@gmail.com')
-            listMenu(Icon(Icons.edit), 'แก้ไขข้อมูลสถานที่', 1)
         ]),
       ),
       appBar: AppBar(
@@ -121,16 +114,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget listMenu(Icon icon, String title, int admin) {
-    return ListTile(
-      leading: icon,
-      title: Text(title),
-      onTap: () {
-        route(pageAdmin[admin]);
-      },
-    );
-  }
-
+// Alert ลงชื่อออกจากระบบ //////////////////////////////////////////////////////////////////////
   void myAlert() {
     showDialog(
         context: context,
@@ -149,6 +133,7 @@ class _HomeState extends State<Home> {
         });
   }
 
+// ปุ่มยกเลิก //////////////////////////////////////////////////////////////////////
   Widget cancleButton() {
     // ignore: deprecated_member_use
     return FlatButton(
@@ -164,6 +149,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+// ปุ่มตกลง //////////////////////////////////////////////////////////////////////
   Widget okButton() {
     // ignore: deprecated_member_use
     return FlatButton(
@@ -179,6 +165,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // ออกจากระบบ //////////////////////////////////////////////////////////////////////
   Future<void> signOut() async {
     // ignore: avoid_print
     print('SIgnOut>>>>>>>>>>>>>>>>>>>>successssssssss');
@@ -196,6 +183,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+// เปลี่ยนหน้า //////////////////////////////////////////////////////////////////////
   Future<Null> route(Widget routeName) async {
     MaterialPageRoute materialPageRoute =
         MaterialPageRoute(builder: (BuildContext context) => routeName);

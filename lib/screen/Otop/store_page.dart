@@ -47,14 +47,14 @@ class _StorePageState extends State<StorePage> {
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
+            // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
             child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data() as Map<String, dynamic>;
               data["docid"] = document.id;
               storeName = data['store_name'];
-              // url = data['res_pic'].toString();
-
               // ignore: avoid_print
               print('4444444444444444444444444 ${data["docid"]}');
               print('4444444444444444444444444 ${data["store_name"]}');

@@ -1,8 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/OTHER/review/post.dart';
 
+// ignore: must_be_immutable
 class Search extends StatefulWidget {
   dynamic travelName, travelCate;
   Search({Key key, this.travelName, this.travelCate}) : super(key: key);
@@ -61,6 +64,8 @@ class _SearchState extends State<Search> {
       )),
     );
   }
+
+// รวมชื่อสถานที่ท่องเที่ยวในหน้าค้นหา //////////////////////////////////////////////////////////////////////
 
   Widget _buildBody(BuildContext context) {
     Firebase.initializeApp(); // new

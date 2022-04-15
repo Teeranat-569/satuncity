@@ -37,9 +37,10 @@ class _OtopPageState extends State<OtopPage> {
 
         return SafeArea(
           child: Scaffold(
-           
             // ignore: avoid_unnecessary_containers
             body: Container(
+              // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -62,7 +63,6 @@ class _OtopPageState extends State<OtopPage> {
                       // ignore: deprecated_member_use
                       child: Column(
                         children: [
-
                           InkWell(
                             child: Container(
                                 height: 120,

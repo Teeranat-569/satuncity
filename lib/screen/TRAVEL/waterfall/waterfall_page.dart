@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/TRAVEL/waterfall/waterfall_data.dart';
-import '../mountain/mountain_data.dart';
 
 class WaterfallPage extends StatefulWidget {
   dynamic travelCate;
@@ -50,6 +49,8 @@ class _WaterfallPageState extends State<WaterfallPage> {
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
+            //แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
@@ -99,13 +100,15 @@ class _WaterfallPageState extends State<WaterfallPage> {
                                 )),
                             onTap: () {
                               MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => WaterfallData(
+                                  builder: (BuildContext context) =>
+                                      WaterfallData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
                                       ));
                               Navigator.push(context, route);
                             },
-                          ) else
+                          )
+                        else
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(

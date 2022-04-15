@@ -14,6 +14,7 @@ class Other extends StatefulWidget {
 }
 
 class _OtherState extends State<Other> {
+  // เมนูร้านอาหาร //////////////////////////////////////////////////////////////////////
   Widget iconfood() {
     return OutlineButton(
       child: Column(
@@ -35,6 +36,7 @@ class _OtherState extends State<Other> {
     );
   }
 
+// เมนูสภาพอากาศ //////////////////////////////////////////////////////////////////////
   Widget iconwesther() {
     return OutlineButton(
       child: Column(
@@ -56,6 +58,7 @@ class _OtherState extends State<Other> {
     );
   }
 
+// เมนูงานประจำ //////////////////////////////////////////////////////////////////////
   Widget iconannual() {
     return OutlineButton(
       child: Column(
@@ -77,6 +80,7 @@ class _OtherState extends State<Other> {
     );
   }
 
+// เมนูรีวิว //////////////////////////////////////////////////////////////////////
   Widget iconreview() {
     return OutlineButton(
       child: Column(
@@ -98,6 +102,7 @@ class _OtherState extends State<Other> {
     );
   }
 
+// เมนูการเดินทาง //////////////////////////////////////////////////////////////////////
   Widget icontrip() {
     return OutlineButton(
       child: Column(
@@ -119,17 +124,17 @@ class _OtherState extends State<Other> {
     );
   }
 
-  Widget row2() {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [iconannual(), iconreview()],
-    );
-  }
-
   Widget row1() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [iconfood(), iconwesther()],
+    );
+  }
+
+  Widget row2() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [iconannual(), iconreview()],
     );
   }
 
@@ -143,8 +148,7 @@ class _OtherState extends State<Other> {
             row1(),
             Padding(padding: EdgeInsets.only(bottom: 25.0)),
             row2(),
-                        Padding(padding: EdgeInsets.only(bottom: 25.0)),
-
+            Padding(padding: EdgeInsets.only(bottom: 25.0)),
             icontrip()
           ],
         ),

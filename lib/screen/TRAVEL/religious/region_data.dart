@@ -16,7 +16,8 @@ class _RegionDataState extends State<RegionData> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('travel_region').snapshots();
-  CollectionReference users = FirebaseFirestore.instance.collection('travel_region');
+  CollectionReference users =
+      FirebaseFirestore.instance.collection('travel_region');
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -45,6 +46,8 @@ class _RegionDataState extends State<RegionData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
+              // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -82,7 +85,6 @@ class _RegionDataState extends State<RegionData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'ลักษณะเด่น',
-                                    
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
@@ -108,15 +110,16 @@ class _RegionDataState extends State<RegionData> {
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
                                       'พิกัด',
-                                     
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
-                              Row(mainAxisAlignment: MainAxisAlignment.center,
-                                children: [TextButton(
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
                                       onPressed: () {
                                         launchMap(data['travel_map']);
                                       },
@@ -142,7 +145,7 @@ class _RegionDataState extends State<RegionData> {
     );
   }
 
-  //method to launch maps
+// แสดงแผนที่ //////////////////////////////////////////////////////////////////////
   void launchMap(travelMap) async {
     if (await canLaunch(travelMap)) {
       print("Can launch");

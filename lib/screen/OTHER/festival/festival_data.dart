@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FestivalData extends StatefulWidget {
   dynamic fesName;
   FestivalData({Key key, this.fesName}) : super(key: key);
@@ -10,9 +11,9 @@ class FestivalData extends StatefulWidget {
 }
 
 class _FestivalDataState extends State<FestivalData> {
+  // ignore: non_constant_identifier_names
   dynamic fesName, fesData, fes_index, otopAdddress;
  dynamic url;
-  dynamic _image;
   List<dynamic> yy = [];
 
   final Stream<QuerySnapshot> _usersStream =

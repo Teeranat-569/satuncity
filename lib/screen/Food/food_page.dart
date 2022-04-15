@@ -44,6 +44,8 @@ class _FoodPageState extends State<FoodPage> {
           body: Container(
             // color: Colors.purple[50],
             child: ListView(
+              // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data() as Map<String, dynamic>;

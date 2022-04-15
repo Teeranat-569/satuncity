@@ -5,6 +5,7 @@ import 'package:satuncity/screen/OTHER/review/search_page.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'review_page.dart';
 
+// ignore: must_be_immutable
 class Post extends StatefulWidget {
   dynamic travelName, picUrl;
   Post({Key key, this.travelName, this.picUrl}) : super(key: key);
@@ -156,14 +157,14 @@ class _PostState extends State<Post> {
     );
   }
 
+ 
+  // เพิ่มข้อมูลรีวิว //////////////////////////////////////////////////////////////////////
+ // ignore: non_constant_identifier_names
   CollectionReference travel_sea =
       FirebaseFirestore.instance.collection('comment');
   Future<void> addReview() {
-
-     DateTime currentPhoneDate = DateTime.now(); //DateTime
-
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
     Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-
     DateTime myDateTime = myTimeStamp.toDate(); // TimeStamp to DateTime
 
     print("current phone data is: $currentPhoneDate");
@@ -194,20 +195,4 @@ class _PostState extends State<Post> {
       // ignore: avoid_print, invalid_return_type_for_catch_error
     }).catchError((error) => print("Failed to add user: $error"));
   }
-
-  String convertToAgo(DateTime input){
-  Duration diff = DateTime.now().difference(input);
-  
-  if(diff.inDays >= 1){
-    return '${diff.inDays} day(s) ago';
-  } else if(diff.inHours >= 1){
-    return '${diff.inHours} hour(s) ago';
-  } else if(diff.inMinutes >= 1){
-    return '${diff.inMinutes} minute(s) ago';
-  } else if (diff.inSeconds >= 1){
-    return '${diff.inSeconds} second(s) ago';
-  } else {
-    return 'just now';
-  }
-}
 }

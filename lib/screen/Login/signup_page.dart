@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/home.dart';
-
 import 'customClipper.dart';
 import 'login.dart';
 
@@ -68,7 +66,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      // SizedBox(height: height * .1),
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 40),
@@ -214,7 +211,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               ],
                             ),
                           ),
-                         
                         ],
                       ),
                       SizedBox(
@@ -358,18 +354,20 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+// สมัครสมาชิกด้วยอีเมล-รหัสผ่าน //////////////////////////////////////////////////////////////////////
   Future signUp({dynamic email, dynamic password}) async {
     try {
       await _auth.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-      MaterialPageRoute materialPageRoute =
-        MaterialPageRoute(builder: (BuildContext context) => Home(username: _emailController.text,));
-  
-    Navigator.of(context)
-        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
+      MaterialPageRoute materialPageRoute = MaterialPageRoute(
+          builder: (BuildContext context) => Home(
+                username: _emailController.text,
+              ));
 
+      Navigator.of(context).pushAndRemoveUntil(
+          materialPageRoute, (Route<dynamic> route) => false);
     } on FirebaseAuthException catch (e) {
       return e.message;
     }

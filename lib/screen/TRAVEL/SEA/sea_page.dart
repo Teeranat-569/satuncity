@@ -103,7 +103,8 @@ class _SeaPageState extends State<SeaPage> {
                                       ));
                               Navigator.push(context, route);
                             },
-                          ) else
+                          )
+                        else
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(

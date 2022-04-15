@@ -21,7 +21,7 @@ class _RegionPageState extends State<RegionPage> {
       .collection('travel_region')
       .where('travelCate')
       .snapshots();
-  
+
   @override
   void initState() {
     super.initState();
@@ -37,18 +37,8 @@ class _RegionPageState extends State<RegionPage> {
 
         print(doc["travelCate"]);
         print(docID);
-
-        // if (widget.otopName == doc["otop_name"]) {
-          print('dddddddddddddddeeeeeeeeeddddddd${doc.id}');
-        //   collection
-        //       .collection('otop_store')
-        //       .doc(doc
-        //           .id) // <-- Doc ID where data should be updated.
-        //       .update({
-        //     'otop_name': textEditingController.text,
-        //     // 'travel_map': t,
-        //   });
-        // }
+        print('dddddddddddddddeeeeeeeeeddddddd${doc.id}');
+  
       });
     });
   }
@@ -58,6 +48,7 @@ class _RegionPageState extends State<RegionPage> {
     return showData();
   }
 
+// แสดงข้อมูล //////////////////////////////////////////////////////////////////////
   StreamBuilder<QuerySnapshot<Object>> showData() {
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
@@ -79,9 +70,7 @@ class _RegionPageState extends State<RegionPage> {
             ),
           );
         }
-
         loadStatus = false;
-        // print(object)
         return Scaffold(
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
@@ -99,7 +88,7 @@ class _RegionPageState extends State<RegionPage> {
       },
     );
   }
-
+// เพิ่มข้อมูลทั้งหมด //////////////////////////////////////////////////////////////////////
   Container show(
       AsyncSnapshot<QuerySnapshot<Object>> snapshot, BuildContext context) {
     return Container(

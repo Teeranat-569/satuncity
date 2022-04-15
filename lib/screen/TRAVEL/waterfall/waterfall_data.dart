@@ -46,6 +46,7 @@ class _WaterfallDataState extends State<WaterfallData> {
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
+              // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
               child: ListView(
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -142,7 +143,7 @@ class _WaterfallDataState extends State<WaterfallData> {
     );
   }
 
-  //method to launch maps
+// แสดงแผนที่ //////////////////////////////////////////////////////////////////////
   void launchMap(travelMap) async {
     if (await canLaunch(travelMap)) {
       print("Can launch");

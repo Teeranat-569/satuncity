@@ -55,6 +55,8 @@ class _StoreOtopState extends State<StoreOtop> {
             backgroundColor: Colors.indigo,
           ),
           body: Container(
+            // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =

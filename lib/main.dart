@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/Login/login.dart';
 import 'package:satuncity/screen/Login/splashscreen.dart';
-import 'package:satuncity/screen/admin/edit/edit_page.dart';
 import 'package:satuncity/screen/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 

@@ -51,6 +51,8 @@ class _FoodDataState extends State<FoodData> {
             // ignore: avoid_unnecessary_containers
             body: Container(
               child: ListView(
+                // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
+
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
@@ -212,7 +214,8 @@ class _FoodDataState extends State<FoodData> {
     );
   }
 
-  //method to launch maps
+ // เปืดลิงค์ Map //////////////////////////////////////////////////////////////////////
+
   void launchMap(travelMap) async {
     
     if (await canLaunch(travelMap)) {
@@ -230,26 +233,4 @@ class _FoodDataState extends State<FoodData> {
     }
   }
 
-  void makeDialog() {
-    showDialog(
-        context: context,
-        builder: (_) => new SimpleDialog(
-              contentPadding: EdgeInsets.only(left: 30.0, top: 30.0),
-              children: <Widget>[
-                new Text(
-                  "Address: ",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                new ButtonBar(
-                  children: <Widget>[
-                    new IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                )
-              ],
-            ));
-  }
 }

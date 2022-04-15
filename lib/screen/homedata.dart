@@ -19,6 +19,7 @@ class _HomedataState extends State<Homedata> {
     super.initState();
   }
 
+// แสดงข้อมูล //////////////////////////////////////////////////////////////////////
   readData() {
     FirebaseFirestore.instance
         .collection('travel')
@@ -45,21 +46,16 @@ class _HomedataState extends State<Homedata> {
     return CarouselSlider(
       options: CarouselOptions(height: 200.0, autoPlay: true),
       items: [
-      
-
         for (var i = 0; i < yy.length; i++)
           {
             index_r = yy[i].toString(),
             print('dddddddddddddddddddddddddddddddddddddddd $index_r'),
           },
-
-        
       ].map((j) {
         return Builder(
           builder: (BuildContext context) {
             List text = j.toList();
             print('gggggggggggggggggggg $text');
-
             return Container(
                 width: MediaQuery.of(context).size.width,
                 height: 500,
@@ -69,23 +65,11 @@ class _HomedataState extends State<Homedata> {
                     image: new DecorationImage(
                         fit: BoxFit.fill,
                         image: new NetworkImage("${text.join()}"))),
-                child:
-                    // Image.network(
-                    //   text.join(),
-                    //   fit: BoxFit.cover,
-                    // )
-                    Text(''));
-              
+                child: Text(''));
           },
         );
       }).toList(),
     );
-    // Container(
-    //   padding: EdgeInsets.only(top: 15.0),
-    //   width: MediaQuery.of(context).size.width * 0.3,
-    //   height: MediaQuery.of(context).size.height * 0.3,
-    //   child: Image.asset("images/aaa.jpg"),
-    // );
   }
 
   Widget imgtest() {

@@ -45,6 +45,7 @@ class _OtopDataState extends State<OtopData> {
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
+            // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
             child: ListView(
               children: snapshot.data.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
@@ -91,7 +92,7 @@ class _OtopDataState extends State<OtopData> {
                               padding: const EdgeInsets.only(left: 25),
                               child: Text(otopData),
                             ),
-                              Padding(
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
@@ -109,25 +110,28 @@ class _OtopDataState extends State<OtopData> {
                                 ),
                               ),
                             ),
-                             Row(mainAxisAlignment: MainAxisAlignment.center,
-                                children: [  IconButton(
-                                      icon: Icon(Icons.store),
-                                      onPressed: () {
-                                        // launchMap(data['travel_map']);
-                                      }),
-                                  TextButton(
-                                      onPressed: () {
-                                        // launchMap(data['travel_map']);
-                                         MaterialPageRoute route = MaterialPageRoute(
-                                  builder: (BuildContext context) => StorePage(
-                                        otopName: data['otop_name'],
-                                      ));
-                              Navigator.push(context, route);
-                                      },
-                                      child: Text('คลิกเพื่อดูร้านค้า')),
-                                
-                                ],
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    icon: Icon(Icons.store),
+                                    onPressed: () {
+                                      // launchMap(data['travel_map']);
+                                    }),
+                                TextButton(
+                                    onPressed: () {
+                                      // launchMap(data['travel_map']);
+                                      MaterialPageRoute route =
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  StorePage(
+                                                    otopName: data['otop_name'],
+                                                  ));
+                                      Navigator.push(context, route);
+                                    },
+                                    child: Text('คลิกเพื่อดูร้านค้า')),
+                              ],
+                            ),
                           ],
                         ),
                     ],
