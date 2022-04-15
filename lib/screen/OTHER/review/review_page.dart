@@ -103,12 +103,12 @@ class _ReviewPageState extends State<ReviewPage> {
                                   //   //           color: Colors.white,
                                   //   //         )),
                                   // ),
-                                  ListTile(
-                                    title: Text(
-                                      "@ " + doc['travelName'],
-                                      style: TextStyle(),
-                                    ),
-                                  ),
+                                  // ListTile(
+                                  //   title: Text(
+                                  //     "@ " + doc['travelName'],
+                                  //     style: TextStyle(),
+                                  //   ),
+                                  // ),
                                   if (doc['pic'] != null) ...[
                                     Padding(
                                       padding: const EdgeInsets.all(10.0),

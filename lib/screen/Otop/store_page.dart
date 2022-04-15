@@ -89,7 +89,7 @@ class _StorePageState extends State<StorePage> {
                                 ),
                                 InkWell(
                                   child: Container(
-                                      height: 50,
+                                      height: 100,
                                       width: 300,
                                       child: Center(
                                         child: Container(
