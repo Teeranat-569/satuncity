@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_field
 
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +16,14 @@ class _SignUpPageState extends State<SignUpPage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _passwordVisible = true;
+  String _password;
+
+  @override
+  // ignore: must_call_super
+  void initState() {
+    _passwordVisible = false;
+  }
 
   @override
   void dispose() {
@@ -184,30 +192,70 @@ class _SignUpPageState extends State<SignUpPage> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                TextField(
+                                // TextField(
+                                //   controller: _passwordController,
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //   ),
+                                //   textAlign: TextAlign.start,
+                                //   obscureText: !obscureText,
+                                //   decoration: InputDecoration(
+                                //     hintText: "password",
+                                //     suffixIcon: IconButton(
+                                //       icon: Icon(Icons.visibility),
+                                //       onPressed: () {
+
+                                //       },
+                                //     ),
+                                //     border: OutlineInputBorder(
+                                //       borderRadius: BorderRadius.circular(
+                                //         15,
+                                //       ),
+                                //     ),
+                                //     fillColor: Color(
+                                //       0xfff3f3f4,
+                                //     ),
+                                //     filled: true,
+                                //   ),
+                                // ),
+
+                                TextFormField(
+                                  initialValue: _password,
+                                  onSaved: (val) => _password = val,
+                                  validator: (val) => val.length < 6
+                                      ? 'Password too short.'
+                                      : 'lll',
+                                  keyboardType: TextInputType.text,
                                   controller: _passwordController,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                  obscureText: true,
+                                  obscureText:
+                                      !_passwordVisible, //This will obscure text dynamically
                                   decoration: InputDecoration(
-                                    hintText: "password",
-                                    suffixIcon: Icon(
-                                      Icons.visibility,
-                                      color: Colors.black54,
-                                    ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
                                         15,
                                       ),
                                     ),
-                                    fillColor: Color(
-                                      0xfff3f3f4,
+                                    labelText: 'Password',
+                                    hintText: 'Enter your password',
+                                    // Here is key idea
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        // Based on passwordVisible state choose the icon
+                                        _passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
+                                      onPressed: () {
+                                        // Update the state i.e. toogle the state of passwordVisible variable
+                                        setState(() {
+                                          _passwordVisible = !_passwordVisible;
+                                        });
+                                      },
                                     ),
-                                    filled: true,
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),
