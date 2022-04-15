@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, must_be_immutable, unused_element
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -161,78 +162,86 @@ class _StoreOtopState extends State<StoreOtop> {
                                           launchMap(store_Line);
                                         },
                                       ),
-                                store_map == null || store_map == ''
-                                    ? Text('')
-                                    : IconButton(
-                                        icon: Image.asset('images/map.jpg'),
-                                        iconSize: 40,
-                                        onPressed: () {
-                                          launchMap(store_map);
-                                        }),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.indigo,
-                                    ),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Center(
-                                        child: Text(
-                                          'ชื่อร้าน',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white),
+                            store_name == null || store_name == ''
+                                ? Text('ไม่มี')
+                                : Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: Colors.indigo,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: Text(
+                                                'ชื่อร้าน',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Container(
+                                            width: 200,
+                                            child: Text(store_name)),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(store_name),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.indigo,
-                                    ),
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Center(
-                                        child: Text(
-                                          'ที่อยู่',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white),
+                            store_address == null || store_address == ''
+                                ? Text('ไม่มี')
+                                : Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: Colors.indigo,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: Text(
+                                                'ที่อยู่',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Container(
+                                            width: 200,
+                                            child: Text(store_address)),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(store_address),
-                                ),
-                              ],
-                            ),
                             store_phone == null || store_phone == ''
-                                ? Text('')
+                                ? Text('ไม่มี')
                                 : Row(
                                     children: [
                                       Padding(
@@ -274,6 +283,51 @@ class _StoreOtopState extends State<StoreOtop> {
                                       )
                                     ],
                                   ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.indigo,
+                                    ),
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: Text(
+                                          'แผนที่',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                store_map == null || store_map == ''
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text('ไม่มี'),
+                                      )
+                                    : Row(
+                                        children: [
+                                          TextButton(
+                                              onPressed: () {
+                                                launchMap(store_map);
+                                              },
+                                              child: Text('คลิกเพื่อดูแผนที่')),
+                                          IconButton(
+                                              icon: Icon(Icons.directions),
+                                              onPressed: () {
+                                                launchMap(store_map);
+                                              }),
+                                        ],
+                                      ),
+                              ],
+                            ),
                           ],
                         ),
                     ],

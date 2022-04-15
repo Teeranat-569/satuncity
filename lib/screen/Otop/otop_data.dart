@@ -52,7 +52,7 @@ class _OtopDataState extends State<OtopData> {
                     document.data() as Map<String, dynamic>;
                 data["docid"] = document.id;
                 otopName = data['otop_name'];
-                otopData = data['otop-data'];
+                otopData = data['data'];
                 // otopMap = data['otop_map'];
                 otopAdddress = data['otop_address'];
                 url = data['otop_pic'].toString();

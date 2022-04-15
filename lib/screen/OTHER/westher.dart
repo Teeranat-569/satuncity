@@ -35,14 +35,26 @@ class _WestherState extends State<Westher> {
       appBar: AppBar(
         title: Text("สภาพภูมิอากาศ"),
       ),
-      body: Center(
-        child: ss == null
-            ? CircularProgressIndicator()
-            : Text(
-                'จ.สตูล \n  ${ss.toInt()} ํ',
-                style: TextStyle(fontSize: 36),
-                textAlign: TextAlign.center,
-              ),
+      body: Container(
+        decoration: BoxDecoration(image: DecorationImage(image: AssetImage('images/wea.jpg'),fit: BoxFit.cover)),
+        child: Center(
+          child: ss == null
+              ? CircularProgressIndicator()
+              : Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10),
+                      color: Colors.white
+                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'จ.สตูล \n  ${ss.toInt()} ํ',
+                      style: TextStyle(fontSize: 36),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+        ),
       ),
     );
   }

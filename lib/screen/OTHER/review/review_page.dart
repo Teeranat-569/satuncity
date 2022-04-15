@@ -26,7 +26,17 @@ class _ReviewPageState extends State<ReviewPage> {
             ),
           ),
           actions: [
-            IconButton(
+            TextButton(
+               onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Post(),
+                    ));
+              },
+              child: Row(
+                children: [
+                   IconButton(
               icon: Icon(
                 Icons.post_add,
                 color: Colors.white,
@@ -38,6 +48,18 @@ class _ReviewPageState extends State<ReviewPage> {
                       builder: (context) => Post(),
                     ));
               },
+            ),
+                  Text(
+                            "รีวิว",
+                            style: TextStyle(
+                              color: Colors.white,
+                              // fontSize: 20,
+                              // fontWeight: FontWeight.w500,
+                              fontFamily: 'Yaldevi',
+                            ),
+                          ),
+                ],
+              ),
             )
           ],
         ),

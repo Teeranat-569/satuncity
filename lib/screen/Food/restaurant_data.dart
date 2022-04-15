@@ -58,7 +58,7 @@ class _FoodDataState extends State<FoodData> {
                       document.data() as Map<String, dynamic>;
                   data["docid"] = document.id;
                   resName = data['res_name'];
-                  resData = data['res-data'];
+                  resData = data['res_phone'];
                   resMap = data['res_map'];
                   resAdddress = data['res_address'];
                   // url = data['res_pic'].toString();
@@ -126,7 +126,7 @@ class _FoodDataState extends State<FoodData> {
                                   child: const Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text(
-                                      'ลักษณะเด่น',
+                                      'เบอร์โทร',
                                       // maxLines: 2,
                                       // overflow: TextOverflow.ellipsis,
                                       style: TextStyle(

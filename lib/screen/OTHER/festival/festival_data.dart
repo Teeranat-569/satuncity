@@ -12,7 +12,7 @@ class FestivalData extends StatefulWidget {
 
 class _FestivalDataState extends State<FestivalData> {
   // ignore: non_constant_identifier_names
-  dynamic fesName, fesData, fes_index, otopAdddress;
+  dynamic fesName, fesData, fes_index, otopAdddress,fesMonth;
  dynamic url;
   List<dynamic> yy = [];
 
@@ -54,7 +54,7 @@ class _FestivalDataState extends State<FestivalData> {
                 data["docid"] = document.id;
                 fesName = data['fes_name'];
                 fesData = data['fes_data'];
-
+fesMonth = data['fes_month'];
                 yy = data['fes_pic'];
                 // ignore: avoid_print
                 print('4444444444444444444444444 ${data["docid"]}');
@@ -100,6 +100,30 @@ class _FestivalDataState extends State<FestivalData> {
                               }).toList(),
                             ),
                             Padding(padding: EdgeInsets.only(top: 10)),
+ Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.deepOrange.shade800,
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'ช่วงจัดงานประจำปี',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 25,right: 10),
+                              child: Text(fesMonth),
+                            ),
+
+
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(

@@ -39,25 +39,15 @@ class _HomeState extends State<Home> {
     return Scaffold(
       drawer: Drawer(
         child: Column(children: [
-          widget.username == 'satuncity-app@gmail.com'
-              ? const DrawerHeader(
-                  child: Center(
-                      child: Text(
-                    'Admin',
-                    style: TextStyle(fontSize: 50),
-                  )),
-                  decoration:
-                      BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
-                )
-              : const DrawerHeader(
-                  child: Center(
-                      child: Text(
-                    'User',
-                    style: TextStyle(fontSize: 50),
-                  )),
-                  decoration:
-                      BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
-                ),
+          const DrawerHeader(
+            child: Center(
+                child: Text(
+              'User',
+              style: TextStyle(fontSize: 50),
+            )),
+            decoration:
+                BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
+          ),
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text(widget.username),
@@ -65,7 +55,7 @@ class _HomeState extends State<Home> {
           ),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text('หน้าหลัก'),
             onTap: () => route(Home()),
           ),
           ListTile(
@@ -99,10 +89,10 @@ class _HomeState extends State<Home> {
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: new Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: new Icon(Icons.home), label: "หน้าหลัก"),
           BottomNavigationBarItem(
               icon: new Icon(Icons.flight_takeoff), label: "ท่องเที่ยว"),
-          BottomNavigationBarItem(icon: new Icon(Icons.store), label: "OTOP"),
+          BottomNavigationBarItem(icon: new Icon(Icons.store), label: "สินค้า OTOP"),
           BottomNavigationBarItem(
               icon: new Icon(Icons.drag_indicator), label: "อื่นๆ"),
         ],
