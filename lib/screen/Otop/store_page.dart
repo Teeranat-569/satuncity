@@ -112,6 +112,7 @@ class _StorePageState extends State<StorePage> {
                                         builder: (BuildContext context) =>
                                             StoreOtop(
                                               storeName: data['store_name'],
+                                              otopName: widget.otopName,
                                             ));
                                     Navigator.push(context, route);
                                   },

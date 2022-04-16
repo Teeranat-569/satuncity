@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoreOtop extends StatefulWidget {
-  dynamic storeName;
-  StoreOtop({Key key, this.storeName}) : super(key: key);
+  dynamic storeName, otopName;
+  StoreOtop({Key key, this.storeName, this.otopName}) : super(key: key);
 
   @override
   State<StoreOtop> createState() => _StoreOtopState();
@@ -71,6 +71,7 @@ class _StoreOtopState extends State<StoreOtop> {
                 store_phone = data['store_phone'];
                 store_website = data['store_website'];
                 url = data['store_pic'];
+
                 for (var i = 0; i < url.length; i++) {
                   store_index = data['store_pic'][i];
                   print(
@@ -84,7 +85,8 @@ class _StoreOtopState extends State<StoreOtop> {
                   child: Column(
                     children: [
                       Padding(padding: EdgeInsets.only(top: 10)),
-                      if (data['store_name'] == widget.storeName)
+                      if (data['store_name'] == widget.storeName &&
+                          data['otop_name'] == widget.otopName)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
