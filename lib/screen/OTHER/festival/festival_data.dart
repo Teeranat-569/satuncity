@@ -12,8 +12,8 @@ class FestivalData extends StatefulWidget {
 
 class _FestivalDataState extends State<FestivalData> {
   // ignore: non_constant_identifier_names
-  dynamic fesName, fesData, fes_index, otopAdddress,fesMonth;
- dynamic url;
+  dynamic fesName, fesData, fes_index, otopAdddress, fesMonth;
+  dynamic url;
   List<dynamic> yy = [];
 
   final Stream<QuerySnapshot> _usersStream =
@@ -54,7 +54,7 @@ class _FestivalDataState extends State<FestivalData> {
                 data["docid"] = document.id;
                 fesName = data['fes_name'];
                 fesData = data['fes_data'];
-fesMonth = data['fes_month'];
+                fesMonth = data['fes_month'];
                 yy = data['fes_pic'];
                 // ignore: avoid_print
                 print('4444444444444444444444444 ${data["docid"]}');
@@ -100,7 +100,7 @@ fesMonth = data['fes_month'];
                               }).toList(),
                             ),
                             Padding(padding: EdgeInsets.only(top: 10)),
- Padding(
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
@@ -119,11 +119,10 @@ fesMonth = data['fes_month'];
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 25,right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 10),
                               child: Text(fesMonth),
                             ),
-
-
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
@@ -143,7 +142,8 @@ fesMonth = data['fes_month'];
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 25,right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 10),
                               child: Text(fesData),
                             ),
                           ],

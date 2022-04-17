@@ -85,7 +85,7 @@ class _FoodPageState extends State<FoodPage> {
                             InkWell(
                               child: Container(
                                   height: 70,
-                                  width: 300,
+                                  width: 240,
                                   child: Center(
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,

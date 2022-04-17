@@ -89,7 +89,7 @@ class _OtopDataState extends State<OtopData> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 25),
+                              padding: const EdgeInsets.only(left: 25,right: 10),
                               child: Text(otopData),
                             ),
                             Padding(

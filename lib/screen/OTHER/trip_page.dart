@@ -76,7 +76,7 @@ class _TripPageState extends State<TripPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 25),
+          padding: const EdgeInsets.only(left: 25,right: 10),
           child: Text(text2),
         ),
       ],

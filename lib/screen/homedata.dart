@@ -314,63 +314,66 @@ class _HomedataState extends State<Homedata> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: Column(
-      children: [
-        imagegray(),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            Column(
+        body: SingleChildScrollView(
+          child: Column(
               children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    height: 100,
-                    child: image_mou()),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    height: 100,
-                    child: image_water()),
+          imagegray(),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.50,
+                      height: 100,
+                      child: image_mou()),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.50,
+                      height: 100,
+                      child: image_water()),
+                ],
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: 205,
+                  color: Colors.blue.shade100,
+                  child: Center(
+                      child: Text(
+                    'สถานที่ท่องเที่ยว',
+                    style: TextStyle(fontSize: 20),
+                  )))
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: 205,
+                  color: Colors.pink.shade100,
+                  child: Center(
+                      child: Text(
+                    'สินค้า Otop',
+                    style: TextStyle(fontSize: 20),
+                  ))),
+              Column(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.50,
+                      height: 200,
+                      child: image_otop()),
+                ],
+              ),
+            ],
+          )
               ],
             ),
-            Container(
-                width: MediaQuery.of(context).size.width * 0.50,
-                height: 205,
-                color: Colors.blue.shade100,
-                child: Center(
-                    child: Text(
-                  'สถานที่ท่องเที่ยว',
-                  style: TextStyle(fontSize: 20),
-                )))
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-                width: MediaQuery.of(context).size.width * 0.50,
-                height: 205,
-                color: Colors.pink.shade100,
-                child: Center(
-                    child: Text(
-                  'สินค้า Otop',
-                  style: TextStyle(fontSize: 20),
-                ))),
-            Column(
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    height: 200,
-                    child: image_otop()),
-              ],
-            ),
-          ],
-        )
-      ],
-    ));
+        ));
   }
 }

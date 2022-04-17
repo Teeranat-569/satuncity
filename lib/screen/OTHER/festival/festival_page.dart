@@ -82,7 +82,7 @@ class _FestivalState extends State<Festival> {
                             InkWell(
                               child: Container(
                                   height: 50,
-                                  width: 300,
+                                  width: 240,
                                   child: Center(
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
