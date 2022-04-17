@@ -38,7 +38,6 @@ class _RegionPageState extends State<RegionPage> {
         print(doc["travelCate"]);
         print(docID);
         print('dddddddddddddddeeeeeeeeeddddddd${doc.id}');
-  
       });
     });
   }
@@ -88,6 +87,7 @@ class _RegionPageState extends State<RegionPage> {
       },
     );
   }
+
 // เพิ่มข้อมูลทั้งหมด //////////////////////////////////////////////////////////////////////
   Container show(
       AsyncSnapshot<QuerySnapshot<Object>> snapshot, BuildContext context) {
@@ -143,6 +143,7 @@ class _RegionPageState extends State<RegionPage> {
                             builder: (BuildContext context) => RegionData(
                                   travelName: data['travelName'],
                                   travelCate: data['travelCate'],
+                                  url: data['pic'].toString(),
                                 ));
                         Navigator.push(context, route);
                       },

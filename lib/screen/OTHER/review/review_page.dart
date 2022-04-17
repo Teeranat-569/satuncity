@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'post.dart';
+import '../../TRAVEL/post.dart';
 
 class ReviewPage extends StatefulWidget {
   @override
@@ -25,43 +25,43 @@ class _ReviewPageState extends State<ReviewPage> {
               fontFamily: 'Yaldevi',
             ),
           ),
-          actions: [
-            TextButton(
-               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Post(),
-                    ));
-              },
-              child: Row(
-                children: [
-                   IconButton(
-              icon: Icon(
-                Icons.post_add,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Post(),
-                    ));
-              },
-            ),
-                  Text(
-                            "รีวิว",
-                            style: TextStyle(
-                              color: Colors.white,
-                              // fontSize: 20,
-                              // fontWeight: FontWeight.w500,
-                              fontFamily: 'Yaldevi',
-                            ),
-                          ),
-                ],
-              ),
-            )
-          ],
+          // actions: [
+          //   TextButton(
+          //     onPressed: () {
+          //       Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (context) => Post(),
+          //           ));
+          //     },
+          //     child: Row(
+          //       children: [
+          //         IconButton(
+          //           icon: Icon(
+          //             Icons.post_add,
+          //             color: Colors.white,
+          //           ),
+          //           onPressed: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                   builder: (context) => Post(),
+          //                 ));
+          //           },
+          //         ),
+          //         Text(
+          //           "รีวิว",
+          //           style: TextStyle(
+          //             color: Colors.white,
+          //             // fontSize: 20,
+          //             // fontWeight: FontWeight.w500,
+          //             fontFamily: 'Yaldevi',
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   )
+          // ],
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream:
@@ -103,20 +103,19 @@ class _ReviewPageState extends State<ReviewPage> {
                                   //   //           color: Colors.white,
                                   //   //         )),
                                   // ),
-                                  // ListTile(
-                                  //   title: Text(
-                                  //     "@ " + doc['travelName'],
-                                  //     style: TextStyle(),
-                                  //   ),
-                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10,left: 20),
+                                    child: Text(
+                                      "@ " + doc['travelName'],
+                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                   if (doc['pic'] != null) ...[
                                     Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          //
                                           color: Colors.grey.shade200,
-
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
@@ -193,7 +192,6 @@ class _ReviewPageState extends State<ReviewPage> {
                                           fit: BoxFit.contain,
                                         ))
                                   ],
-
                                   Divider(
                                     color: Colors.black,
                                     height: 10,

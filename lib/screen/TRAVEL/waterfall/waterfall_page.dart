@@ -104,6 +104,7 @@ class _WaterfallPageState extends State<WaterfallPage> {
                                       WaterfallData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        url: data['pic'],
                                       ));
                               Navigator.push(context, route);
                             },

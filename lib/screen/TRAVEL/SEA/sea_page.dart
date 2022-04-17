@@ -45,6 +45,8 @@ class _SeaPageState extends State<SeaPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
+
+            
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
@@ -100,6 +102,7 @@ class _SeaPageState extends State<SeaPage> {
                                   builder: (BuildContext context) => SeaData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        url: data['pic'].toString(),
                                       ));
                               Navigator.push(context, route);
                             },

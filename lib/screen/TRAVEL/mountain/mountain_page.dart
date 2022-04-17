@@ -105,6 +105,7 @@ class _MountainPageState extends State<MountainPage> {
                                       MountainData(
                                         travelName: data['travelName'],
                                         travelCate: data['travelCate'],
+                                        url: data['pic'].toString(),
                                       ));
                               Navigator.push(context, route);
                             },

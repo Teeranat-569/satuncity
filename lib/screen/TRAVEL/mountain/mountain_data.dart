@@ -1,12 +1,14 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, deprecated_member_use
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/screen/TRAVEL/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MountainData extends StatefulWidget {
-  dynamic travelName, travelCate;
-  MountainData({Key key, this.travelName, this.travelCate}) : super(key: key);
+  dynamic travelName, travelCate, url;
+  MountainData({Key key, this.travelName, this.travelCate, this.url})
+      : super(key: key);
   @override
   _MountainDataState createState() => _MountainDataState();
 }
@@ -43,7 +45,35 @@ class _MountainDataState extends State<MountainData> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(widget.travelName),
+              actions: [
+                Center(
+                  child: RaisedButton(
+                    color: Colors.blue.shade700,
+                      child: Text(
+                        "รีวิว",
+                        style: TextStyle(
+                          color: Colors.white,
+                          // fontSize: 20,
+                          // fontWeight: FontWeight.w500,
+                          fontFamily: 'Yaldevi',
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Post(
+                                travelName: widget.travelName,
+                                picUrl: widget.url,
+                              ),
+                            ));
+                        print('555555555555555555555555' + widget.travelName);
+                        print('4444444444444444444' + widget.url);
+                      }),
+                ),
+              ],
             ),
+
             // ignore: avoid_unnecessary_containers
             body: Container(
               // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
