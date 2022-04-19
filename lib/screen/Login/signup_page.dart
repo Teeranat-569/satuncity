@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, unused_field
 
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:satuncity/screen/home.dart';
 import 'customClipper.dart';
 import 'login.dart';
@@ -15,6 +17,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
   bool _passwordVisible = true;
   String _password;
@@ -88,49 +92,50 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Column(
                         children: <Widget>[
-                          // Container(
-                          //   margin: EdgeInsets.symmetric(
-                          //     vertical: 10,
-                          //   ),
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: <Widget>[
-                          //       Text(
-                          //         "Username",
-                          //         style: TextStyle(
-                          //           fontWeight: FontWeight.bold,
-                          //           fontSize: 15,
-                          //         ),
-                          //       ),
-                          //       SizedBox(
-                          //         height: 10,
-                          //       ),
-                          //       TextField(
-                          //         style: TextStyle(
-                          //           fontSize: 20,
-                          //         ),
-                          //         textAlign: TextAlign.start,
-                          //         obscureText: false,
-                          //         decoration: InputDecoration(
-                          //           hintText: "username",
-                          //           suffixIcon: Icon(
-                          //             Icons.person,
-                          //             color: Colors.black54,
-                          //           ),
-                          //           border: OutlineInputBorder(
-                          //             borderRadius: BorderRadius.circular(
-                          //               15,
-                          //             ),
-                          //           ),
-                          //           fillColor: Color(
-                          //             0xfff3f3f4,
-                          //           ),
-                          //           filled: true,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: 10,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Username",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                TextField(
+                                  controller: _usernameController,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: "username",
+                                    suffixIcon: Icon(
+                                      Icons.email,
+                                      color: Colors.black54,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        15,
+                                      ),
+                                    ),
+                                    // fillColor: Color(
+                                    //   0xfff3f3f4,
+                                    // ),
+                                    // filled: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Container(
                             margin: EdgeInsets.symmetric(
                               vertical: 10,
@@ -166,10 +171,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                         15,
                                       ),
                                     ),
-                                    fillColor: Color(
-                                      0xfff3f3f4,
-                                    ),
-                                    filled: true,
+                                    // fillColor: Color(
+                                    //   0xfff3f3f4,
+                                    // ),
+                                    // filled: true,
                                   ),
                                 ),
                               ],
@@ -404,11 +409,19 @@ class _SignUpPageState extends State<SignUpPage> {
 
 // สมัครสมาชิกด้วยอีเมล-รหัสผ่าน //////////////////////////////////////////////////////////////////////
   Future signUp({dynamic email, dynamic password}) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
     try {
+
       await _auth.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
+     
+        final User user = auth.currentUser;
+      final String uid = user.uid; 
+      String email = user.email;
+      addUser(uid,email);
       MaterialPageRoute materialPageRoute = MaterialPageRoute(
           builder: (BuildContext context) => Home(
                 username: _emailController.text,
@@ -417,7 +430,39 @@ class _SignUpPageState extends State<SignUpPage> {
       Navigator.of(context).pushAndRemoveUntil(
           materialPageRoute, (Route<dynamic> route) => false);
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      return  Fluttertoast.showToast(
+        msg: e.message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        timeInSecForIosWeb: 2
+      );
+      
     }
+  }
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  Future<void> addUser(dynamic uid,dynamic email) {
+    // ignore: unnecessary_statements
+    return users.add({
+      'uid': uid,
+      'email': _emailController.text,
+      'password': _passwordController.text,
+      'username': _usernameController.text,
+    }).then((value) {
+      Fluttertoast.showToast(
+        msg: "สมัครสมาชิกสำเร็จ",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.purple[100],
+        textColor: Colors.black,
+      );
+      // MaterialPageRoute materialPageRoute =
+      //     MaterialPageRoute(builder: (BuildContext context) => Admin());
+      // Navigator.of(context).pushAndRemoveUntil(
+      //     materialPageRoute, (Route<dynamic> route) => false);
+      // ignore: avoid_print, invalid_return_type_for_catch_error
+    }).catchError((error) => print("Failed to add user: $error"));
   }
 }
