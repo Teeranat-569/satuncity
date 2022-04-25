@@ -269,43 +269,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.symmetric(
-                            vertical: 15,
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                15,
-                              ),
-                            ),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.grey.shade200,
-                                offset: Offset(
-                                  2,
-                                  4,
-                                ),
-                                blurRadius: 5,
-                                spreadRadius: 2,
-                              )
-                            ],
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: const [
-                                Colors.blue,
-                                Colors.lightBlue,
-                              ],
-                            ),
-                          ),
-                          // ignore: deprecated_member_use
-                          child: FlatButton(
-                            onPressed: () {
-                              signUp();
-                            },
+                      // ignore: deprecated_member_use
+                      FlatButton(
+                        onPressed: () {
+                          signUp();
+                        },
+                        child: Container(
+                          width: 200,
+                          height: 50,
+                          color: Colors.blue,
+                          child: Center(
                             child: Text(
                               'สมัครสมาชิก',
                               style: TextStyle(
@@ -313,7 +286,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                 color: Colors.white,
                               ),
                             ),
-                          )),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 30,
                       ),

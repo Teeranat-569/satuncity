@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:satuncity/screen/OTHER/festival/festival_page.dart';
 import 'package:satuncity/screen/OTHER/review/review_page.dart';
+import 'package:satuncity/screen/OTHER/weather/src/features/weather_page/weather_page.dart';
 import 'package:satuncity/screen/OTHER/westher.dart';
 import 'package:satuncity/screen/Food/food_page.dart';
 
@@ -52,7 +53,7 @@ class _OtherState extends State<Other> {
       borderSide: BorderSide.none,
       onPressed: () {
         MaterialPageRoute route =
-            MaterialPageRoute(builder: (BuildContext context) => Westher());
+            MaterialPageRoute(builder: (BuildContext context) => WeatherPage(city: 'Satun'));
         Navigator.push(context, route);
       },
     );

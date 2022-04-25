@@ -11,8 +11,8 @@ import 'package:satuncity/screen/travel.dart';
 import 'Login/login.dart';
 
 class Home extends StatefulWidget {
-  dynamic username;
-  Home({Key key, this.username}) : super(key: key);
+  dynamic username,email;
+  Home({Key key, this.username,this.email}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
