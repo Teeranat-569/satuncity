@@ -88,7 +88,8 @@ class _WaterfallDataState extends State<WaterfallData> {
                   // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["travelCate"]}');
-                  return Center(
+                  return 
+                  Center(
                     child: Column(
                       children: [
                         Padding(padding: EdgeInsets.only(top: 10)),
