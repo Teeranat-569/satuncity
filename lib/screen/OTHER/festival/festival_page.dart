@@ -11,7 +11,7 @@ class _FestivalState extends State<Festival> {
   dynamic resName;
  dynamic url;
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('festival').snapshots();
+      FirebaseFirestore.instance.collection('festival').orderBy('createdAt', descending: true).snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('festival');
 
   @override

@@ -11,7 +11,7 @@ class _FoodPageState extends State<FoodPage> {
   dynamic resName;
   dynamic url;
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('restaurant').snapshots();
+      FirebaseFirestore.instance.collection('restaurant').orderBy('createdAt', descending: true).snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('restaurant');
 

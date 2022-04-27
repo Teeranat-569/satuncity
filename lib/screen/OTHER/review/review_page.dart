@@ -65,7 +65,7 @@ class _ReviewPageState extends State<ReviewPage> {
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream:
-                FirebaseFirestore.instance.collection('comment').snapshots(),
+                FirebaseFirestore.instance.collection('comment').orderBy('timeago', descending: true).snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
                 final List<DocumentSnapshot> documents = snapshot.data.docs;

@@ -17,7 +17,7 @@ class _WaterfallPageState extends State<WaterfallPage> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_waterfall')
-      .where('travelCate')
+      .where('travelCate').orderBy('createdAt', descending: true)
       .snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('travel_waterfall');
@@ -64,7 +64,7 @@ class _WaterfallPageState extends State<WaterfallPage> {
                 print('4444444444444444444444444 ${data["docid"]}');
                 print('4444444444444444444444444 ${data["travelCate"]}');
                 return Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.only(right: 15,left: 15,top: 10),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),

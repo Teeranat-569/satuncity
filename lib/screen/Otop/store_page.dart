@@ -15,7 +15,7 @@ class _StorePageState extends State<StorePage> {
   dynamic storeName;
   dynamic url;
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('otop_store').snapshots();
+      FirebaseFirestore.instance.collection('otop_store').orderBy('createdAt', descending: true).snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('otop_store');
 

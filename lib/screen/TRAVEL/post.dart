@@ -25,7 +25,7 @@ class _PostState extends State<Post> {
   var rating = 0.0;
   TextEditingController textEditingController = TextEditingController();
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('comment').orderBy('timeago')
+      FirebaseFirestore.instance.collection('comment').orderBy('timeago', descending: true)
       .snapshots();
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,8 @@ class _SeaPageState extends State<SeaPage> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel')
-      .where('travelCate')
+      .where('travelCate').orderBy('createdAt', descending: true)
+      
       .snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel');
 
@@ -45,8 +46,6 @@ class _SeaPageState extends State<SeaPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
-
-            
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(
@@ -63,7 +62,7 @@ class _SeaPageState extends State<SeaPage> {
                 print('4444444444444444444444444 ${data["docid"]}');
                 print('4444444444444444444444444 ${data["travelCate"]}');
                 return Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.only(right: 15,left: 15,top: 10),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
