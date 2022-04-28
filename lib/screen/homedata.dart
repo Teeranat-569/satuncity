@@ -314,7 +314,6 @@ class _HomedataState extends State<Homedata> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(

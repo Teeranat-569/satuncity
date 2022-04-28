@@ -45,6 +45,7 @@ class _SeaDataState extends State<SeaData> {
               title: Text(widget.travelName),
                     actions: [
                 Center(
+                  // ignore: deprecated_member_use
                   child: RaisedButton(
                     color: Colors.blue.shade700,
                       child: Text(

@@ -1,6 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:satuncity/screen/OTHER/weather/src/entities/weather/weather_data.dart';
 import 'package:satuncity/screen/OTHER/weather/src/features/weather_page/city_search_box.dart';
 import 'package:satuncity/screen/OTHER/weather/src/features/weather_page/current_weather_controller.dart';

@@ -1,11 +1,9 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:satuncity/screen/OTHER/review/search_page.dart';
+import 'package:satuncity/model/rate_model.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import '../OTHER/review/review_page.dart';
 
 // ignore: must_be_immutable
 class Post extends StatefulWidget {
@@ -18,15 +16,164 @@ class Post extends StatefulWidget {
 
 class _PostState extends State<Post> {
   final _formKey = GlobalKey<FormState>();
-  dynamic comments, comment;
+  dynamic comments, comment, sumed, avgStr;
   dynamic valued;
   dynamic searchString, result;
-  double rate;
+  double rate, sumRate = 0, avg, rated;
+  double sumDouble;
   var rating = 0.0;
   TextEditingController textEditingController = TextEditingController();
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('comment').orderBy('timeago', descending: true)
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('comment')
+      .orderBy('timeago', descending: true)
       .snapshots();
+  List rateList = [];
+  List<RateModel> nn;
+  Future<List<RateModel>> ww;
+  @override
+  void initState() {
+    super.initState();
+    readRate();
+    // getData();
+  }
+
+  Future readRate() async {
+    return FirebaseFirestore.instance
+        .collection('comment')
+        .orderBy('timeago', descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        rated = doc["rate"];
+        print("rrrrrrrrrrrrrrrrrrrrrrrrrrr");
+        print(doc["rate"].toString());
+
+        // print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+        // print(rate);
+        setState(() {
+          if (doc['travelName'] == widget.travelName) {
+            rateList.add(rated);
+            print('sssssssssssssssssssssssssssssssssssssss');
+            print(rateList);
+            print('ffffffffffffffffffffffff');
+            print(rateList.length);
+            sumRate = sumRate + rated;
+            print('55555555555555555');
+            print(sumRate);
+          }
+          print('5wwwwwwwwwwwwwwwwwwww');
+          print(sumRate);
+          print('-------------------f');
+          print(rateList.length);
+          avg = sumRate / rateList.length;
+          print('************************');
+          print(avg);
+          sumed = avg.toStringAsFixed(1);
+          sumDouble = double.parse('$sumed');
+          print('111111111111111111');
+          print(sumDouble);
+
+          if (sumDouble <= 1.80) {
+            avgStr = 'น้อยที่สุด';
+          } else if (sumDouble <= 2.60) {
+            avgStr = 'น้อย';
+          } else if (sumDouble <= 3.40) {
+            avgStr = 'ปานกลาง';
+          } else if (sumDouble <= 4.20) {
+            avgStr = 'มาก';
+          } else {
+            avgStr = 'มากที่สุด';
+          }
+        });
+      });
+    });
+  }
+
+  Widget _buildBody(BuildContext context) {
+    Firebase.initializeApp(); // new
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('we got an error ${snapshot.error}');
+        }
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const SizedBox(
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          case ConnectionState.none:
+            return const Text('no data');
+
+          case ConnectionState.done:
+            return const Text('we are done');
+
+          default:
+            return ListView(
+                // reverse: true,
+                children: snapshot.data.docs.map((DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data() as Map<String, dynamic>;
+
+              data["docid"] = document.id;
+              result = data['travelName'];
+              rate = data['rate'];
+              comment = data['comment'];
+              return Center(
+                child: Column(
+                  children: [
+                    if (data['travelName'] == widget.travelName)
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    SmoothStarRating(
+                                      borderColor: Colors.grey.shade400,
+                                      color: Colors.pink.shade900,
+                                      rating: rate,
+                                      isReadOnly: false,
+                                      size: 20,
+                                      filledIconData: Icons.star,
+                                      halfFilledIconData: Icons.star_half,
+                                      defaultIconData: Icons.star_border,
+                                      starCount: 5,
+                                      allowHalfRating: true,
+                                      spacing: 0,
+                                      onRated: (value) {
+                                        setState(() {
+                                          valued = value;
+                                          print("rating value -> $value");
+                                        });
+                                      },
+                                    ),
+                                    Text('($rate)')
+                                  ],
+                                ),
+                                Text(comment)
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.grey.shade200,
+                          )
+                        ],
+                      )
+                  ],
+                ),
+              );
+            }).toList());
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,16 +196,7 @@ class _PostState extends State<Post> {
                 onPressed: () {
                   Navigator.pop(
                     context,
-                    // MaterialPageRoute(
-                    //   builder: (context) => ReviewPage(),
-                    // )
                   );
-
-                  // Navigator.pushReplacement(
-                  //                 context,
-                  //                 MaterialPageRoute(
-                  //                   builder: (context) => Post(travelName: widget.travelName,),
-                  //                 ));
                   addReview();
                 }),
           ],
@@ -114,7 +252,7 @@ class _PostState extends State<Post> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: 50),
+                          SizedBox(height: 20),
                           Text('คะแนนการรีวิว'),
                           SizedBox(height: 8),
                           Center(
@@ -137,7 +275,7 @@ class _PostState extends State<Post> {
                               });
                             },
                           )),
-                          SizedBox(height: 20),
+                          SizedBox(height: 15),
                         ],
                       ),
                       Padding(
@@ -169,94 +307,39 @@ class _PostState extends State<Post> {
               SizedBox(
                 height: 10,
               ),
+              Icon(
+                Icons.star,
+                size: 50,
+                color: Colors.amber,
+              ),
+              sumDouble.toString() == null
+                  ? CircularProgressIndicator()
+                  : sumDouble.toString() == 'NaN'
+                      ? Text(
+                          '0',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        )
+                      : Text(
+                          sumDouble.toString(),
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+              avgStr.toString() == null
+                  ? LinearProgressIndicator()
+                  : sumDouble.toString() == 'NaN'
+                      ? Text('ไม่มีรีวิว')
+                      : Text(avgStr.toString()),
+              SizedBox(
+                height: 10,
+              ),
+              // sume(),
+              // Text(allData.toString()),
               Expanded(child: _buildBody(context))
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    Firebase.initializeApp(); // new
-    return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('we got an error ${snapshot.error}');
-        }
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return const SizedBox(
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          case ConnectionState.none:
-            return const Text('no data');
-
-          case ConnectionState.done:
-            return const Text('we are done');
-
-          default:
-            return ListView(
-              // reverse: true,
-                children: snapshot.data.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data() as Map<String, dynamic>;
-              data["docid"] = document.id;
-              result = data['travelName'];
-              rate = data['rate'];
-              comment = data['comment'];
-
-              return Center(
-                child: Column(
-                  children: [
-                    if (data['travelName'] == widget.travelName)
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    SmoothStarRating(
-                                      borderColor: Colors.grey.shade400,
-                                      color: Colors.pink.shade900,
-                                      rating: rate,
-                                      isReadOnly: false,
-                                      size: 25,
-                                      filledIconData: Icons.star,
-                                      halfFilledIconData: Icons.star_half,
-                                      defaultIconData: Icons.star_border,
-                                      starCount: 5,
-                                      allowHalfRating: true,
-                                      spacing: 2.0,
-                                      onRated: (value) {
-                                        setState(() {
-                                          valued = value;
-                                          print("rating value -> $value");
-                                        });
-                                      },
-                                    ),
-                                    Text('($rate)')
-                                  ],
-                                ),
-                                Text(comment)
-                              ],
-                            ),
-                          ),
-                          Divider(color: Colors.grey.shade200,)
-                        ],
-                      )
-                  ],
-                ),
-              );
-            }).toList());
-        }
-      },
     );
   }
 
