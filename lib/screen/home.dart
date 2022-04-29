@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:satuncity/screen/Other.dart';
 import 'package:satuncity/screen/homedata.dart';
 import 'package:satuncity/screen/Otop/otop_page.dart';
+import 'package:satuncity/screen/main_page.dart';
 import 'package:satuncity/screen/travel.dart';
 
 import 'Login/login.dart';
@@ -18,7 +19,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Widget> page = [Homedata(), Travel(), OtopPage(), Other()];
+  List<Widget> page = [BannerSlider(), Travel(), OtopPage(), Other()];
 
   int a = 0;
   var text = [
