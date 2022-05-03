@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'region_data.dart';
 
 class RegionPage extends StatefulWidget {
@@ -19,7 +20,8 @@ class _RegionPageState extends State<RegionPage> {
 
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_region')
-      .where('travelCate').orderBy('createdAt', descending: true)
+      .where('travelCate')
+      .orderBy('createdAt', descending: true)
       .snapshots();
 
   @override
@@ -71,6 +73,8 @@ class _RegionPageState extends State<RegionPage> {
         }
         loadStatus = false;
         return Scaffold(
+                      drawer: MyDrawer(),
+
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
           ),
@@ -104,7 +108,7 @@ class _RegionPageState extends State<RegionPage> {
           print('4444444444444444444444444 ${data["docid"]}');
           print('4444444444444444444444444 ${data["travelCate"]}');
           return Padding(
-                  padding: const EdgeInsets.only(right: 15,left: 15,top: 10),
+            padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),

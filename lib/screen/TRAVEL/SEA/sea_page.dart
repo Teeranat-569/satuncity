@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/TRAVEL/SEA/sea_data.dart';
 
 class SeaPage extends StatefulWidget {
@@ -17,8 +18,8 @@ class _SeaPageState extends State<SeaPage> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel')
-      .where('travelCate').orderBy('createdAt', descending: true)
-      
+      .where('travelCate')
+      .orderBy('createdAt', descending: true)
       .snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('travel');
 
@@ -44,6 +45,7 @@ class _SeaPageState extends State<SeaPage> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
           ),
@@ -62,7 +64,7 @@ class _SeaPageState extends State<SeaPage> {
                 print('4444444444444444444444444 ${data["docid"]}');
                 print('4444444444444444444444444 ${data["travelCate"]}');
                 return Padding(
-                  padding: const EdgeInsets.only(right: 15,left: 15,top: 10),
+                  padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),

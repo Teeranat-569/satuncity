@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 
 import 'mountain_data.dart';
 
@@ -45,6 +46,7 @@ class _MountainPageState extends State<MountainPage> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
           ),

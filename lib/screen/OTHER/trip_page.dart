@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 
 class TripPage extends StatefulWidget {
   const TripPage({Key key}) : super(key: key);
@@ -13,6 +14,7 @@ class _TripPageState extends State<TripPage> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        drawer: MyDrawer(),
         appBar: AppBar(
           title: Text('การเดินทาง'),
           backgroundColor: Colors.deepPurple,
@@ -51,6 +53,7 @@ class _TripPageState extends State<TripPage> {
       ),
     );
   }
+
 // Tab Bar //////////////////////////////////////////////////////////////////////
   Widget tab(String text, text2) {
     return Column(
@@ -76,7 +79,7 @@ class _TripPageState extends State<TripPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 25,right: 10),
+          padding: const EdgeInsets.only(left: 25, right: 10),
           child: Text(text2),
         ),
       ],

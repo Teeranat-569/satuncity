@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'otop_data.dart';
 
 class OtopPage extends StatefulWidget {
@@ -37,6 +38,7 @@ class _OtopPageState extends State<OtopPage> {
 
         return SafeArea(
           child: Scaffold(
+            drawer: MyDrawer(),
             // ignore: avoid_unnecessary_containers
             body: Container(
               // แสดงข้อมูล //////////////////////////////////////////////////////////////////////
@@ -90,6 +92,7 @@ class _OtopPageState extends State<OtopPage> {
                               MaterialPageRoute route = MaterialPageRoute(
                                   builder: (BuildContext context) => OtopData(
                                         otopName: data['otop_name'],
+                                        url: data['otop_pic'],
                                       ));
                               Navigator.push(context, route);
                             },

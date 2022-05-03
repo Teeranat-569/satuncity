@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/TRAVEL/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -43,12 +44,13 @@ class _MountainDataState extends State<MountainData> {
 
         return SafeArea(
           child: Scaffold(
+            drawer: MyDrawer(),
             appBar: AppBar(
               title: Text(widget.travelName),
               actions: [
                 Center(
                   child: RaisedButton(
-                    color: Colors.blue.shade700,
+                      color: Colors.blue.shade700,
                       child: Text(
                         "รีวิว",
                         style: TextStyle(

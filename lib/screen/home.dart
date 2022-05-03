@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/Other.dart';
 import 'package:satuncity/screen/homedata.dart';
 import 'package:satuncity/screen/Otop/otop_page.dart';
@@ -34,45 +35,12 @@ class _HomeState extends State<Home> {
       a = x;
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(children: [
-          const DrawerHeader(
-            child: Center(
-                child: Text(
-              'User',
-              style: TextStyle(fontSize: 50),
-            )),
-            decoration:
-                BoxDecoration(color: Color.fromARGB(255, 150, 208, 255)),
-          ),
-          ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text(widget.username),
-            // onTap: () => myAlert(),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('หน้าหลัก'),
-            onTap: () => route(Home()),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.logout,
-              color: Colors.red,
-            ),
-            title: Text("ออกจากระบบ"),
-            onTap: () => myAlert(),
-          ),
-          Divider(
-            color: Colors.black,
-            height: 10,
-          ),
-        ]),
-      ),
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(
           text[a],
@@ -180,4 +148,13 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(builder: (BuildContext context) => routeName);
     await Navigator.of(context).push(materialPageRoute);
   }
+
+ Future<Null> routeMove(Widget routeName) async {
+   MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext context) => routeName);
+    await Navigator.of(context)
+        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
+  }
+ 
+
 }

@@ -2,12 +2,14 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/TRAVEL/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RegionData extends StatefulWidget {
-  dynamic travelName, travelCate,url;
-  RegionData({Key key, this.travelName, this.travelCate,this.url}) : super(key: key);
+  dynamic travelName, travelCate, url;
+  RegionData({Key key, this.travelName, this.travelCate, this.url})
+      : super(key: key);
   @override
   _RegionDataState createState() => _RegionDataState();
 }
@@ -42,12 +44,13 @@ class _RegionDataState extends State<RegionData> {
 
         return SafeArea(
           child: Scaffold(
+            drawer: MyDrawer(),
             appBar: AppBar(
               title: Text(widget.travelName),
-                 actions: [
+              actions: [
                 Center(
                   child: RaisedButton(
-                    color: Colors.blue.shade700,
+                      color: Colors.blue.shade700,
                       child: Text(
                         "รีวิว",
                         style: TextStyle(

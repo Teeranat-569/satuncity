@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/Otop/store_otop.dart';
 
 class StorePage extends StatefulWidget {
@@ -14,8 +15,10 @@ class StorePage extends StatefulWidget {
 class _StorePageState extends State<StorePage> {
   dynamic storeName;
   dynamic url;
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('otop_store').orderBy('createdAt', descending: true).snapshots();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('otop_store')
+      .orderBy('createdAt', descending: true)
+      .snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('otop_store');
 
@@ -41,6 +44,7 @@ class _StorePageState extends State<StorePage> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             backgroundColor: Colors.indigo,
             title: Text('ร้านขายสินค้า "${widget.otopName}"'),

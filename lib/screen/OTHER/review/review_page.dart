@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -11,10 +12,11 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: MyDrawer(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           title: Text(
             "รีวิวสถานที่ท่องเที่ยว",
             style: TextStyle(
@@ -24,43 +26,6 @@ class _ReviewPageState extends State<ReviewPage> {
               fontFamily: 'Yaldevi',
             ),
           ),
-          // actions: [
-          //   TextButton(
-          //     onPressed: () {
-          //       Navigator.push(
-          //           context,
-          //           MaterialPageRoute(
-          //             builder: (context) => Post(),
-          //           ));
-          //     },
-          //     child: Row(
-          //       children: [
-          //         IconButton(
-          //           icon: Icon(
-          //             Icons.post_add,
-          //             color: Colors.white,
-          //           ),
-          //           onPressed: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                   builder: (context) => Post(),
-          //                 ));
-          //           },
-          //         ),
-          //         Text(
-          //           "รีวิว",
-          //           style: TextStyle(
-          //             color: Colors.white,
-          //             // fontSize: 20,
-          //             // fontWeight: FontWeight.w500,
-          //             fontFamily: 'Yaldevi',
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   )
-          // ],
         ),
         body: StreamBuilder<QuerySnapshot>(
             stream:
@@ -75,33 +40,6 @@ class _ReviewPageState extends State<ReviewPage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // ListTile(
-                                  //   leading: doc['pic'] == null //profile
-                                  //       ? CircleAvatar(
-                                  //           radius: 16.6,
-                                  //           backgroundColor: Colors.white24,
-                                  //         )
-                                  //       : CircleAvatar(
-                                  //           radius: 16.6,
-                                  //           backgroundImage:
-                                  //               AssetImage('images/user.png')),
-                                  //   title: Text(doc['travelName'],
-                                  //       style: TextStyle(
-                                  //         fontSize: 16.5,
-                                  //       )),
-                                  //   // subtitle: doc['comment'] != null
-                                  //   //     ? Text(
-                                  //   //         doc['comment'],
-                                  //   //         style: TextStyle(
-                                  //   //           color: Colors.white,
-                                  //   //           fontSize: 12.5,
-                                  //   //         ),
-                                  //   //       )
-                                  //   //     : Text("Some Title",
-                                  //   //         style: TextStyle(
-                                  //   //           color: Colors.white,
-                                  //   //         )),
-                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10,left: 20),
                                     child: Text(
@@ -139,13 +77,16 @@ class _ReviewPageState extends State<ReviewPage> {
                                                   const EdgeInsets.all(8.0),
                                               child: Column(
                                                 children: [
-                                                  Text(
-                                                      doc[
-                                                          'travelName'], //username
-                                                      style: TextStyle(
-                                                          fontSize: 16.5,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
+                                                  Container(
+                                                    width: MediaQuery.of(context).size.width*0.63,
+                                                    child: Text(
+                                                        doc[
+                                                            'travelName'], //username
+                                                        style: TextStyle(
+                                                            fontSize: 16.5,
+                                                            fontWeight:
+                                                                FontWeight.bold)),
+                                                  ),
                                                 ],
                                               ),
                                             ),

@@ -2,11 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/Otop/store_page.dart';
+import 'package:satuncity/screen/TRAVEL/post.dart';
 
 class OtopData extends StatefulWidget {
-  dynamic otopName;
-  OtopData({Key key, this.otopName}) : super(key: key);
+  dynamic otopName,url;
+  OtopData({Key key, this.otopName,this.url}) : super(key: key);
   @override
   _OtopDataState createState() => _OtopDataState();
 }
@@ -39,9 +41,37 @@ class _OtopDataState extends State<OtopData> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: Text(widget.otopName),
             backgroundColor: Colors.indigo,
+                 actions: [
+                Center(
+                  child: RaisedButton(
+                    color: Colors.blue.shade700,
+                      child: Text(
+                        "รีวิว",
+                        style: TextStyle(
+                          color: Colors.white,
+                          // fontSize: 20,
+                          // fontWeight: FontWeight.w500,
+                          fontFamily: 'Yaldevi',
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Post(
+                                travelName: widget.otopName,
+                                picUrl: widget.url,
+                              ),
+                            ));
+                        print('555555555555555555555555' + widget.otopName);
+                        print('4444444444444444444' + widget.url);
+                      }),
+                ),
+              ],
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(

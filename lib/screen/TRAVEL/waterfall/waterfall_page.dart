@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/TRAVEL/waterfall/waterfall_data.dart';
 
 class WaterfallPage extends StatefulWidget {
@@ -17,7 +18,8 @@ class _WaterfallPageState extends State<WaterfallPage> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_waterfall')
-      .where('travelCate').orderBy('createdAt', descending: true)
+      .where('travelCate')
+      .orderBy('createdAt', descending: true)
       .snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('travel_waterfall');
@@ -44,6 +46,8 @@ class _WaterfallPageState extends State<WaterfallPage> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
+
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
           ),
@@ -64,7 +68,7 @@ class _WaterfallPageState extends State<WaterfallPage> {
                 print('4444444444444444444444444 ${data["docid"]}');
                 print('4444444444444444444444444 ${data["travelCate"]}');
                 return Padding(
-                  padding: const EdgeInsets.only(right: 15,left: 15,top: 10),
+                  padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),

@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/TRAVEL/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WaterfallData extends StatefulWidget {
   dynamic travelName, travelCate, url;
-  WaterfallData({Key key, this.travelName, this.travelCate,this.url}) : super(key: key);
+  WaterfallData({Key key, this.travelName, this.travelCate, this.url})
+      : super(key: key);
   @override
   _WaterfallDataState createState() => _WaterfallDataState();
 }
@@ -41,12 +43,14 @@ class _WaterfallDataState extends State<WaterfallData> {
 
         return SafeArea(
           child: Scaffold(
+            drawer: MyDrawer(),
+
             appBar: AppBar(
               title: Text(widget.travelName),
-                   actions: [
+              actions: [
                 Center(
                   child: RaisedButton(
-                    color: Colors.blue.shade700,
+                      color: Colors.blue.shade700,
                       child: Text(
                         "รีวิว",
                         style: TextStyle(
@@ -88,8 +92,7 @@ class _WaterfallDataState extends State<WaterfallData> {
                   // ignore: avoid_print
                   print('4444444444444444444444444 ${data["docid"]}');
                   print('4444444444444444444444444 ${data["travelCate"]}');
-                  return 
-                  Center(
+                  return Center(
                     child: Column(
                       children: [
                         Padding(padding: EdgeInsets.only(top: 10)),

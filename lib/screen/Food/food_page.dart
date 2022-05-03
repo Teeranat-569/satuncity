@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'restaurant_data.dart';
 
 class FoodPage extends StatefulWidget {
@@ -10,8 +11,10 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> {
   dynamic resName;
   dynamic url;
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('restaurant').orderBy('createdAt', descending: true).snapshots();
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('restaurant')
+      .orderBy('createdAt', descending: true)
+      .snapshots();
   CollectionReference users =
       FirebaseFirestore.instance.collection('restaurant');
 
@@ -37,6 +40,8 @@ class _FoodPageState extends State<FoodPage> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
+
           appBar: AppBar(
             title: Text('ร้านอาหาร'),
           ),
@@ -106,6 +111,7 @@ class _FoodPageState extends State<FoodPage> {
                                 MaterialPageRoute route = MaterialPageRoute(
                                     builder: (BuildContext context) => FoodData(
                                           resName: data['res_name'],
+                                          url: data['res_pic'][0].toString(),
                                         ));
                                 Navigator.push(context, route);
                               },

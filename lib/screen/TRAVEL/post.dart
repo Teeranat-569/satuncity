@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/model/rate_model.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -112,7 +113,6 @@ class _PostState extends State<Post> {
 
           default:
             return ListView(
-                // reverse: true,
                 children: snapshot.data.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data() as Map<String, dynamic>;
@@ -178,17 +178,11 @@ class _PostState extends State<Post> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer: MyDrawer(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          // backgroundColor: Colors.black,
           title: Text('รีวิว: ${widget.travelName}'),
-          // leading: IconButton(
-          //     onPressed: () {
-          //       Navigator.pushReplacement(context,
-          //           MaterialPageRoute(builder: (context) => ReviewPage()));
-          //     },
-          //     icon: Icon(Icons.arrow_back_ios)),
           actions: [
             TextButton(
                 child:
@@ -209,46 +203,6 @@ class _PostState extends State<Post> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      // Padding(
-                      //   padding:
-                      //       const EdgeInsets.only(top: 10, left: 20, right: 20),
-                      //   child: Container(
-                      //     width: MediaQuery.of(context).size.width,
-                      //     child: TextButton(
-                      //         child: Row(
-                      //           children: [
-                      //             Icon(Icons.search),
-                      //             if (widget.travelName == null ||
-                      //                 widget.travelName == '')
-                      //               Text("เลือกสถานที่ท่องเที่ยว..",
-                      //                   style: TextStyle(
-                      //                     fontSize: 14,
-                      //                   ))
-                      //             else
-                      //               Text(widget.travelName)
-                      //           ],
-                      //         ),
-                      //         style: ButtonStyle(
-                      //             padding:
-                      //                 MaterialStateProperty.all<EdgeInsets>(
-                      //                     EdgeInsets.all(15)),
-                      //             foregroundColor:
-                      //                 MaterialStateProperty.all<Color>(
-                      //                     Colors.black),
-                      //             shape: MaterialStateProperty.all<
-                      //                     RoundedRectangleBorder>(
-                      //                 RoundedRectangleBorder(
-                      //                     borderRadius:
-                      //                         BorderRadius.circular(18.0),
-                      //                     side: BorderSide(
-                      //                         color: Colors.black)))),
-                      //         onPressed: () => Navigator.pushReplacement(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //               builder: (context) => Search(),
-                      //             ))),
-                      //   ),
-                      // ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

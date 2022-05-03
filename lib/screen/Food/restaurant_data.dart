@@ -3,11 +3,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
+import 'package:satuncity/screen/TRAVEL/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FoodData extends StatefulWidget {
-  dynamic resName;
-  FoodData({Key key, this.resName}) : super(key: key);
+  dynamic resName, url;
+  FoodData({Key key, this.resName, this.url}) : super(key: key);
   @override
   _FoodDataState createState() => _FoodDataState();
 }
@@ -45,8 +47,37 @@ class _FoodDataState extends State<FoodData> {
 
         return SafeArea(
           child: Scaffold(
+            drawer: MyDrawer(),
+
             appBar: AppBar(
               title: Text(widget.resName),
+              actions: [
+                Center(
+                  child: RaisedButton(
+                      color: Colors.blue.shade700,
+                      child: Text(
+                        "รีวิว",
+                        style: TextStyle(
+                          color: Colors.white,
+                          // fontSize: 20,
+                          // fontWeight: FontWeight.w500,
+                          fontFamily: 'Yaldevi',
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Post(
+                                travelName: widget.resName,
+                                picUrl: widget.url,
+                              ),
+                            ));
+                        print('555555555555555555555555' + widget.resName);
+                        print('4444444444444444444' + widget.url);
+                      }),
+                ),
+              ],
             ),
             // ignore: avoid_unnecessary_containers
             body: Container(
@@ -214,10 +245,9 @@ class _FoodDataState extends State<FoodData> {
     );
   }
 
- // เปืดลิงค์ Map //////////////////////////////////////////////////////////////////////
+  // เปืดลิงค์ Map //////////////////////////////////////////////////////////////////////
 
   void launchMap(travelMap) async {
-    
     if (await canLaunch(travelMap)) {
       print("Can launch");
       void initState() {
@@ -232,5 +262,4 @@ class _FoodDataState extends State<FoodData> {
       throw 'Could not launch Maps';
     }
   }
-
 }

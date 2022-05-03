@@ -2,12 +2,14 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/TRAVEL/post.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SeaData extends StatefulWidget {
-  dynamic travelName, travelCate,url;
-  SeaData({Key key, this.travelName, this.travelCate, this.url}) : super(key: key);
+  dynamic travelName, travelCate, url;
+  SeaData({Key key, this.travelName, this.travelCate, this.url})
+      : super(key: key);
   @override
   _SeaDataState createState() => _SeaDataState();
 }
@@ -41,13 +43,14 @@ class _SeaDataState extends State<SeaData> {
 
         return SafeArea(
           child: Scaffold(
+            drawer: MyDrawer(),
             appBar: AppBar(
               title: Text(widget.travelName),
-                    actions: [
+              actions: [
                 Center(
                   // ignore: deprecated_member_use
                   child: RaisedButton(
-                    color: Colors.blue.shade700,
+                      color: Colors.blue.shade700,
                       child: Text(
                         "รีวิว",
                         style: TextStyle(

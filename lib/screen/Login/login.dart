@@ -28,16 +28,17 @@ class _LoginPageState extends State<LoginPage> {
 
     FirebaseAuth.instance.authStateChanges().listen((User user) {
       if (user == null) {
+        // print('kkkkkkkkkkkkkk-------kkkkkkkkk $email');
+        print('User is currently signed out!');
       } else {
         print('User is signed in!');
         String uid = user.uid; // <-- User ID
         String email = user.email;
         // String username = user.
-        print('kkkkkkkkkkkkkk-------kkkkkkkkk $email');
-        print('User is currently signed out!');
+
         MaterialPageRoute materialPageRoute = MaterialPageRoute(
             builder: (BuildContext context) => Home(
-                  username: email,
+                  email: email,
                 ));
 
         Navigator.of(context).pushAndRemoveUntil(
@@ -126,28 +127,28 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30),
-              child: Text("Or Sign in with"),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () => facebookLogin(),
-                child: Image.asset(
-                  'images/facebook.png',
-                  height: 45,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
+          // Align(
+          //   alignment: Alignment.center,
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(vertical: 30),
+          //     child: Text("Or Sign in with"),
+          //   ),
+          // ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     InkWell(
+          //       onTap: () => facebookLogin(),
+          //       child: Image.asset(
+          //         'images/facebook.png',
+          //         height: 45,
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 10,
+          //     ),
+          //   ],
+          // ),
           SizedBox(
             height: 50,
           ),
@@ -238,6 +239,7 @@ class _LoginPageState extends State<LoginPage> {
       print('///////////////////////////ffffffff');
     }
   }
+
 // เข้าสู่ระบบด้วยอีเมล-รหัสผ่าน //////////////////////////////////////////////////////////////////////
   Future<Null> checkAuthen() async {
     await Firebase.initializeApp().then((value) {

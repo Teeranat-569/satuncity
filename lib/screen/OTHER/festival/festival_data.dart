@@ -1,11 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
+import 'package:satuncity/screen/TRAVEL/post.dart';
 
 // ignore: must_be_immutable
 class FestivalData extends StatefulWidget {
-  dynamic fesName;
-  FestivalData({Key key, this.fesName}) : super(key: key);
+  dynamic fesName, url;
+  FestivalData({Key key, this.fesName,this.url}) : super(key: key);
   @override
   _FestivalDataState createState() => _FestivalDataState();
 }
@@ -41,9 +43,36 @@ class _FestivalDataState extends State<FestivalData> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: Text(widget.fesName),
             backgroundColor: Colors.deepOrange.shade800,
+                  actions: [
+                Center(
+                  // ignore: deprecated_member_use
+                  child: RaisedButton(
+                    color: Colors.deepOrange.shade900,
+                      child: Text(
+                        "รีวิว",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Yaldevi',
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Post(
+                                travelName: widget.fesName,
+                                picUrl: widget.url,
+                              ),
+                            ));
+                        print('555555555555555555555555' + widget.fesName);
+                        print('4444444444444444444' + widget.url);
+                      }),
+                ),
+              ],
           ),
           // ignore: avoid_unnecessary_containers
           body: Container(

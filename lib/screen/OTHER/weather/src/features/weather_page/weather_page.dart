@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:satuncity/screen/OTHER/weather/src/constants/app_colors.dart';
 import 'package:satuncity/screen/OTHER/weather/src/features/weather_page/current_weather.dart';
 import 'package:satuncity/screen/OTHER/weather/src/features/weather_page/hourly_weather.dart';
@@ -10,6 +11,12 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+                drawer: MyDrawer(),
+appBar: AppBar(
+  backgroundColor: Colors.transparent,
+  elevation: 0,
+),
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(

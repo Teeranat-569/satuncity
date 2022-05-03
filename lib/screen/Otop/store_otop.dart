@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:satuncity/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoreOtop extends StatefulWidget {
@@ -51,6 +52,7 @@ class _StoreOtopState extends State<StoreOtop> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: Text(widget.storeName),
             backgroundColor: Colors.indigo,

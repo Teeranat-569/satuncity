@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../../drawer.dart';
 import 'festival_data.dart';
 
 class Festival extends StatefulWidget {
@@ -9,9 +10,11 @@ class Festival extends StatefulWidget {
 
 class _FestivalState extends State<Festival> {
   dynamic resName;
- dynamic url;
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('festival').orderBy('createdAt', descending: true).snapshots();
+  dynamic url;
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('festival')
+      .orderBy('createdAt', descending: true)
+      .snapshots();
   CollectionReference users = FirebaseFirestore.instance.collection('festival');
 
   @override
@@ -36,6 +39,7 @@ class _FestivalState extends State<Festival> {
         }
 
         return Scaffold(
+          drawer: MyDrawer(),
           appBar: AppBar(
             backgroundColor: Colors.deepOrange.shade700,
             title: Text('งานประจำปี'),
@@ -80,29 +84,28 @@ class _FestivalState extends State<Festival> {
                               onTap: () {},
                             ),
                             InkWell(
-                              child: Container(
-                                  height: 50,
-                                  width: 240,
-                                  child: Center(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      // color: Color.fromARGB(112, 11, 60, 75),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          data['fes_name'],
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                              child: Center(
+                                child: Container(
+                                    height: 50,
+                                    // width: 240,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.7,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        data['fes_name'],
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
-                                  )),
+                                    )),
+                              ),
                               onTap: () {
                                 MaterialPageRoute route = MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         FestivalData(
                                           fesName: data['fes_name'],
+                                          url: data['fes_pic'][0].toString(),
                                         ));
                                 Navigator.push(context, route);
                               },
