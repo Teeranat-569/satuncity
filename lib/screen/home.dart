@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
 
   int a = 0;
   var text = [
-    "SATUN CITY...",
+    "สตูล (SATUN)",
     "แนะนำสถานที่ท่องเที่ยว",
     "สินค้า OTOP",
     "อื่นๆ"
