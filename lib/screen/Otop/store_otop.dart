@@ -73,6 +73,7 @@ class _StoreOtopState extends State<StoreOtop> {
                 store_phone = data['store_phone'];
                 store_website = data['store_website'];
                 url = data['store_pic'];
+                store_map = data['store_map'];
 
                 for (var i = 0; i < url.length; i++) {
                   store_index = data['store_pic'][i];
