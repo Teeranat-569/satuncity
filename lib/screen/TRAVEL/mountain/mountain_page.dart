@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:satuncity/drawer.dart';
-
 import 'mountain_data.dart';
 
 class MountainPage extends StatefulWidget {
@@ -19,10 +18,9 @@ class _MountainPageState extends State<MountainPage> {
   dynamic url;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('travel_mountain')
-      .where('travelCate').orderBy('createdAt', descending: true)
+      .where('travelCate')
+      .orderBy('createdAt', descending: true)
       .snapshots();
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('travel_mountain');
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +65,7 @@ class _MountainPageState extends State<MountainPage> {
                 print('4444444444444444444444444 ${data["docid"]}');
                 print('4444444444444444444444444 ${data["travelCate"]}');
                 return Padding(
-                  padding: const EdgeInsets.only(right: 15,left: 15,top: 10),
+                  padding: const EdgeInsets.only(right: 15, left: 15, top: 10),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),

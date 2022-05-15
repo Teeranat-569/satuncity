@@ -73,8 +73,7 @@ class _RegionPageState extends State<RegionPage> {
         }
         loadStatus = false;
         return Scaffold(
-                      drawer: MyDrawer(),
-
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: Text('${widget.travelCate}'),
           ),
